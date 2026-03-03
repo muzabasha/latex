@@ -48,7 +48,7 @@ export function SessionTwoWordVsLatex() {
                     fill
                     className="object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent flex items-center p-12">
+                <div className="absolute inset-0 bg-linear-to-r from-black/60 to-transparent flex items-center p-12">
                     <div className="max-w-lg space-y-4">
                         <h2 className="text-4xl font-bold text-white">Engineering vs. Painting</h2>
                         <p className="text-slate-200 text-lg italic">
@@ -75,7 +75,7 @@ export function SessionTwoWordVsLatex() {
                                 transition={{ delay: 0.1 * i }}
                                 className="flex items-start gap-4 p-4 bg-red-50 border border-red-100 rounded-2xl text-red-900"
                             >
-                                <XCircle className="w-6 h-6 mt-1 flex-shrink-0" />
+                                <XCircle className="w-6 h-6 mt-1 shrink-0" />
                                 <p className="text-sm font-medium">{text}</p>
                             </motion.div>
                         ))}
@@ -98,7 +98,7 @@ export function SessionTwoWordVsLatex() {
                                 transition={{ delay: 0.1 * i }}
                                 className="flex items-start gap-4 p-4 bg-green-50 border border-green-100 rounded-2xl text-green-900"
                             >
-                                <CheckCircle className="w-6 h-6 mt-1 flex-shrink-0" />
+                                <CheckCircle className="w-6 h-6 mt-1 shrink-0" />
                                 <p className="text-sm font-medium">{text}</p>
                             </motion.div>
                         ))}

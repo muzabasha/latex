@@ -62,7 +62,7 @@ climate change significantly affects crop rotation.
                                 { step: "3", title: "\\bibliography{file}", desc: "LaTeX auto-generates the bibliography at the end." }
                             ].map((s, i) => (
                                 <div key={i} className="flex gap-4 p-4 hover:bg-muted/50 rounded-2xl transition-colors">
-                                    <div className="h-10 w-10 bg-primary text-white rounded-xl flex items-center justify-center font-bold flex-shrink-0">
+                                    <div className="h-10 w-10 bg-primary text-white rounded-xl flex items-center justify-center font-bold shrink-0">
                                         {s.step}
                                     </div>
                                     <div>

@@ -80,7 +80,7 @@ This is my very first LaTeX document.
 
             <section className="space-y-6">
                 <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6 flex items-start gap-4 text-blue-800">
-                    <Info className="w-6 h-6 mt-1 flex-shrink-0" />
+                    <Info className="w-6 h-6 mt-1 shrink-0" />
                     <p className="text-sm font-medium">
                         <strong>Challenge:</strong> Try changing the text inside the document to include your research title. Notice how the structure outside the <code>{"\\begin"}</code> and <code>{"\\end"}</code> remains the same.
                     </p>
