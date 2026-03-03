@@ -13,3 +13,4 @@ export * from "./LabView";
 export * from "./CaseStudiesView";
 export * from "./MiniProjectView";
 export * from "./QuizView";
+export * from "./FeedbackView";

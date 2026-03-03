@@ -7,7 +7,7 @@ import {
   HomeView, SessionZeroIntro, SessionOneIntro, SessionOneInstall,
   SessionOneFirstDoc, SessionOneFormatting, SessionOneMath,
   SessionTwoWordVsLatex, SessionTwoBibtex, SessionTwoTablesFigures,
-  SessionTwoThesis, LabView, CaseStudiesView, MiniProjectView, QuizView
+  SessionTwoThesis, LabView, CaseStudiesView, MiniProjectView, QuizView, FeedbackView
 } from "@/components/views";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -32,6 +32,7 @@ export default function Home() {
       case 'case-studies': return <CaseStudiesView />;
       case 'mini-project': return <MiniProjectView />;
       case 'quiz': return <QuizView />;
+      case 'feedback': return <FeedbackView />;
       default: return <HomeView />;
     }
   };

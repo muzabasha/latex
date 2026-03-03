@@ -84,6 +84,11 @@ export const MODULES = [
         title: 'Quiz',
         session: 6,
     },
+    {
+        id: 'feedback',
+        title: 'Feedback',
+        session: 7,
+    },
 ];
 
 export const ANALOGIES = {
