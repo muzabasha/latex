@@ -1,0 +1,56 @@
+"use client";
+
+import { useAtom } from "jotai";
+import { currentModuleAtom, presentationModeAtom } from "@/lib/store";
+import { cn } from "@/lib/utils";
+import {
+  HomeView, SessionOneIntro, SessionOneInstall,
+  SessionOneFirstDoc, SessionOneFormatting, SessionOneMath,
+  SessionTwoWordVsLatex, SessionTwoBibtex, SessionTwoTablesFigures,
+  SessionTwoThesis, LabView, CaseStudiesView, MiniProjectView, QuizView
+} from "@/components/views";
+import { motion, AnimatePresence } from "framer-motion";
+
+export default function Home() {
+  const [currentModule] = useAtom(currentModuleAtom);
+  const [presentationMode] = useAtom(presentationModeAtom);
+
+  const renderView = () => {
+    switch (currentModule) {
+      case 'home': return <HomeView />;
+      case 'session-1-intro': return <SessionOneIntro />;
+      case 'session-1-install': return <SessionOneInstall />;
+      case 'session-1-first-doc': return <SessionOneFirstDoc />;
+      case 'session-1-formatting': return <SessionOneFormatting />;
+      case 'session-1-math': return <SessionOneMath />;
+      case 'session-2-word-vs-latex': return <SessionTwoWordVsLatex />;
+      case 'session-2-bibtex': return <SessionTwoBibtex />;
+      case 'session-2-tables-figures': return <SessionTwoTablesFigures />;
+      case 'session-2-thesis': return <SessionTwoThesis />;
+      case 'lab': return <LabView />;
+      case 'case-studies': return <CaseStudiesView />;
+      case 'mini-project': return <MiniProjectView />;
+      case 'quiz': return <QuizView />;
+      default: return <HomeView />;
+    }
+  };
+
+  return (
+    <div className={cn(
+      "min-h-[calc(100-4rem)] transition-all ease-in-out duration-300",
+      presentationMode ? "presentation-mode max-w-none px-12 pb-20 pt-10" : "container mx-auto px-4 py-8"
+    )}>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentModule}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.3 }}
+        >
+          {renderView()}
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  );
+}
