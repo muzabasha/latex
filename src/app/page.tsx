@@ -4,7 +4,7 @@ import { useAtom } from "jotai";
 import { currentModuleAtom, presentationModeAtom } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import {
-  HomeView, SessionOneIntro, SessionOneInstall,
+  HomeView, SessionZeroIntro, SessionOneIntro, SessionOneInstall,
   SessionOneFirstDoc, SessionOneFormatting, SessionOneMath,
   SessionTwoWordVsLatex, SessionTwoBibtex, SessionTwoTablesFigures,
   SessionTwoThesis, LabView, CaseStudiesView, MiniProjectView, QuizView
@@ -18,6 +18,7 @@ export default function Home() {
   const renderView = () => {
     switch (currentModule) {
       case 'home': return <HomeView />;
+      case 'session-0-intro': return <SessionZeroIntro />;
       case 'session-1-intro': return <SessionOneIntro />;
       case 'session-1-install': return <SessionOneInstall />;
       case 'session-1-first-doc': return <SessionOneFirstDoc />;

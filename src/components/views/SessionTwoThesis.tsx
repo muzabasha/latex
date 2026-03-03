@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FolderTree, FileCode, Layers, ShieldCheck, Download, ExternalLink, Target, Rocket, Trophy, Star } from "lucide-react";
+import { FolderTree, FileCode, Layers, ShieldCheck, Download, ExternalLink, Target, Rocket, Trophy, Star, Check, X, ClipboardList } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function SessionTwoThesis() {
@@ -104,6 +104,13 @@ export function SessionTwoThesis() {
                             level: "1. The Foundation (Beginner)",
                             analogy: "Clearing the Land",
                             instruction: "Split a single document into two files: main.tex (preamble) and content.tex. Use \\input{content} to link them.",
+                            detailedInstructions: [
+                                "Create a new file called content.tex.",
+                                "Move all text between \\begin{document} and \\end{document} to content.tex.",
+                                "In your main.tex, use \\input{content} where the text used to be."
+                            ],
+                            dos: ["Keep the preamble in main.tex.", "Check that both files are in the same folder."],
+                            donts: ["Don't put \\begin{document} in content.tex.", "Don't forget to save both files before compiling."],
                             reward: "Modular Thinking",
                             icon: <Target className="w-8 h-8 text-primary" />,
                             color: "bg-primary/5 border-primary/10"
@@ -112,6 +119,13 @@ export function SessionTwoThesis() {
                             level: "2. The Framework (Moderate)",
                             analogy: "Raising the Walls",
                             instruction: "Create a Table of Contents (\\tableofcontents) and a List of Figures. Ensure they update after 2-3 compilations.",
+                            detailedInstructions: [
+                                "Add \\tableofcontents after the Title page.",
+                                "Add \\listoffigures if you have images.",
+                                "Compile the document twice to allow LaTeX to generate the index."
+                            ],
+                            dos: ["Compile twice for correct numbering.", "Use \\section to create TOC entries automatically."],
+                            donts: ["Don't manually type the TOC.", "Don't panic if it shows '??' on the first compile."],
                             reward: "Systemic Navigation",
                             icon: <Rocket className="w-8 h-8 text-blue-500" />,
                             color: "bg-blue-50 border-blue-100"
@@ -120,6 +134,13 @@ export function SessionTwoThesis() {
                             level: "3. The Estate Architect (Pro)",
                             analogy: "The Master Blueprint",
                             instruction: "Design a full chapter structure where Chapter 1 is in 'intro.tex' and Chapter 2 is in 'results.tex'. Use \\include to manage page breaks.",
+                            detailedInstructions: [
+                                "Use \\include{chapters/intro} for major sections.",
+                                "Notice that \\include starts a new page automatically.",
+                                "Use \\includeonly{chapters/intro} if you only want to compile one chapter during drafts."
+                            ],
+                            dos: ["Use \\include for full chapters.", "Use the 'chapters' folder to stay organized."],
+                            donts: ["Don't nest \\include within other \\include files.", "Don't use \\input for chapters if you want page breaks."],
                             reward: "Professional Manuscript Control",
                             icon: <Trophy className="w-8 h-8 text-amber-500" />,
                             color: "bg-amber-50 border-amber-100"
@@ -128,7 +149,7 @@ export function SessionTwoThesis() {
                         <motion.div
                             key={i}
                             whileHover={{ y: -5 }}
-                            className={cn("p-10 rounded-[3rem] border-2 space-y-8 relative overflow-hidden group transition-all", activity.color)}
+                            className={cn("p-10 rounded-[3rem] border-2 space-y-8 relative overflow-hidden group transition-all flex flex-col", activity.color)}
                         >
                             <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:rotate-12 transition-transform">
                                 {activity.icon}
@@ -139,10 +160,38 @@ export function SessionTwoThesis() {
                                 <h3 className="text-3xl font-bold">{activity.analogy}</h3>
                             </div>
 
-                            <div className="space-y-6 relative z-10">
-                                <div className="bg-white/80 p-6 rounded-3xl backdrop-blur-md shadow-sm border border-white/50">
-                                    <p className="text-xs font-bold text-slate-500 uppercase mb-2 tracking-tighter">Construction Task:</p>
-                                    <p className="text-sm font-medium leading-relaxed text-slate-700">{activity.instruction}</p>
+                            <div className="space-y-6 flex-1">
+                                <div className="bg-white/80 p-6 rounded-3xl backdrop-blur-md shadow-sm border border-white/50 space-y-3">
+                                    <div className="flex items-center gap-2">
+                                        <ClipboardList className="w-4 h-4 text-slate-500" />
+                                        <p className="text-xs font-bold text-slate-500 uppercase tracking-tighter text-left">The Blueprint:</p>
+                                    </div>
+                                    <div className="space-y-2">
+                                        {activity.detailedInstructions.map((step, idx) => (
+                                            <p key={idx} className="text-[13px] font-medium leading-relaxed border-l-2 border-slate-300 pl-3 text-left">{step}</p>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-3">
+                                    <div className="bg-emerald-500/10 p-4 rounded-xl space-y-2 border border-emerald-500/20">
+                                        <div className="flex items-center gap-1.5 text-emerald-700 font-bold uppercase text-[9px] tracking-widest">
+                                            <Check className="w-3 h-3" />
+                                            <span>Do&apos;s</span>
+                                        </div>
+                                        {activity.dos.map((doItem, idx) => (
+                                            <p key={idx} className="text-[11px] text-emerald-800 leading-tight italic text-left">✓ {doItem}</p>
+                                        ))}
+                                    </div>
+                                    <div className="bg-rose-500/10 p-4 rounded-xl space-y-2 border border-rose-500/20">
+                                        <div className="flex items-center gap-1.5 text-rose-700 font-bold uppercase text-[9px] tracking-widest">
+                                            <X className="w-3 h-3" />
+                                            <span>Don&apos;ts</span>
+                                        </div>
+                                        {activity.donts.map((dontItem, idx) => (
+                                            <p key={idx} className="text-[11px] text-rose-800 leading-tight italic text-left">✗ {dontItem}</p>
+                                        ))}
+                                    </div>
                                 </div>
 
                                 <div className="flex items-center gap-3 text-xs font-bold text-slate-900 bg-white/40 w-fit px-4 py-2 rounded-full">
@@ -151,8 +200,8 @@ export function SessionTwoThesis() {
                                 </div>
                             </div>
 
-                            <button className="w-full py-4 bg-slate-900 text-white rounded-2xl text-sm font-bold hover:bg-primary transition-all shadow-xl shadow-slate-900/10 active:scale-95">
-                                Build Section
+                            <button className="w-full py-4 bg-slate-900 text-white rounded-2xl text-sm font-bold hover:bg-primary transition-all shadow-xl shadow-slate-900/10 active:scale-95 font-outfit mt-auto relative z-10">
+                                Start Construction
                             </button>
                         </motion.div>
                     ))}

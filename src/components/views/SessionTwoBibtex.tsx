@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { LatexEditor } from "@/components/LatexEditor";
 import { motion } from "framer-motion";
-import { BookMarked, Search, Quote, FileCode, Check, Copy, HelpCircle, CheckCircle2, Target, Rocket, Trophy, Star } from "lucide-react";
+import { BookMarked, Search, Quote, FileCode, Check, Copy, HelpCircle, CheckCircle2, Target, Rocket, Trophy, Star, X, ClipboardList } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function SessionTwoBibtex() {
@@ -256,6 +256,13 @@ climate change significantly affects crop rotation.
                             level: "1. The Bookkeeper (Beginner)",
                             analogy: "Recording the Entry",
                             instruction: "Use the DOI generator to create a BibTeX entry for a paper on 'Climate Impact' and copy it into your .bib list.",
+                            detailedInstructions: [
+                                "Paste a DOI into the generator above.",
+                                "Copy the resulting @article{...} block.",
+                                "Imagine pasting this into a separate file named references.bib."
+                            ],
+                            dos: ["Use a descriptive citation key.", "Check that all braces {...} match."],
+                            donts: ["Don't manually type the entry if a DOI is available.", "Don't use spaces in the citation key."],
                             reward: "BibTeX Syntax Mastery",
                             icon: <Target className="w-8 h-8 text-primary" />,
                             color: "bg-primary/5 border-primary/10"
@@ -264,6 +271,13 @@ climate change significantly affects crop rotation.
                             level: "2. The Librarian (Moderate)",
                             analogy: "Organizing the Shelf",
                             instruction: "Cite three different papers in a single sentence using a comma-separated list inside \\cite{...}.",
+                            detailedInstructions: [
+                                "Use the \\cite command in your text.",
+                                "Inside the braces, list keys like this: \\cite{key1, key2, key3}.",
+                                "Ensure the keys match exactly what's in your .bib file."
+                            ],
+                            dos: ["Group related citations together.", "Check for typos in citation keys."],
+                            donts: ["Don't put spaces between the comma and the next key.", "Don't cite papers you haven't read."],
                             reward: "Dynamic Referencing",
                             icon: <Rocket className="w-8 h-8 text-blue-500" />,
                             color: "bg-blue-50 border-blue-100"
@@ -272,6 +286,13 @@ climate change significantly affects crop rotation.
                             level: "3. The Editor (Pro)",
                             analogy: "Standardizing the Journal",
                             instruction: "Switch your bibliographystyle from 'plain' to 'unsrt' and observe how the citation order updates on the fly.",
+                            detailedInstructions: [
+                                "Locate \\bibliographystyle{plain} at the end of the document.",
+                                "Change 'plain' to 'unsrt' (unsorted).",
+                                "Notice how citations now appear in the order of appearance."
+                            ],
+                            dos: ["Follow the target journal's style guide.", "Use 'unsrt' for sequential numbering."],
+                            donts: ["Don't manually reorder references.", "Don't edit the .bib file to change the style."],
                             reward: "Context-Aware Styling",
                             icon: <Trophy className="w-8 h-8 text-amber-500" />,
                             color: "bg-amber-50 border-amber-100"
@@ -280,7 +301,7 @@ climate change significantly affects crop rotation.
                         <motion.div
                             key={i}
                             whileHover={{ y: -5 }}
-                            className={cn("p-10 rounded-[3rem] border-2 space-y-8 relative overflow-hidden group transition-all", activity.color)}
+                            className={cn("p-10 rounded-[3rem] border-2 space-y-8 relative overflow-hidden group transition-all flex flex-col", activity.color)}
                         >
                             <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:rotate-12 transition-transform">
                                 {activity.icon}
@@ -291,10 +312,38 @@ climate change significantly affects crop rotation.
                                 <h3 className="text-3xl font-bold">{activity.analogy}</h3>
                             </div>
 
-                            <div className="space-y-6 relative z-10">
-                                <div className="bg-white/80 p-6 rounded-3xl backdrop-blur-md shadow-sm border border-white/50">
-                                    <p className="text-xs font-bold text-slate-500 uppercase mb-2 tracking-tighter">The Mission:</p>
-                                    <p className="text-sm font-medium leading-relaxed text-slate-700">{activity.instruction}</p>
+                            <div className="space-y-6 flex-1">
+                                <div className="bg-white/80 p-6 rounded-3xl backdrop-blur-md shadow-sm border border-white/50 space-y-3">
+                                    <div className="flex items-center gap-2">
+                                        <ClipboardList className="w-4 h-4 text-slate-500" />
+                                        <p className="text-xs font-bold text-slate-500 uppercase tracking-tighter text-left">The Archive Step:</p>
+                                    </div>
+                                    <div className="space-y-2">
+                                        {activity.detailedInstructions.map((step, idx) => (
+                                            <p key={idx} className="text-[13px] font-medium leading-relaxed border-l-2 border-slate-300 pl-3 text-left">{step}</p>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-3">
+                                    <div className="bg-emerald-500/10 p-4 rounded-xl space-y-2 border border-emerald-500/20">
+                                        <div className="flex items-center gap-1.5 text-emerald-700 font-bold uppercase text-[9px] tracking-widest">
+                                            <Check className="w-3 h-3" />
+                                            <span>Do&apos;s</span>
+                                        </div>
+                                        {activity.dos.map((doItem, idx) => (
+                                            <p key={idx} className="text-[11px] text-emerald-800 leading-tight italic text-left">✓ {doItem}</p>
+                                        ))}
+                                    </div>
+                                    <div className="bg-rose-500/10 p-4 rounded-xl space-y-2 border border-rose-500/20">
+                                        <div className="flex items-center gap-1.5 text-rose-700 font-bold uppercase text-[9px] tracking-widest">
+                                            <X className="w-3 h-3" />
+                                            <span>Don&apos;ts</span>
+                                        </div>
+                                        {activity.donts.map((dontItem, idx) => (
+                                            <p key={idx} className="text-[11px] text-rose-800 leading-tight italic text-left">✗ {dontItem}</p>
+                                        ))}
+                                    </div>
                                 </div>
 
                                 <div className="flex items-center gap-3 text-xs font-bold text-slate-900 bg-white/40 w-fit px-4 py-2 rounded-full">
@@ -303,8 +352,8 @@ climate change significantly affects crop rotation.
                                 </div>
                             </div>
 
-                            <button className="w-full py-4 bg-slate-900 text-white rounded-2xl text-sm font-bold hover:bg-primary transition-all shadow-xl shadow-slate-900/10 active:scale-95">
-                                Archive Data
+                            <button className="w-full py-4 bg-slate-900 text-white rounded-2xl text-sm font-bold hover:bg-primary transition-all shadow-xl shadow-slate-900/10 active:scale-95 font-outfit mt-auto relative z-10">
+                                Record Reference
                             </button>
                         </motion.div>
                     ))}

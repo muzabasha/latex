@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { LatexEditor } from "@/components/LatexEditor";
 import { motion, AnimatePresence } from "framer-motion";
-import { Table, Image as ImageIcon, Layout, Grid, Info, Sparkles, Plus, Trash2, HelpCircle, CheckCircle2, Target, Rocket, Trophy, Star } from "lucide-react";
+import { Table, Image as ImageIcon, Layout, Grid, Info, Sparkles, Plus, Trash2, HelpCircle, CheckCircle2, Target, Rocket, Trophy, Star, Check, X, ClipboardList } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function SessionTwoTablesFigures() {
@@ -263,6 +263,13 @@ N2 & 100kg & 52cm \\\\ \\hline
                             level: "1. The Framer (Beginner)",
                             analogy: "Setting the Borders",
                             instruction: "Create a simple 2x2 table listing 'Soil Type' and 'PH Level' for two different farm sites.",
+                            detailedInstructions: [
+                                "Use the \\begin{tabular}{|l|c|} syntax.",
+                                "Separate columns with & and lines with \\\\.",
+                                "Add vertical lines using | in the alignment string."
+                            ],
+                            dos: ["Use meaningful column headers.", "Check that you have a \\\\ at the end of each row."],
+                            donts: ["Don't crowd too many columns at once.", "Don't forget the \\hline to close the grid."],
                             reward: "Tabular Logic",
                             icon: <Target className="w-8 h-8 text-primary" />,
                             color: "bg-primary/5 border-primary/10"
@@ -271,6 +278,13 @@ N2 & 100kg & 52cm \\\\ \\hline
                             level: "2. The Curator (Moderate)",
                             analogy: "Managing Spacing",
                             instruction: "Convert your table to include a caption, a label, and ensure all numeric columns are centered (|c|).",
+                            detailedInstructions: [
+                                "Wrap the tabular environment inside \\begin{table}[h].",
+                                "Add \\caption{Agricultural Data} below the tabular.",
+                                "Add \\label{table:agri} for future referencing."
+                            ],
+                            dos: ["Put labels after captions.", "Use [h] to suggest 'Here' placement."],
+                            donts: ["Don't put captions inside the tabular environment.", "Don't forget to include the graphicx package if needed."],
                             reward: "Cross-Referencing",
                             icon: <Rocket className="w-8 h-8 text-blue-500" />,
                             color: "bg-blue-50 border-blue-100"
@@ -279,6 +293,13 @@ N2 & 100kg & 52cm \\\\ \\hline
                             level: "3. The Director (Pro)",
                             analogy: "Visual Dominance",
                             instruction: "Insert a figure using 'includegraphics' with width=0.8\\textwidth. Add a caption that includes a citation.",
+                            detailedInstructions: [
+                                "Use \\begin{figure}[h].",
+                                "Use \\centering to align the image.",
+                                "Use \\includegraphics[width=0.8\\textwidth]{filename}."
+                            ],
+                            dos: ["Use relative widths like 0.8\\textwidth.", "Add useful Alt text in the caption."],
+                            donts: ["Don't use absolute pixels (e.g., 500px).", "Don't forget \\end{figure}."],
                             reward: "Scaling & Integration",
                             icon: <Trophy className="w-8 h-8 text-amber-500" />,
                             color: "bg-amber-50 border-amber-100"
@@ -287,7 +308,7 @@ N2 & 100kg & 52cm \\\\ \\hline
                         <motion.div
                             key={i}
                             whileHover={{ y: -5 }}
-                            className={cn("p-10 rounded-[3rem] border-2 space-y-8 relative overflow-hidden group transition-all", activity.color)}
+                            className={cn("p-10 rounded-[3rem] border-2 space-y-8 relative overflow-hidden group transition-all flex flex-col", activity.color)}
                         >
                             <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:rotate-12 transition-transform">
                                 {activity.icon}
@@ -298,10 +319,38 @@ N2 & 100kg & 52cm \\\\ \\hline
                                 <h3 className="text-3xl font-bold">{activity.analogy}</h3>
                             </div>
 
-                            <div className="space-y-6 relative z-10">
-                                <div className="bg-white/80 p-6 rounded-3xl backdrop-blur-md shadow-sm border border-white/50">
-                                    <p className="text-xs font-bold text-slate-500 uppercase mb-2 tracking-tighter">The Mission:</p>
-                                    <p className="text-sm font-medium leading-relaxed text-slate-700">{activity.instruction}</p>
+                            <div className="space-y-6 flex-1">
+                                <div className="bg-white/80 p-6 rounded-3xl backdrop-blur-md shadow-sm border border-white/50 space-y-3">
+                                    <div className="flex items-center gap-2">
+                                        <ClipboardList className="w-4 h-4 text-slate-500" />
+                                        <p className="text-xs font-bold text-slate-500 uppercase tracking-tighter text-left">The Blueprint:</p>
+                                    </div>
+                                    <div className="space-y-2">
+                                        {activity.detailedInstructions.map((step, idx) => (
+                                            <p key={idx} className="text-[13px] font-medium leading-relaxed border-l-2 border-slate-300 pl-3 text-left">{step}</p>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-3">
+                                    <div className="bg-emerald-500/10 p-4 rounded-xl space-y-2 border border-emerald-500/20">
+                                        <div className="flex items-center gap-1.5 text-emerald-700 font-bold uppercase text-[9px] tracking-widest">
+                                            <Check className="w-3 h-3" />
+                                            <span>Do&apos;s</span>
+                                        </div>
+                                        {activity.dos.map((doItem, idx) => (
+                                            <p key={idx} className="text-[11px] text-emerald-800 leading-tight italic text-left">✓ {doItem}</p>
+                                        ))}
+                                    </div>
+                                    <div className="bg-rose-500/10 p-4 rounded-xl space-y-2 border border-rose-500/20">
+                                        <div className="flex items-center gap-1.5 text-rose-700 font-bold uppercase text-[9px] tracking-widest">
+                                            <X className="w-3 h-3" />
+                                            <span>Don&apos;ts</span>
+                                        </div>
+                                        {activity.donts.map((dontItem, idx) => (
+                                            <p key={idx} className="text-[11px] text-rose-800 leading-tight italic text-left">✗ {dontItem}</p>
+                                        ))}
+                                    </div>
                                 </div>
 
                                 <div className="flex items-center gap-3 text-xs font-bold text-slate-900 bg-white/40 w-fit px-4 py-2 rounded-full">
@@ -310,8 +359,8 @@ N2 & 100kg & 52cm \\\\ \\hline
                                 </div>
                             </div>
 
-                            <button className="w-full py-4 bg-slate-900 text-white rounded-2xl text-sm font-bold hover:bg-primary transition-all shadow-xl shadow-slate-900/10 active:scale-95">
-                                Enter Hall
+                            <button className="w-full py-4 bg-slate-900 text-white rounded-2xl text-sm font-bold hover:bg-primary transition-all shadow-xl shadow-slate-900/10 active:scale-95 font-outfit mt-auto relative z-10">
+                                Enter Exhibition Hall
                             </button>
                         </motion.div>
                     ))}

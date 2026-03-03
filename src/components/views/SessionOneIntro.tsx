@@ -4,7 +4,8 @@ import { useState } from "react";
 import { LatexEditor } from "@/components/LatexEditor";
 import { LatexPreview } from "@/components/LatexPreview";
 import { motion } from "framer-motion";
-import { Info, Lightbulb, ChefHat, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Info, Lightbulb, ChefHat, ArrowRight, CheckCircle2, Target, Rocket, Trophy, Star, Check, X, ClipboardList } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export function SessionOneIntro() {
     const [code, setCode] = useState("Hello Research World!\n\nThis is my first step into the world of LaTeX.");
@@ -111,22 +112,120 @@ export function SessionOneIntro() {
                 </div>
             </section>
 
-            {/* Interactive Activity */}
-            <section className="space-y-6">
-                <div className="flex items-center gap-3">
-                    <div className="h-8 w-1 bg-primary rounded-full" />
-                    <h2 className="text-2xl font-bold">Interactive Activity: Your First Code</h2>
+            {/* Activity Track: The Seedling Phase */}
+            <section className="space-y-10 py-10">
+                <div className="text-center space-y-2">
+                    <h2 className="text-4xl font-bold outfit-font">Skill Level: The Seedling Phase</h2>
+                    <p className="text-muted-foreground italic tracking-widest uppercase text-xs font-bold">Understanding the engine before the complexity</p>
                 </div>
 
-                <div className="grid lg:grid-cols-2 gap-8 h-[500px]">
-                    <LatexEditor
-                        initialCode={code}
-                        onCompile={handleCompile}
-                    />
-                    <LatexPreview
-                        code={code}
-                        isCompiling={isCompiling}
-                    />
+                <div className="grid md:grid-cols-3 gap-8">
+                    {[
+                        {
+                            level: "1. The Observer (Beginner)",
+                            analogy: "Sprouting the Seed",
+                            instruction: "Look at the Source Code snippet. Identify the 'Control Words' that start with a backslash (\\).",
+                            detailedInstructions: [
+                                "Scan the example code for the '\\' character.",
+                                "Notice how \\documentclass defines the type of paper.",
+                                "Identify where the actual content begins and ends."
+                            ],
+                            dos: ["Look for the backslash before every command.", "Check for matching curly braces {}."],
+                            donts: ["Don't ignore the preamble (stuff before \\begin{document}).", "Don't forget that LaTeX is case-sensitive."],
+                            reward: "Command Recognition",
+                            icon: <Target className="w-8 h-8 text-primary" />,
+                            color: "bg-primary/5 border-primary/10"
+                        },
+                        {
+                            level: "2. The Apprentice (Moderate)",
+                            analogy: "Watering the Plant",
+                            instruction: "Modify the text in the Interactive Editor above and hit 'Compile'. Observe the delay—that's the 'Oven' cooking your PDF!",
+                            detailedInstructions: [
+                                "Change 'Hello Research World' to your own name.",
+                                "Add a few sentences about your research interest.",
+                                "Click 'Compile Document' and watch the preview update."
+                            ],
+                            dos: ["Experiment with different sentences.", "Watch the compilation status indicator."],
+                            donts: ["Don't worry if it takes a second—compilation is structured.", "Don't delete the document environment tags."],
+                            reward: "Workflow Mastery",
+                            icon: <Rocket className="w-8 h-8 text-blue-500" />,
+                            color: "bg-blue-50 border-blue-100"
+                        },
+                        {
+                            level: "3. The Gardener (Pro)",
+                            analogy: "Branching Out",
+                            instruction: "Predict what happens if you remove the \\end{document} tag. Try it and see if the 'PDF' still appears correctly.",
+                            detailedInstructions: [
+                                "Remove only the last line (\\end{document}).",
+                                "Compile and look for error messages.",
+                                "Understand why LaTeX needs a clearly defined 'End' for the document."
+                            ],
+                            dos: ["Read the error messages carefully.", "Restore the tag to fix the document."],
+                            donts: ["Don't leave tags open in a real project.", "Don't ignore the importance of structure."],
+                            reward: "Structural Integrity",
+                            icon: <Trophy className="w-8 h-8 text-amber-500" />,
+                            color: "bg-amber-50 border-amber-100"
+                        }
+                    ].map((activity, i) => (
+                        <motion.div
+                            key={i}
+                            whileHover={{ y: -5 }}
+                            className={cn("p-10 rounded-[3rem] border-2 space-y-8 relative overflow-hidden group transition-all flex flex-col", activity.color)}
+                        >
+                            <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:rotate-12 transition-transform">
+                                {activity.icon}
+                            </div>
+
+                            <div className="space-y-2">
+                                <span className="text-xs font-bold uppercase tracking-widest opacity-60">{activity.level}</span>
+                                <h3 className="text-3xl font-bold">{activity.analogy}</h3>
+                            </div>
+
+                            <div className="space-y-6 flex-1">
+                                <div className="bg-white/80 p-6 rounded-3xl backdrop-blur-md shadow-sm border border-white/50 space-y-3">
+                                    <div className="flex items-center gap-2">
+                                        <ClipboardList className="w-4 h-4 text-slate-500" />
+                                        <p className="text-xs font-bold text-slate-500 uppercase tracking-tighter text-left">The Mission:</p>
+                                    </div>
+                                    <div className="space-y-2">
+                                        {activity.detailedInstructions.map((step, idx) => (
+                                            <p key={idx} className="text-[13px] font-medium leading-relaxed border-l-2 border-slate-300 pl-3 text-left">{step}</p>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-3">
+                                    <div className="bg-emerald-500/10 p-4 rounded-xl space-y-2 border border-emerald-500/20">
+                                        <div className="flex items-center gap-1.5 text-emerald-700 font-bold uppercase text-[9px] tracking-widest">
+                                            <Check className="w-3 h-3" />
+                                            <span>Do&apos;s</span>
+                                        </div>
+                                        {activity.dos.map((doItem, idx) => (
+                                            <p key={idx} className="text-[11px] text-emerald-800 leading-tight italic text-left">✓ {doItem}</p>
+                                        ))}
+                                    </div>
+                                    <div className="bg-rose-500/10 p-4 rounded-xl space-y-2 border border-rose-500/20">
+                                        <div className="flex items-center gap-1.5 text-rose-700 font-bold uppercase text-[9px] tracking-widest">
+                                            <X className="w-3 h-3" />
+                                            <span>Don&apos;ts</span>
+                                        </div>
+                                        {activity.donts.map((dontItem, idx) => (
+                                            <p key={idx} className="text-[11px] text-rose-800 leading-tight italic text-left">✗ {dontItem}</p>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className="flex items-center gap-3 text-xs font-bold text-slate-900 bg-white/40 w-fit px-4 py-2 rounded-full">
+                                    <Star className="w-4 h-4 fill-primary text-primary" />
+                                    <span>Milestone: {activity.reward}</span>
+                                </div>
+                            </div>
+
+                            <button className="w-full py-4 bg-slate-900 text-white rounded-2xl text-sm font-bold hover:bg-primary transition-all shadow-xl shadow-slate-900/10 active:scale-95 font-outfit mt-auto relative z-10">
+                                Start Observing
+                            </button>
+                        </motion.div>
+                    ))}
                 </div>
             </section>
         </div>

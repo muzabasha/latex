@@ -5,7 +5,7 @@ import { LatexEditor } from "@/components/LatexEditor";
 import { LatexPreview } from "@/components/LatexPreview";
 import { MathBuilder } from "@/components/MathBuilder";
 import { motion } from "framer-motion";
-import { Sigma, FunctionSquare, Binary, Calculator, HelpCircle, CheckCircle2, Target, Rocket, Trophy, Star } from "lucide-react";
+import { Sigma, FunctionSquare, Binary, Calculator, HelpCircle, CheckCircle2, Target, Rocket, Trophy, Star, Check, X, ClipboardList } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function SessionOneMath() {
@@ -202,6 +202,13 @@ The formula for standard deviation is:
                             level: "1. The Pipette (Beginner)",
                             analogy: "Basic Mixing",
                             instruction: "Write a simple inline equation showing the sum of Nitrogen (N) and Phosphorus (P) equaling total fertilizer (F).",
+                            detailedInstructions: [
+                                "Type the equation inside dollar signs like this: $N + P = F$.",
+                                "Experiment with adding subscripts like $N_1 + P_2 = F_{total}$.",
+                                "Place it within a sentence of text."
+                            ],
+                            dos: ["Use $...$ for equations inside text.", "Use underscore (_) for subscripts."],
+                            donts: ["Don't use dollar signs for large fractions.", "Don't forget to close the second $."],
                             reward: "Inline Syntax",
                             icon: <Target className="w-8 h-8 text-rose-500" />,
                             color: "bg-rose-50 border-rose-100"
@@ -210,6 +217,13 @@ The formula for standard deviation is:
                             level: "2. The Centrifuge (Moderate)",
                             analogy: "Structured Reaction",
                             instruction: "Create a display equation for the Quadratic Formula or a Crop Yield growth rate using fractions and square roots.",
+                            detailedInstructions: [
+                                "Use the display math syntax \\[ ... \\].",
+                                "Use \\frac{num}{den} for fractions.",
+                                "Use \\sqrt{...} for the square root."
+                            ],
+                            dos: ["Use display math for important formulas.", "Check that exponents (^) are correct."],
+                            donts: ["Don't crowd multiple formulas in one \\[ \\].", "Don't use / for complex fractions."],
                             reward: "Structural Math",
                             icon: <Rocket className="w-8 h-8 text-blue-500" />,
                             color: "bg-blue-50 border-blue-100"
@@ -218,6 +232,13 @@ The formula for standard deviation is:
                             level: "3. The Data Lab (Pro)",
                             analogy: "Complex Synthesis",
                             instruction: "Use the 'align' environment to show a 3-step calculation of Total Yield based on Rainfall and Area.",
+                            detailedInstructions: [
+                                "Start with \\begin{align*}.",
+                                "Use & before the equals sign to align them.",
+                                "Use \\\\ to end each line of the calculation."
+                            ],
+                            dos: ["Align at the '=' for readability.", "Use '*' to hide equation numbers if not needed."],
+                            donts: ["Don't forget the \\\\ at the end of each line.", "Don't use align for single-line formulas."],
                             reward: "Multi-line Alignment",
                             icon: <Trophy className="w-8 h-8 text-amber-500" />,
                             color: "bg-amber-50 border-amber-100"
@@ -226,7 +247,7 @@ The formula for standard deviation is:
                         <motion.div
                             key={i}
                             whileHover={{ y: -5 }}
-                            className={cn("p-8 rounded-[3rem] border-2 space-y-6 relative overflow-hidden group transition-all", activity.color)}
+                            className={cn("p-8 rounded-[3rem] border-2 space-y-6 relative overflow-hidden group transition-all flex flex-col", activity.color)}
                         >
                             <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:rotate-12 transition-transform">
                                 {activity.icon}
@@ -237,19 +258,47 @@ The formula for standard deviation is:
                                 <h3 className="text-2xl font-bold">{activity.analogy}</h3>
                             </div>
 
-                            <div className="space-y-4 relative z-10">
-                                <div className="bg-white/60 p-4 rounded-2xl backdrop-blur-sm">
-                                    <p className="text-xs font-bold text-slate-500 uppercase mb-1">Challenge:</p>
-                                    <p className="text-sm font-medium leading-relaxed">{activity.instruction}</p>
+                            <div className="space-y-5 flex-1">
+                                <div className="bg-white/60 p-5 rounded-2xl space-y-3 border border-white/40 shadow-sm">
+                                    <div className="flex items-center gap-2">
+                                        <ClipboardList className="w-4 h-4 text-slate-500" />
+                                        <p className="text-xs font-bold text-slate-500 uppercase tracking-tighter">Steps to Follow:</p>
+                                    </div>
+                                    <div className="space-y-2">
+                                        {activity.detailedInstructions.map((step, idx) => (
+                                            <p key={idx} className="text-[13px] font-medium leading-relaxed border-l-2 border-slate-300 pl-3">{step}</p>
+                                        ))}
+                                    </div>
                                 </div>
 
-                                <div className="flex items-center gap-2 text-xs font-bold text-slate-700">
+                                <div className="grid grid-cols-2 gap-3">
+                                    <div className="bg-emerald-500/10 p-3 rounded-xl space-y-2 border border-emerald-500/20">
+                                        <div className="flex items-center gap-1.5 text-emerald-700 font-bold uppercase text-[9px] tracking-widest">
+                                            <Check className="w-3 h-3" />
+                                            <span>Do&apos;s</span>
+                                        </div>
+                                        {activity.dos.map((doItem, idx) => (
+                                            <p key={idx} className="text-[11px] text-emerald-800 leading-tight italic">✓ {doItem}</p>
+                                        ))}
+                                    </div>
+                                    <div className="bg-rose-500/10 p-3 rounded-xl space-y-2 border border-rose-500/20">
+                                        <div className="flex items-center gap-1.5 text-rose-700 font-bold uppercase text-[9px] tracking-widest">
+                                            <X className="w-3 h-3" />
+                                            <span>Don&apos;ts</span>
+                                        </div>
+                                        {activity.donts.map((dontItem, idx) => (
+                                            <p key={idx} className="text-[11px] text-rose-800 leading-tight italic">✗ {dontItem}</p>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className="flex items-center gap-2 text-xs font-bold text-slate-700 pt-2 border-t border-slate-200/50">
                                     <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
                                     <span>Outcome: {activity.reward}</span>
                                 </div>
                             </div>
 
-                            <button className="w-full py-3 bg-white border border-slate-200 rounded-xl text-sm font-bold hover:bg-slate-900 hover:text-white transition-colors relative z-10">
+                            <button className="w-full py-4 bg-slate-900 text-white rounded-2xl text-sm font-bold hover:bg-primary transition-all shadow-xl shadow-slate-900/10 active:scale-95 font-outfit mt-auto relative z-10">
                                 Start Mixing
                             </button>
                         </motion.div>

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { LatexEditor } from "@/components/LatexEditor";
 import { LatexPreview } from "@/components/LatexPreview";
 import { motion } from "framer-motion";
-import { FileText, Type, Layers, Box, Info, HelpCircle, CheckCircle2, Rocket, Trophy, Target, Star } from "lucide-react";
+import { FileText, Type, Layers, Box, Info, HelpCircle, CheckCircle2, Rocket, Trophy, Target, Star, Check, X, ClipboardList } from "lucide-react";
 
 export function SessionOneFirstDoc() {
     const [code, setCode] = useState(`\\documentclass{article}
@@ -210,6 +210,13 @@ This is my very first LaTeX document.
                             analogy: "Planting the Seed",
                             task: "Basic Structure",
                             instruction: "Create a simple document that contains exactly one sentence about your research interest.",
+                            detailedInstructions: [
+                                "1. Keep the \\documentclass{article} at the top.",
+                                "2. Ensure your sentence is between \\begin{document} and \\end{document}.",
+                                "3. Click Compile to see your sentence in the preview."
+                            ],
+                            dos: ["Use a simple sentence.", "Check if \\begin and \\end are present."],
+                            donts: ["Don't type text before \\begin{document}.", "Don't delete the documentclass line."],
                             reward: "Structural Awareness",
                             icon: <Target className="w-8 h-8 text-emerald-500" />,
                             color: "bg-emerald-50 border-emerald-100"
@@ -219,6 +226,13 @@ This is my very first LaTeX document.
                             analogy: "Growing the Stem",
                             task: "Metadata Integration",
                             instruction: "Add \\title{...} and \\author{...} in the preamble. Use \\maketitle inside the document to render them.",
+                            detailedInstructions: [
+                                "1. Place \\title{My Research} before \\begin{document}.",
+                                "2. Place \\author{Your Name} after title.",
+                                "3. Type \\maketitle right after \\begin{document}."
+                            ],
+                            dos: ["Place metadata in the preamble.", "Use \\maketitle for visual output."],
+                            donts: ["Don't put \\title inside the document body.", "Don't forget the backslash for \\maketitle."],
                             reward: "Automation Logic",
                             icon: <Rocket className="w-8 h-8 text-blue-500" />,
                             color: "bg-blue-50 border-blue-100"
@@ -228,6 +242,13 @@ This is my very first LaTeX document.
                             analogy: "Professional Yield",
                             task: "Global Configurations",
                             instruction: "Change documentclass to 'report'. Add an abstract environment to summarize your work.",
+                            detailedInstructions: [
+                                "1. Edit the first line to \\documentclass{report}.",
+                                "2. Use \\begin{abstract} ... \\end{abstract} before the main text.",
+                                "3. Notice the font size and layout changes."
+                            ],
+                            dos: ["Use 'report' for multi-chapter works.", "Place abstract at the start of the body."],
+                            donts: ["Don't use 'article' for books.", "Don't put abstract in the preamble."],
                             reward: "Architectural Mastery",
                             icon: <Trophy className="w-8 h-8 text-amber-500" />,
                             color: "bg-amber-50 border-amber-100"

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { LatexEditor } from "@/components/LatexEditor";
 import { LatexPreview } from "@/components/LatexPreview";
 import { motion } from "framer-motion";
-import { CaseUpper, Bold, Italic, CheckCircle, LayoutGrid, HelpCircle, CheckCircle2, Target, Rocket, Trophy, Star } from "lucide-react";
+import { CaseUpper, Bold, Italic, CheckCircle, LayoutGrid, HelpCircle, CheckCircle2, Target, Rocket, Trophy, Star, Check, X, ClipboardList } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function SessionOneFormatting() {
@@ -256,6 +256,13 @@ Understand the \\textit{impact of pH levels} on growth rates.
                             level: "1. The Trimmer (Beginner)",
                             analogy: "Basic Grooming",
                             instruction: "Take a list of 5 crop names and make only the most important one bold and the second one italic.",
+                            detailedInstructions: [
+                                "Create a list using \\begin{itemize}.",
+                                "Use \\item for each crop name.",
+                                "Apply \\textbf{...} to the first crop and \\textit{...} to the second crop."
+                            ],
+                            dos: ["Use meaningful crop names.", "Check for nested brackets."],
+                            donts: ["Don't forget \\end{itemize}.", "Don't use bold for the entire list."],
                             reward: "Visual Hierarchy",
                             icon: <Target className="w-8 h-8 text-indigo-500" />,
                             color: "bg-indigo-50 border-indigo-100"
@@ -264,6 +271,13 @@ Understand the \\textit{impact of pH levels} on growth rates.
                             level: "2. The Landscaper (Moderate)",
                             analogy: "Defining Zones",
                             instruction: "Create a 'Methodology' section with two subsections: 'Soil Sampling' and 'Water Analysis'.",
+                            detailedInstructions: [
+                                "Start with \\section{Methodology}.",
+                                "Add \\subsection{Soil Sampling} inside the methodology section.",
+                                "Add some descriptive text below each subsection."
+                            ],
+                            dos: ["Use Title Case for sections.", "Keep content organized."],
+                            donts: ["Don't put subsection before section.", "Don't over-nest sections."],
                             reward: "Document Architecture",
                             icon: <Rocket className="w-8 h-8 text-cyan-500" />,
                             color: "bg-cyan-50 border-cyan-100"
@@ -272,6 +286,13 @@ Understand the \\textit{impact of pH levels} on growth rates.
                             level: "3. The Architect (Pro)",
                             analogy: "Advanced Ecosystem",
                             instruction: "Create a nested procedure list using 'enumerate' inside 'itemize' to show a step-by-step chemical mix.",
+                            detailedInstructions: [
+                                "Start an \\begin{itemize} list for 'Materials'.",
+                                "Inside an \\item, start an \\begin{enumerate} for 'Steps'.",
+                                "Close both lists in the correct reverse order."
+                            ],
+                            dos: ["Indent nested lists for readability.", "Use enumeration for sequences."],
+                            donts: ["Don't cross \\begin and \\end tags.", "Don't go deeper than 3 levels unnecessarily."],
                             reward: "Procedural Precision",
                             icon: <Trophy className="w-8 h-8 text-violet-500" />,
                             color: "bg-violet-50 border-violet-100"
@@ -280,7 +301,7 @@ Understand the \\textit{impact of pH levels} on growth rates.
                         <motion.div
                             key={i}
                             whileHover={{ y: -5 }}
-                            className={cn("p-8 rounded-4xl border-2 space-y-6 relative overflow-hidden group transition-all", activity.color)}
+                            className={cn("p-8 rounded-4xl border-2 space-y-6 relative overflow-hidden group transition-all flex flex-col", activity.color)}
                         >
                             <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:rotate-12 transition-transform">
                                 {activity.icon}
@@ -291,20 +312,48 @@ Understand the \\textit{impact of pH levels} on growth rates.
                                 <h3 className="text-2xl font-bold">{activity.analogy}</h3>
                             </div>
 
-                            <div className="space-y-4 relative z-10">
-                                <div className="bg-white/60 p-4 rounded-2xl backdrop-blur-sm">
-                                    <p className="text-xs font-bold text-slate-500 uppercase mb-1">Challenge:</p>
-                                    <p className="text-sm font-medium leading-relaxed">{activity.instruction}</p>
+                            <div className="space-y-5 flex-1">
+                                <div className="bg-white/60 p-5 rounded-2xl space-y-3 border border-white/40 shadow-sm">
+                                    <div className="flex items-center gap-2">
+                                        <ClipboardList className="w-4 h-4 text-slate-500" />
+                                        <p className="text-xs font-bold text-slate-500 uppercase tracking-tighter">Steps to Follow:</p>
+                                    </div>
+                                    <div className="space-y-2">
+                                        {activity.detailedInstructions.map((step, idx) => (
+                                            <p key={idx} className="text-[13px] font-medium leading-relaxed border-l-2 border-slate-300 pl-3">{step}</p>
+                                        ))}
+                                    </div>
                                 </div>
 
-                                <div className="flex items-center gap-2 text-xs font-bold text-slate-700">
+                                <div className="grid grid-cols-2 gap-3">
+                                    <div className="bg-emerald-500/10 p-3 rounded-xl space-y-2 border border-emerald-500/20">
+                                        <div className="flex items-center gap-1.5 text-emerald-700 font-bold uppercase text-[9px] tracking-widest">
+                                            <Check className="w-3 h-3" />
+                                            <span>Do&apos;s</span>
+                                        </div>
+                                        {activity.dos.map((doItem, idx) => (
+                                            <p key={idx} className="text-[11px] text-emerald-800 leading-tight italic">✓ {doItem}</p>
+                                        ))}
+                                    </div>
+                                    <div className="bg-rose-500/10 p-3 rounded-xl space-y-2 border border-rose-500/20">
+                                        <div className="flex items-center gap-1.5 text-rose-700 font-bold uppercase text-[9px] tracking-widest">
+                                            <X className="w-3 h-3" />
+                                            <span>Don&apos;ts</span>
+                                        </div>
+                                        {activity.donts.map((dontItem, idx) => (
+                                            <p key={idx} className="text-[11px] text-rose-800 leading-tight italic">✗ {dontItem}</p>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className="flex items-center gap-2 text-xs font-bold text-slate-700 pt-2 border-t border-slate-200/50">
                                     <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
                                     <span>Outcome: {activity.reward}</span>
                                 </div>
                             </div>
 
-                            <button className="w-full py-3 bg-white border border-slate-200 rounded-xl text-sm font-bold hover:bg-slate-900 hover:text-white transition-colors relative z-10">
-                                Start Pruning
+                            <button className="w-full py-4 bg-slate-900 text-white rounded-2xl text-sm font-bold hover:bg-primary transition-all shadow-xl shadow-slate-900/10 active:scale-95 font-outfit mt-auto relative z-10">
+                                Start Lab Activity
                             </button>
                         </motion.div>
                     ))}

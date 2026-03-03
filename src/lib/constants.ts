@@ -5,6 +5,12 @@ export const MODULES = [
         session: 0,
     },
     {
+        id: 'session-0-intro',
+        title: 'Program Overview',
+        session: 1,
+        description: 'Objectives, Outcomes & Mindset Shift.',
+    },
+    {
         id: 'session-1-intro',
         title: 'What is LaTeX?',
         session: 1,

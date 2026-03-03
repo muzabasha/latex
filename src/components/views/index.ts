@@ -1,4 +1,5 @@
 export * from "./HomeView";
+export * from "./SessionZeroIntro";
 export * from "./SessionOneIntro";
 export * from "./SessionOneInstall";
 export * from "./SessionOneFirstDoc";

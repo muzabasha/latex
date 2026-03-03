@@ -42,7 +42,7 @@ export function HomeView() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                     >
-                        Application of <span className="text-secondary-foreground text-primary italic underline decoration-wavy underline-offset-8">LaTeX Skills</span> in Research Publications
+                        Application of <span className="text-primary italic underline decoration-wavy underline-offset-8">LaTeX Skills</span> in Research Publications
                     </motion.h1>
 
                     <motion.p
@@ -61,10 +61,10 @@ export function HomeView() {
                         transition={{ delay: 0.5 }}
                     >
                         <button
-                            onClick={() => setCurrentModule('session-1-intro')}
+                            onClick={() => setCurrentModule('session-0-intro')}
                             className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-xl hover:shadow-primary/20 transition-all hover:scale-105"
                         >
-                            Start Session I <ArrowRight className="w-5 h-5" />
+                            Start Program <ArrowRight className="w-5 h-5" />
                         </button>
                         <button
                             onClick={() => setCurrentModule('lab')}

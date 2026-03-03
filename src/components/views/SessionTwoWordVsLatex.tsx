@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { XCircle, CheckCircle, AlertTriangle, FileText, Zap, MousePointer2, ChevronRight, Target, Rocket, Trophy, Star } from "lucide-react";
+import { XCircle, CheckCircle, AlertTriangle, FileText, Zap, MousePointer2, ChevronRight, Target, Rocket, Trophy, Star, Check, X, ClipboardList } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
@@ -155,6 +155,13 @@ export function SessionTwoWordVsLatex() {
                             level: "1. The Critic (Beginner)",
                             analogy: "Identifying the Leak",
                             instruction: "Open your most recent MS Word research paper. Count how many times you manually updated a figure or citation number.",
+                            detailedInstructions: [
+                                "Find a document with at least 5 figures.",
+                                "Try adding a new figure at the beginning.",
+                                "Observe how long it takes to fix all subsequent 'Figure X' mentions."
+                            ],
+                            dos: ["Be honest about the time spent on formatting.", "Look for broken 'Error! Reference source not found' tags."],
+                            donts: ["Don't ignore the time wasted on manual labor.", "Don't settle for 'good enough' alignment."],
                             reward: "Pain-Point Awareness",
                             icon: <Target className="w-8 h-8 text-primary" />,
                             color: "bg-primary/5 border-primary/10"
@@ -163,6 +170,13 @@ export function SessionTwoWordVsLatex() {
                             level: "2. The Planner (Moderate)",
                             analogy: "Mapping the Bridge",
                             instruction: "Choose one existing Word table or equation. Sketch how its LaTeX equivalent would look using \\begin{...} and \\end{...}.",
+                            detailedInstructions: [
+                                "Take a complex equation from your paper.",
+                                "Try to break it down into LaTeX tokens (e.g., \\sqrt, \\frac).",
+                                "Sketch the structure of a 3-column table on paper."
+                            ],
+                            dos: ["Focus on the logical structure.", "Use LaTeX commands for symbols."],
+                            donts: ["Don't worry about the visual output yet.", "Don't try to make it look exactly like Word."],
                             reward: "Conceptual Migration",
                             icon: <Rocket className="w-8 h-8 text-blue-500" />,
                             color: "bg-blue-50 border-blue-100"
@@ -171,6 +185,13 @@ export function SessionTwoWordVsLatex() {
                             level: "3. The Visionary (Pro)",
                             analogy: "Professional Scaling",
                             instruction: "Explain to a peer how 'Modular Thinking' (splitting files) will save 50+ hours during the final Thesis submission phase.",
+                            detailedInstructions: [
+                                "Imagine a 300-page document.",
+                                "Consider the risk of file corruption in a single massive Word file.",
+                                "Explain how \\include allows multiple people to work on different chapters."
+                            ],
+                            dos: ["Think about long-term scalability.", "Emphasize safety and backup ease."],
+                            donts: ["Don't underestimate the complexity of a PhD thesis.", "Don't wait until the deadline to switch."],
                             reward: "Structural Foresight",
                             icon: <Trophy className="w-8 h-8 text-amber-500" />,
                             color: "bg-amber-50 border-amber-100"
@@ -179,7 +200,7 @@ export function SessionTwoWordVsLatex() {
                         <motion.div
                             key={i}
                             whileHover={{ y: -5 }}
-                            className={cn("p-10 rounded-[3rem] border-2 space-y-8 relative overflow-hidden group transition-all", activity.color)}
+                            className={cn("p-10 rounded-[3rem] border-2 space-y-8 relative overflow-hidden group transition-all flex flex-col", activity.color)}
                         >
                             <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:rotate-12 transition-transform">
                                 {activity.icon}
@@ -190,10 +211,38 @@ export function SessionTwoWordVsLatex() {
                                 <h3 className="text-3xl font-bold">{activity.analogy}</h3>
                             </div>
 
-                            <div className="space-y-6 relative z-10">
-                                <div className="bg-white/80 p-6 rounded-3xl backdrop-blur-md shadow-sm border border-white/50">
-                                    <p className="text-xs font-bold text-slate-500 uppercase mb-2 tracking-tighter">Strategic Task:</p>
-                                    <p className="text-sm font-medium leading-relaxed text-slate-700">{activity.instruction}</p>
+                            <div className="space-y-6 flex-1">
+                                <div className="bg-white/80 p-6 rounded-3xl backdrop-blur-md shadow-sm border border-white/50 space-y-3">
+                                    <div className="flex items-center gap-2">
+                                        <ClipboardList className="w-4 h-4 text-slate-500" />
+                                        <p className="text-xs font-bold text-slate-500 uppercase tracking-tighter text-left">The Strategy Step:</p>
+                                    </div>
+                                    <div className="space-y-2">
+                                        {activity.detailedInstructions.map((step, idx) => (
+                                            <p key={idx} className="text-[13px] font-medium leading-relaxed border-l-2 border-slate-300 pl-3 text-left">{step}</p>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-3">
+                                    <div className="bg-emerald-500/10 p-4 rounded-xl space-y-2 border border-emerald-500/20">
+                                        <div className="flex items-center gap-1.5 text-emerald-700 font-bold uppercase text-[9px] tracking-widest">
+                                            <Check className="w-3 h-3" />
+                                            <span>Do&apos;s</span>
+                                        </div>
+                                        {activity.dos.map((doItem, idx) => (
+                                            <p key={idx} className="text-[11px] text-emerald-800 leading-tight italic text-left">✓ {doItem}</p>
+                                        ))}
+                                    </div>
+                                    <div className="bg-rose-500/10 p-4 rounded-xl space-y-2 border border-rose-500/20">
+                                        <div className="flex items-center gap-1.5 text-rose-700 font-bold uppercase text-[9px] tracking-widest">
+                                            <X className="w-3 h-3" />
+                                            <span>Don&apos;ts</span>
+                                        </div>
+                                        {activity.donts.map((dontItem, idx) => (
+                                            <p key={idx} className="text-[11px] text-rose-800 leading-tight italic text-left">✗ {dontItem}</p>
+                                        ))}
+                                    </div>
                                 </div>
 
                                 <div className="flex items-center gap-3 text-xs font-bold text-slate-900 bg-white/40 w-fit px-4 py-2 rounded-full">
@@ -202,8 +251,8 @@ export function SessionTwoWordVsLatex() {
                                 </div>
                             </div>
 
-                            <button className="w-full py-4 bg-slate-900 text-white rounded-2xl text-sm font-bold hover:bg-primary transition-all shadow-xl shadow-slate-900/10 active:scale-95">
-                                Plan Switch
+                            <button className="w-full py-4 bg-slate-900 text-white rounded-2xl text-sm font-bold hover:bg-primary transition-all shadow-xl shadow-slate-900/10 active:scale-95 font-outfit mt-auto relative z-10">
+                                Finalize Strategy
                             </button>
                         </motion.div>
                     ))}

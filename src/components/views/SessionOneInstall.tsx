@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Download, Monitor, CheckCircle, Info, AlertTriangle, ExternalLink, Target, Rocket, Trophy, Star } from "lucide-react";
+import { Download, Monitor, CheckCircle, Info, AlertTriangle, ExternalLink, Target, Rocket, Trophy, Star, Check, X, ClipboardList } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface InstallationStep {
@@ -177,6 +177,13 @@ export function SessionOneInstall() {
                             level: "1. The Inspector (Beginner)",
                             analogy: "Testing the Ignition",
                             instruction: "Launch TeXstudio and identify the 'Green Play Button' or press F5. This is your primary engine starter.",
+                            detailedInstructions: [
+                                "Open the TeXstudio application.",
+                                "Find the double green arrows (Compile & View) in the toolbar.",
+                                "Hover over it to see the F5 keyboard shortcut."
+                            ],
+                            dos: ["Use keyboard shortcuts like F5 for efficiency.", "Check that the internal PDF viewer is visible."],
+                            donts: ["Don't click compile multiple times quickly.", "Don't close TeXstudio until the first compile finishes."],
                             reward: "Interface Familiarity",
                             icon: <Target className="w-8 h-8 text-primary" />,
                             color: "bg-primary/5 border-primary/10"
@@ -185,6 +192,13 @@ export function SessionOneInstall() {
                             level: "2. The Engineer (Moderate)",
                             analogy: "Checking the Gauges",
                             instruction: "Go to Options -> Configure TeXstudio -> Commands. Verify that 'PdfLaTeX' points to a valid file path.",
+                            detailedInstructions: [
+                                "Open the Configure menu.",
+                                "Select 'Commands' on the left sidebar.",
+                                "Ensure the path for PdfLaTeX isn't empty and points to your compiler installation."
+                            ],
+                            dos: ["Ask for help if paths are empty.", "Make sure your compiler (MiKTeX/TeXLive) is installed before this step."],
+                            donts: ["Don't change paths manually unless you know the directory.", "Don't uncheck the 'Default' compiler settings."],
                             reward: "Path Validation",
                             icon: <Rocket className="w-8 h-8 text-blue-500" />,
                             color: "bg-blue-50 border-blue-100"
@@ -193,6 +207,13 @@ export function SessionOneInstall() {
                             level: "3. Systems Lead (Pro)",
                             analogy: "Auto-Pilot Engagement",
                             instruction: "Launch MiKTeX Console, go to Settings, and set 'Always install missing packages on-the-fly'.",
+                            detailedInstructions: [
+                                "Open 'MiKTeX Console' from your start menu.",
+                                "Switch to 'Administrator Mode' if prompted.",
+                                "Under Settings, find 'You can choose whether missing packages are to be installed' and set it to 'Always'."
+                            ],
+                            dos: ["Run an update check in MiKTeX Console first.", "Set to 'Always' to avoid annoying pop-ups during work."],
+                            donts: ["Don't set it to 'Never' or you will get 'Package Not Found' errors.", "Don't close the console during an update."],
                             reward: "Workflow Automation",
                             icon: <Trophy className="w-8 h-8 text-amber-500" />,
                             color: "bg-amber-50 border-amber-100"
@@ -201,7 +222,7 @@ export function SessionOneInstall() {
                         <motion.div
                             key={i}
                             whileHover={{ y: -5 }}
-                            className={cn("p-10 rounded-[3rem] border-2 space-y-8 relative overflow-hidden group transition-all", activity.color)}
+                            className={cn("p-10 rounded-[3rem] border-2 space-y-8 relative overflow-hidden group transition-all flex flex-col", activity.color)}
                         >
                             <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:rotate-12 transition-transform">
                                 {activity.icon}
@@ -212,10 +233,38 @@ export function SessionOneInstall() {
                                 <h3 className="text-3xl font-bold">{activity.analogy}</h3>
                             </div>
 
-                            <div className="space-y-6 relative z-10">
-                                <div className="bg-white/80 p-6 rounded-3xl backdrop-blur-md shadow-sm border border-white/50">
-                                    <p className="text-xs font-bold text-slate-500 uppercase mb-2 tracking-tighter">Verification Task:</p>
-                                    <p className="text-sm font-medium leading-relaxed text-slate-700">{activity.instruction}</p>
+                            <div className="space-y-6 flex-1">
+                                <div className="bg-white/80 p-6 rounded-3xl backdrop-blur-md shadow-sm border border-white/50 space-y-3">
+                                    <div className="flex items-center gap-2">
+                                        <ClipboardList className="w-4 h-4 text-slate-500" />
+                                        <p className="text-xs font-bold text-slate-500 uppercase tracking-tighter text-left">The Checklist:</p>
+                                    </div>
+                                    <div className="space-y-2">
+                                        {activity.detailedInstructions.map((step, idx) => (
+                                            <p key={idx} className="text-[13px] font-medium leading-relaxed border-l-2 border-slate-300 pl-3 text-left">{step}</p>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-3">
+                                    <div className="bg-emerald-500/10 p-4 rounded-xl space-y-2 border border-emerald-500/20">
+                                        <div className="flex items-center gap-1.5 text-emerald-700 font-bold uppercase text-[9px] tracking-widest">
+                                            <Check className="w-3 h-3" />
+                                            <span>Do&apos;s</span>
+                                        </div>
+                                        {activity.dos.map((doItem, idx) => (
+                                            <p key={idx} className="text-[11px] text-emerald-800 leading-tight italic text-left">✓ {doItem}</p>
+                                        ))}
+                                    </div>
+                                    <div className="bg-rose-500/10 p-4 rounded-xl space-y-2 border border-rose-500/20">
+                                        <div className="flex items-center gap-1.5 text-rose-700 font-bold uppercase text-[9px] tracking-widest">
+                                            <X className="w-3 h-3" />
+                                            <span>Don&apos;ts</span>
+                                        </div>
+                                        {activity.donts.map((dontItem, idx) => (
+                                            <p key={idx} className="text-[11px] text-rose-800 leading-tight italic text-left">✗ {dontItem}</p>
+                                        ))}
+                                    </div>
                                 </div>
 
                                 <div className="flex items-center gap-3 text-xs font-bold text-slate-900 bg-white/40 w-fit px-4 py-2 rounded-full">
@@ -224,8 +273,8 @@ export function SessionOneInstall() {
                                 </div>
                             </div>
 
-                            <button className="w-full py-4 bg-slate-900 text-white rounded-2xl text-sm font-bold hover:bg-primary transition-all shadow-xl shadow-slate-900/10 active:scale-95">
-                                Verify Setup
+                            <button className="w-full py-4 bg-slate-900 text-white rounded-2xl text-sm font-bold hover:bg-primary transition-all shadow-xl shadow-slate-900/10 active:scale-95 font-outfit mt-auto relative z-10">
+                                Run Verification
                             </button>
                         </motion.div>
                     ))}
