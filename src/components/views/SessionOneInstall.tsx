@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Download, Monitor, CheckCircle, Info, AlertTriangle, ExternalLink } from "lucide-react";
+import { Download, Monitor, CheckCircle, Info, AlertTriangle, ExternalLink, Target, Rocket, Trophy, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface InstallationStep {
@@ -163,6 +163,73 @@ export function SessionOneInstall() {
                         <p className="font-bold text-lg italic">Engineering Workbench Ready! Let&apos;s build.</p>
                     </motion.div>
                 )}
+            </section>
+            {/* Activity Track: The Workbench Setup */}
+            <section className="space-y-10 py-10">
+                <div className="text-center space-y-2">
+                    <h2 className="text-4xl font-bold outfit-font">Skill Level: The Workbench Setup</h2>
+                    <p className="text-muted-foreground italic tracking-widest uppercase text-xs font-bold">Ensuring your research cockpit is flight-ready</p>
+                </div>
+
+                <div className="grid md:grid-cols-3 gap-8">
+                    {[
+                        {
+                            level: "1. The Inspector (Beginner)",
+                            analogy: "Testing the Ignition",
+                            instruction: "Launch TeXstudio and identify the 'Green Play Button' or press F5. This is your primary engine starter.",
+                            reward: "Interface Familiarity",
+                            icon: <Target className="w-8 h-8 text-primary" />,
+                            color: "bg-primary/5 border-primary/10"
+                        },
+                        {
+                            level: "2. The Engineer (Moderate)",
+                            analogy: "Checking the Gauges",
+                            instruction: "Go to Options -> Configure TeXstudio -> Commands. Verify that 'PdfLaTeX' points to a valid file path.",
+                            reward: "Path Validation",
+                            icon: <Rocket className="w-8 h-8 text-blue-500" />,
+                            color: "bg-blue-50 border-blue-100"
+                        },
+                        {
+                            level: "3. Systems Lead (Pro)",
+                            analogy: "Auto-Pilot Engagement",
+                            instruction: "Launch MiKTeX Console, go to Settings, and set 'Always install missing packages on-the-fly'.",
+                            reward: "Workflow Automation",
+                            icon: <Trophy className="w-8 h-8 text-amber-500" />,
+                            color: "bg-amber-50 border-amber-100"
+                        }
+                    ].map((activity, i) => (
+                        <motion.div
+                            key={i}
+                            whileHover={{ y: -5 }}
+                            className={cn("p-10 rounded-[3rem] border-2 space-y-8 relative overflow-hidden group transition-all", activity.color)}
+                        >
+                            <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:rotate-12 transition-transform">
+                                {activity.icon}
+                            </div>
+
+                            <div className="space-y-2">
+                                <span className="text-xs font-bold uppercase tracking-widest opacity-60">{activity.level}</span>
+                                <h3 className="text-3xl font-bold">{activity.analogy}</h3>
+                            </div>
+
+                            <div className="space-y-6 relative z-10">
+                                <div className="bg-white/80 p-6 rounded-3xl backdrop-blur-md shadow-sm border border-white/50">
+                                    <p className="text-xs font-bold text-slate-500 uppercase mb-2 tracking-tighter">Verification Task:</p>
+                                    <p className="text-sm font-medium leading-relaxed text-slate-700">{activity.instruction}</p>
+                                </div>
+
+                                <div className="flex items-center gap-3 text-xs font-bold text-slate-900 bg-white/40 w-fit px-4 py-2 rounded-full">
+                                    <Star className="w-4 h-4 fill-primary text-primary" />
+                                    <span>Status: {activity.reward}</span>
+                                </div>
+                            </div>
+
+                            <button className="w-full py-4 bg-slate-900 text-white rounded-2xl text-sm font-bold hover:bg-primary transition-all shadow-xl shadow-slate-900/10 active:scale-95">
+                                Verify Setup
+                            </button>
+                        </motion.div>
+                    ))}
+                </div>
             </section>
         </div>
     );

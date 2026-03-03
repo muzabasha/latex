@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { XCircle, CheckCircle, AlertTriangle, FileText, Zap, MousePointer2, ChevronRight } from "lucide-react";
+import { XCircle, CheckCircle, AlertTriangle, FileText, Zap, MousePointer2, ChevronRight, Target, Rocket, Trophy, Star } from "lucide-react";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 
 export function SessionTwoWordVsLatex() {
@@ -141,6 +142,73 @@ export function SessionTwoWordVsLatex() {
                     Next Module <ChevronRight className="w-5 h-5" />
                 </button>
             </div>
+            {/* Activity Track: The Strategy Map */}
+            <section className="space-y-10 py-10">
+                <div className="text-center space-y-2">
+                    <h2 className="text-4xl font-bold outfit-font">Skill Level: The Strategy Map</h2>
+                    <p className="text-muted-foreground italic tracking-widest uppercase text-xs font-bold">Planning your migration from manual to automated research</p>
+                </div>
+
+                <div className="grid md:grid-cols-3 gap-8">
+                    {[
+                        {
+                            level: "1. The Critic (Beginner)",
+                            analogy: "Identifying the Leak",
+                            instruction: "Open your most recent MS Word research paper. Count how many times you manually updated a figure or citation number.",
+                            reward: "Pain-Point Awareness",
+                            icon: <Target className="w-8 h-8 text-primary" />,
+                            color: "bg-primary/5 border-primary/10"
+                        },
+                        {
+                            level: "2. The Planner (Moderate)",
+                            analogy: "Mapping the Bridge",
+                            instruction: "Choose one existing Word table or equation. Sketch how its LaTeX equivalent would look using \\begin{...} and \\end{...}.",
+                            reward: "Conceptual Migration",
+                            icon: <Rocket className="w-8 h-8 text-blue-500" />,
+                            color: "bg-blue-50 border-blue-100"
+                        },
+                        {
+                            level: "3. The Visionary (Pro)",
+                            analogy: "Professional Scaling",
+                            instruction: "Explain to a peer how 'Modular Thinking' (splitting files) will save 50+ hours during the final Thesis submission phase.",
+                            reward: "Structural Foresight",
+                            icon: <Trophy className="w-8 h-8 text-amber-500" />,
+                            color: "bg-amber-50 border-amber-100"
+                        }
+                    ].map((activity, i) => (
+                        <motion.div
+                            key={i}
+                            whileHover={{ y: -5 }}
+                            className={cn("p-10 rounded-[3rem] border-2 space-y-8 relative overflow-hidden group transition-all", activity.color)}
+                        >
+                            <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:rotate-12 transition-transform">
+                                {activity.icon}
+                            </div>
+
+                            <div className="space-y-2">
+                                <span className="text-xs font-bold uppercase tracking-widest opacity-60">{activity.level}</span>
+                                <h3 className="text-3xl font-bold">{activity.analogy}</h3>
+                            </div>
+
+                            <div className="space-y-6 relative z-10">
+                                <div className="bg-white/80 p-6 rounded-3xl backdrop-blur-md shadow-sm border border-white/50">
+                                    <p className="text-xs font-bold text-slate-500 uppercase mb-2 tracking-tighter">Strategic Task:</p>
+                                    <p className="text-sm font-medium leading-relaxed text-slate-700">{activity.instruction}</p>
+                                </div>
+
+                                <div className="flex items-center gap-3 text-xs font-bold text-slate-900 bg-white/40 w-fit px-4 py-2 rounded-full">
+                                    <Star className="w-4 h-4 fill-primary text-primary" />
+                                    <span>Outcome: {activity.reward}</span>
+                                </div>
+                            </div>
+
+                            <button className="w-full py-4 bg-slate-900 text-white rounded-2xl text-sm font-bold hover:bg-primary transition-all shadow-xl shadow-slate-900/10 active:scale-95">
+                                Plan Switch
+                            </button>
+                        </motion.div>
+                    ))}
+                </div>
+            </section>
         </div>
     );
 }

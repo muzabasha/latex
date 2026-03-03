@@ -4,7 +4,7 @@ import { useState } from "react";
 import { LatexEditor } from "@/components/LatexEditor";
 import { LatexPreview } from "@/components/LatexPreview";
 import { motion } from "framer-motion";
-import { CaseUpper, Bold, Italic, CheckCircle, LayoutGrid, HelpCircle, CheckCircle2 } from "lucide-react";
+import { CaseUpper, Bold, Italic, CheckCircle, LayoutGrid, HelpCircle, CheckCircle2, Target, Rocket, Trophy, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function SessionOneFormatting() {
@@ -241,6 +241,73 @@ Understand the \\textit{impact of pH levels} on growth rates.
                             </div>
                         </div>
                     </div>
+                </div>
+            </section>
+            {/* Activity Track: The Formatting Garden */}
+            <section className="space-y-10 py-10">
+                <div className="text-center space-y-2">
+                    <h2 className="text-3xl font-bold outfit-font">Skill Level: The Formatting Garden</h2>
+                    <p className="text-muted-foreground italic">Pruning your manuscript for professional clarity</p>
+                </div>
+
+                <div className="grid md:grid-cols-3 gap-8">
+                    {[
+                        {
+                            level: "1. The Trimmer (Beginner)",
+                            analogy: "Basic Grooming",
+                            instruction: "Take a list of 5 crop names and make only the most important one bold and the second one italic.",
+                            reward: "Visual Hierarchy",
+                            icon: <Target className="w-8 h-8 text-indigo-500" />,
+                            color: "bg-indigo-50 border-indigo-100"
+                        },
+                        {
+                            level: "2. The Landscaper (Moderate)",
+                            analogy: "Defining Zones",
+                            instruction: "Create a 'Methodology' section with two subsections: 'Soil Sampling' and 'Water Analysis'.",
+                            reward: "Document Architecture",
+                            icon: <Rocket className="w-8 h-8 text-cyan-500" />,
+                            color: "bg-cyan-50 border-cyan-100"
+                        },
+                        {
+                            level: "3. The Architect (Pro)",
+                            analogy: "Advanced Ecosystem",
+                            instruction: "Create a nested procedure list using 'enumerate' inside 'itemize' to show a step-by-step chemical mix.",
+                            reward: "Procedural Precision",
+                            icon: <Trophy className="w-8 h-8 text-violet-500" />,
+                            color: "bg-violet-50 border-violet-100"
+                        }
+                    ].map((activity, i) => (
+                        <motion.div
+                            key={i}
+                            whileHover={{ y: -5 }}
+                            className={cn("p-8 rounded-4xl border-2 space-y-6 relative overflow-hidden group transition-all", activity.color)}
+                        >
+                            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:rotate-12 transition-transform">
+                                {activity.icon}
+                            </div>
+
+                            <div className="space-y-2">
+                                <span className="text-xs font-bold uppercase tracking-widest opacity-60">{activity.level}</span>
+                                <h3 className="text-2xl font-bold">{activity.analogy}</h3>
+                            </div>
+
+                            <div className="space-y-4 relative z-10">
+                                <div className="bg-white/60 p-4 rounded-2xl backdrop-blur-sm">
+                                    <p className="text-xs font-bold text-slate-500 uppercase mb-1">Challenge:</p>
+                                    <p className="text-sm font-medium leading-relaxed">{activity.instruction}</p>
+                                </div>
+
+                                <div className="flex items-center gap-2 text-xs font-bold text-slate-700">
+                                    <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+                                    <span>Outcome: {activity.reward}</span>
+                                </div>
+                            </div>
+
+                            <button className="w-full py-3 bg-white border border-slate-200 rounded-xl text-sm font-bold hover:bg-slate-900 hover:text-white transition-colors relative z-10">
+                                Start Pruning
+                            </button>
+                        </motion.div>
+                    ))}
                 </div>
             </section>
         </div>

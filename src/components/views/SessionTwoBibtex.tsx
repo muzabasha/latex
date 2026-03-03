@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { LatexEditor } from "@/components/LatexEditor";
 import { motion } from "framer-motion";
-import { BookMarked, Search, Quote, FileCode, Check, Copy, HelpCircle, CheckCircle2 } from "lucide-react";
+import { BookMarked, Search, Quote, FileCode, Check, Copy, HelpCircle, CheckCircle2, Target, Rocket, Trophy, Star } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export function SessionTwoBibtex() {
     const [doi, setDoi] = useState("");
@@ -240,6 +241,73 @@ climate change significantly affects crop rotation.
                             </div>
                         </div>
                     </div>
+                </div>
+            </section>
+            {/* Activity Track: The Research Archive */}
+            <section className="space-y-10 py-10">
+                <div className="text-center space-y-2">
+                    <h2 className="text-4xl font-bold outfit-font">Skill Level: The Research Archive</h2>
+                    <p className="text-muted-foreground italic tracking-widest uppercase text-xs font-bold">From solitary notes to a global citation network</p>
+                </div>
+
+                <div className="grid md:grid-cols-3 gap-8">
+                    {[
+                        {
+                            level: "1. The Bookkeeper (Beginner)",
+                            analogy: "Recording the Entry",
+                            instruction: "Use the DOI generator to create a BibTeX entry for a paper on 'Climate Impact' and copy it into your .bib list.",
+                            reward: "BibTeX Syntax Mastery",
+                            icon: <Target className="w-8 h-8 text-primary" />,
+                            color: "bg-primary/5 border-primary/10"
+                        },
+                        {
+                            level: "2. The Librarian (Moderate)",
+                            analogy: "Organizing the Shelf",
+                            instruction: "Cite three different papers in a single sentence using a comma-separated list inside \\cite{...}.",
+                            reward: "Dynamic Referencing",
+                            icon: <Rocket className="w-8 h-8 text-blue-500" />,
+                            color: "bg-blue-50 border-blue-100"
+                        },
+                        {
+                            level: "3. The Editor (Pro)",
+                            analogy: "Standardizing the Journal",
+                            instruction: "Switch your bibliographystyle from 'plain' to 'unsrt' and observe how the citation order updates on the fly.",
+                            reward: "Context-Aware Styling",
+                            icon: <Trophy className="w-8 h-8 text-amber-500" />,
+                            color: "bg-amber-50 border-amber-100"
+                        }
+                    ].map((activity, i) => (
+                        <motion.div
+                            key={i}
+                            whileHover={{ y: -5 }}
+                            className={cn("p-10 rounded-[3rem] border-2 space-y-8 relative overflow-hidden group transition-all", activity.color)}
+                        >
+                            <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:rotate-12 transition-transform">
+                                {activity.icon}
+                            </div>
+
+                            <div className="space-y-2">
+                                <span className="text-xs font-bold uppercase tracking-widest opacity-60">{activity.level}</span>
+                                <h3 className="text-3xl font-bold">{activity.analogy}</h3>
+                            </div>
+
+                            <div className="space-y-6 relative z-10">
+                                <div className="bg-white/80 p-6 rounded-3xl backdrop-blur-md shadow-sm border border-white/50">
+                                    <p className="text-xs font-bold text-slate-500 uppercase mb-2 tracking-tighter">The Mission:</p>
+                                    <p className="text-sm font-medium leading-relaxed text-slate-700">{activity.instruction}</p>
+                                </div>
+
+                                <div className="flex items-center gap-3 text-xs font-bold text-slate-900 bg-white/40 w-fit px-4 py-2 rounded-full">
+                                    <Star className="w-4 h-4 fill-primary text-primary" />
+                                    <span>Milestone: {activity.reward}</span>
+                                </div>
+                            </div>
+
+                            <button className="w-full py-4 bg-slate-900 text-white rounded-2xl text-sm font-bold hover:bg-primary transition-all shadow-xl shadow-slate-900/10 active:scale-95">
+                                Archive Data
+                            </button>
+                        </motion.div>
+                    ))}
                 </div>
             </section>
         </div>

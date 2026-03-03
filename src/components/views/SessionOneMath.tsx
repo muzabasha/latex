@@ -5,7 +5,8 @@ import { LatexEditor } from "@/components/LatexEditor";
 import { LatexPreview } from "@/components/LatexPreview";
 import { MathBuilder } from "@/components/MathBuilder";
 import { motion } from "framer-motion";
-import { Sigma, FunctionSquare, Binary, Calculator, HelpCircle, CheckCircle2 } from "lucide-react";
+import { Sigma, FunctionSquare, Binary, Calculator, HelpCircle, CheckCircle2, Target, Rocket, Trophy, Star } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export function SessionOneMath() {
     const [code, setCode] = useState(`\\documentclass{article}
@@ -186,6 +187,73 @@ The formula for standard deviation is:
                             </div>
                         </div>
                     </div>
+                </div>
+            </section>
+            {/* Activity Track: The Formula Lab */}
+            <section className="space-y-10 py-10">
+                <div className="text-center space-y-2">
+                    <h2 className="text-3xl font-bold outfit-font">Skill Level: The Formula Lab</h2>
+                    <p className="text-muted-foreground italic">Mastering the language of quantitative precision</p>
+                </div>
+
+                <div className="grid md:grid-cols-3 gap-8">
+                    {[
+                        {
+                            level: "1. The Pipette (Beginner)",
+                            analogy: "Basic Mixing",
+                            instruction: "Write a simple inline equation showing the sum of Nitrogen (N) and Phosphorus (P) equaling total fertilizer (F).",
+                            reward: "Inline Syntax",
+                            icon: <Target className="w-8 h-8 text-rose-500" />,
+                            color: "bg-rose-50 border-rose-100"
+                        },
+                        {
+                            level: "2. The Centrifuge (Moderate)",
+                            analogy: "Structured Reaction",
+                            instruction: "Create a display equation for the Quadratic Formula or a Crop Yield growth rate using fractions and square roots.",
+                            reward: "Structural Math",
+                            icon: <Rocket className="w-8 h-8 text-blue-500" />,
+                            color: "bg-blue-50 border-blue-100"
+                        },
+                        {
+                            level: "3. The Data Lab (Pro)",
+                            analogy: "Complex Synthesis",
+                            instruction: "Use the 'align' environment to show a 3-step calculation of Total Yield based on Rainfall and Area.",
+                            reward: "Multi-line Alignment",
+                            icon: <Trophy className="w-8 h-8 text-amber-500" />,
+                            color: "bg-amber-50 border-amber-100"
+                        }
+                    ].map((activity, i) => (
+                        <motion.div
+                            key={i}
+                            whileHover={{ y: -5 }}
+                            className={cn("p-8 rounded-[3rem] border-2 space-y-6 relative overflow-hidden group transition-all", activity.color)}
+                        >
+                            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:rotate-12 transition-transform">
+                                {activity.icon}
+                            </div>
+
+                            <div className="space-y-2">
+                                <span className="text-xs font-bold uppercase tracking-widest opacity-60">{activity.level}</span>
+                                <h3 className="text-2xl font-bold">{activity.analogy}</h3>
+                            </div>
+
+                            <div className="space-y-4 relative z-10">
+                                <div className="bg-white/60 p-4 rounded-2xl backdrop-blur-sm">
+                                    <p className="text-xs font-bold text-slate-500 uppercase mb-1">Challenge:</p>
+                                    <p className="text-sm font-medium leading-relaxed">{activity.instruction}</p>
+                                </div>
+
+                                <div className="flex items-center gap-2 text-xs font-bold text-slate-700">
+                                    <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+                                    <span>Outcome: {activity.reward}</span>
+                                </div>
+                            </div>
+
+                            <button className="w-full py-3 bg-white border border-slate-200 rounded-xl text-sm font-bold hover:bg-slate-900 hover:text-white transition-colors relative z-10">
+                                Start Mixing
+                            </button>
+                        </motion.div>
+                    ))}
                 </div>
             </section>
         </div>

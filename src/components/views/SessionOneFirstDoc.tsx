@@ -4,7 +4,7 @@ import { useState } from "react";
 import { LatexEditor } from "@/components/LatexEditor";
 import { LatexPreview } from "@/components/LatexPreview";
 import { motion } from "framer-motion";
-import { FileText, Type, Layers, Box, Info, HelpCircle, CheckCircle2 } from "lucide-react";
+import { FileText, Type, Layers, Box, Info, HelpCircle, CheckCircle2, Rocket, Trophy, Target, Star } from "lucide-react";
 
 export function SessionOneFirstDoc() {
     const [code, setCode] = useState(`\\documentclass{article}
@@ -196,6 +196,78 @@ This is my very first LaTeX document.
                     </div>
                 </div>
             </section>
+            {/* Activity Track: The Research Journey */}
+            <section className="space-y-10 py-10">
+                <div className="text-center space-y-2">
+                    <h2 className="text-3xl font-bold outfit-font">Skill Level: The Research Journey</h2>
+                    <p className="text-muted-foreground italic">Moving from &quot;Seedling&quot; to &quot;Master Harvester&quot;</p>
+                </div>
+
+                <div className="grid md:grid-cols-3 gap-8">
+                    {[
+                        {
+                            level: "1. The Sprout (Beginner)",
+                            analogy: "Planting the Seed",
+                            task: "Basic Structure",
+                            instruction: "Create a simple document that contains exactly one sentence about your research interest.",
+                            reward: "Structural Awareness",
+                            icon: <Target className="w-8 h-8 text-emerald-500" />,
+                            color: "bg-emerald-50 border-emerald-100"
+                        },
+                        {
+                            level: "2. The Sapling (Moderate)",
+                            analogy: "Growing the Stem",
+                            task: "Metadata Integration",
+                            instruction: "Add \\title{...} and \\author{...} in the preamble. Use \\maketitle inside the document to render them.",
+                            reward: "Automation Logic",
+                            icon: <Rocket className="w-8 h-8 text-blue-500" />,
+                            color: "bg-blue-50 border-blue-100"
+                        },
+                        {
+                            level: "3. The Harvest (Pro)",
+                            analogy: "Professional Yield",
+                            task: "Global Configurations",
+                            instruction: "Change documentclass to 'report'. Add an abstract environment to summarize your work.",
+                            reward: "Architectural Mastery",
+                            icon: <Trophy className="w-8 h-8 text-amber-500" />,
+                            color: "bg-amber-50 border-amber-100"
+                        }
+                    ].map((activity, i) => (
+                        <motion.div
+                            key={i}
+                            whileHover={{ y: -5 }}
+                            className={cn("p-8 rounded-4xl border-2 space-y-6 relative overflow-hidden group", activity.color)}
+                        >
+                            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:rotate-12 transition-transform">
+                                {activity.icon}
+                            </div>
+
+                            <div className="space-y-2">
+                                <span className="text-xs font-bold uppercase tracking-widest opacity-60">{activity.level}</span>
+                                <h3 className="text-2xl font-bold">{activity.analogy}</h3>
+                            </div>
+
+                            <div className="space-y-4">
+                                <div className="bg-white/60 p-4 rounded-2xl">
+                                    <p className="text-xs font-bold text-slate-500 uppercase mb-1">Challenge:</p>
+                                    <p className="text-sm font-medium leading-relaxed">{activity.instruction}</p>
+                                </div>
+
+                                <div className="flex items-center gap-2 text-xs font-bold text-slate-700">
+                                    <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+                                    <span>Outcome: {activity.reward}</span>
+                                </div>
+                            </div>
+
+                            <button className="w-full py-3 bg-white border border-slate-200 rounded-xl text-sm font-bold hover:bg-slate-900 hover:text-white transition-colors">
+                                Try in Lab
+                            </button>
+                        </motion.div>
+                    ))}
+                </div>
+            </section>
         </div>
     );
 }
+
+const cn = (...classes: string[]) => classes.filter(Boolean).join(" ");
