@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { LatexEditor } from "@/components/LatexEditor";
 import { motion, AnimatePresence } from "framer-motion";
-import { Table, Image as ImageIcon, Layout, Grid, Info, Sparkles, Plus, Trash2 } from "lucide-react";
+import { Table, Image as ImageIcon, Layout, Grid, Info, Sparkles, Plus, Trash2, HelpCircle, CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function SessionTwoTablesFigures() {
@@ -125,21 +125,45 @@ N2 & 100kg & 52cm \\\\ \\hline
                 {/* Info Cards */}
                 <div className="space-y-6">
                     <div className="bg-primary/5 border border-primary/10 rounded-3xl p-8 space-y-6">
-                        <h3 className="text-xl font-bold flex items-center gap-2">
-                            <Sparkles className="w-6 h-6 text-primary" />
-                            The &quot;Float&quot; Secret
-                        </h3>
-                        <p className="text-muted-foreground text-sm leading-relaxed">
-                            LaTeX treats tables and figures as &quot;Floats&quot;. You don&apos;t tell LaTeX WHERE to put them exactly; you give it a suggestion (like <code>{"[h]"}</code> for here) and it does the complex math to find the perfect page placement.
-                        </p>
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="bg-white p-4 rounded-2xl shadow-sm border space-y-2">
-                                <p className="font-bold text-primary text-xs uppercase">The Tabular Environment</p>
-                                <p className="text-[10px] text-muted-foreground italic">For precise grid control.</p>
+                        <div className="flex items-center justify-between">
+                            <h3 className="text-xl font-bold flex items-center gap-2">
+                                <Sparkles className="w-6 h-6 text-primary" />
+                                The &quot;Float&quot; &amp; Table Architecture
+                            </h3>
+                        </div>
+
+                        <div className="space-y-6">
+                            <div className="bg-white p-5 rounded-3xl shadow-sm border space-y-3">
+                                <h4 className="font-bold text-sm text-primary uppercase tracking-wider">Alignment Specifiers</h4>
+                                <div className="grid grid-cols-1 gap-2">
+                                    {[
+                                        { cmd: "|l|", desc: "Left aligned with vertical border.", impact: "Best for text-heavy columns." },
+                                        { cmd: "|c|", desc: "Center aligned.", impact: "Standard for numeric data." },
+                                        { cmd: "|r|", desc: "Right aligned.", impact: "Aligns decimal points visually." }
+                                    ].map((opt, i) => (
+                                        <div key={i} className="text-xs bg-slate-50 p-2 rounded-xl flex gap-3 italic">
+                                            <code className="text-primary font-bold shrink-0">{opt.cmd}</code>
+                                            <span>{opt.impact}</span>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
-                            <div className="bg-white p-4 rounded-2xl shadow-sm border space-y-2">
-                                <p className="font-bold text-primary text-xs uppercase">The Graphicx Package</p>
-                                <p className="text-[10px] text-muted-foreground italic">For inserting JPG/PNG/PDF.</p>
+
+                            <div className="bg-white p-5 rounded-3xl shadow-sm border space-y-3">
+                                <h4 className="font-bold text-sm text-primary uppercase tracking-wider">Placement (Float) Control</h4>
+                                <div className="grid grid-cols-1 gap-2">
+                                    {[
+                                        { cmd: "[h]", impact: "Here (approximate placement)." },
+                                        { cmd: "[t]", impact: "Top of the page." },
+                                        { cmd: "[b]", impact: "Bottom of the page." },
+                                        { cmd: "[h!]", impact: "Override LaTeX gravity (STRICT placement)." }
+                                    ].map((opt, i) => (
+                                        <div key={i} className="text-xs bg-slate-50 p-2 rounded-xl flex gap-3 italic">
+                                            <code className="text-primary font-bold shrink-0">{opt.cmd}</code>
+                                            <span>{opt.impact}</span>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -152,6 +176,80 @@ N2 & 100kg & 52cm \\\\ \\hline
                     </div>
                 </div>
             </div>
+
+            {/* Interactive Q&A Deep Dive */}
+            <section className="bg-slate-900 rounded-[3rem] p-12 text-white space-y-10 shadow-2xl relative overflow-hidden mt-12">
+                <div className="absolute top-0 right-0 w-96 h-96 bg-primary/20 blur-[130px] rounded-full -mr-48 -mt-48" />
+
+                <div className="flex items-center gap-6 relative z-10">
+                    <div className="p-4 bg-primary rounded-3xl shadow-xl shadow-primary/30 rotate-6 hover:rotate-0 transition-transform">
+                        <HelpCircle className="w-12 h-12" />
+                    </div>
+                    <div>
+                        <h2 className="text-4xl font-bold outfit-font">The Data Presentation Masterclass</h2>
+                        <p className="text-slate-400 text-lg italic">&quot;Research credibility is built on structured transparency.&quot;</p>
+                    </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-12 relative z-10">
+                    <div className="space-y-8">
+                        <div className="bg-white/5 border border-white/10 p-10 rounded-[2.5rem] space-y-4 hover:bg-white/5 transition-colors">
+                            <h4 className="font-bold text-primary flex items-center gap-3 text-2xl">
+                                <CheckCircle2 className="w-8 h-8" /> Table vs. Tabular?
+                            </h4>
+                            <p className="text-slate-200 text-lg">What is the difference between <code>{"\\begin{table}"}</code> and <code>{"\\begin{tabular}"}</code>?</p>
+                            <div className="pt-6 border-t border-white/10">
+                                <p className="text-base text-slate-300 leading-relaxed font-light">
+                                    <span className="font-bold text-white uppercase text-xs block mb-3 tracking-[0.2em]">The Hierarchy:</span>
+                                    <code>tabular</code> is the actual grid of data. <code>table</code> is the wrapper (container) that allows you to add a <strong>Caption</strong>, a <strong>Label</strong> for referencing, and controls how it &quot;floats&quot; on the page. You almost always use both together.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="bg-white/5 border border-white/10 p-10 rounded-[2.5rem] space-y-4 hover:bg-white/5 transition-colors">
+                            <h4 className="font-bold text-primary flex items-center gap-3 text-2xl">
+                                <CheckCircle2 className="w-8 h-8" /> Labeling Strategy?
+                            </h4>
+                            <p className="text-slate-200">Why must <code>{"\\label{...}"}</code> come AFTER <code>{"\\caption{...}"}</code>?</p>
+                            <div className="pt-6 border-t border-white/10">
+                                <p className="text-base text-slate-300 leading-relaxed font-light">
+                                    <span className="font-bold text-white uppercase text-xs block mb-3 tracking-[0.2em]">Technical Trap:</span>
+                                    In LaTeX, the caption command actually increments the table counter. If you put the label before the caption, it will point to the previous section or table, breaking your <code>{"\\ref{...}"}</code> links!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="space-y-8 flex flex-col justify-center">
+                        <div className="bg-primary/5 border border-primary/20 p-10 rounded-[2.5rem] space-y-6">
+                            <h5 className="font-extrabold text-primary uppercase text-xs tracking-[0.3em]">The Horizontal Line Rule</h5>
+                            <p className="text-lg text-slate-200 italic">
+                                &quot;Academic journals generally dislike vertical lines. Professional tables often use <code>\\hline</code> only at the top, bottom, and to separate headers.&quot;
+                            </p>
+                            <div className="p-8 bg-black/40 rounded-3xl font-mono text-xs border border-white/5 text-primary/80">
+                                \\hline <br />
+                                Year &amp; Yield \\\\ <br />
+                                \\hline <br />
+                                2024 &amp; 3.5 \\\\ <br />
+                                \\hline
+                            </div>
+                        </div>
+
+                        <div className="bg-white/5 border border-white/10 p-10 rounded-[2.5rem] space-y-4">
+                            <h4 className="font-bold text-primary flex items-center gap-3 text-2xl">
+                                <CheckCircle2 className="w-8 h-8" /> Figure Scaling?
+                            </h4>
+                            <p className="text-lg text-slate-200">How to make an image fit the page width?</p>
+                            <div className="pt-6 border-t border-white/10">
+                                <p className="text-base text-slate-300 leading-relaxed font-light">
+                                    <span className="font-bold text-white uppercase text-xs block mb-3 tracking-[0.2em]">The Golden Script:</span>
+                                    Use <code>{"\\includegraphics[width=\\textwidth]{image.png}"}</code>. This ensures the figure never bleeds into the margins, regardless of the journal&apos;s column width.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     );
 }

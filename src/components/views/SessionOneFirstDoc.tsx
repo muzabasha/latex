@@ -4,7 +4,7 @@ import { useState } from "react";
 import { LatexEditor } from "@/components/LatexEditor";
 import { LatexPreview } from "@/components/LatexPreview";
 import { motion } from "framer-motion";
-import { FileText, Type, Layers, Box, Info } from "lucide-react";
+import { FileText, Type, Layers, Box, Info, HelpCircle, CheckCircle2 } from "lucide-react";
 
 export function SessionOneFirstDoc() {
     const [code, setCode] = useState(`\\documentclass{article}
@@ -28,25 +28,40 @@ This is my very first LaTeX document.
             tag: "\\documentclass{article}",
             icon: <FileText className="w-5 h-5 text-blue-500" />,
             title: "The Blueprint Choice",
-            desc: "Tells LaTeX what kind of document you're building (article, book, report)."
+            desc: "Tells LaTeX what kind of document you're building.",
+            options: [
+                { name: "report", impact: "Adds support for chapters." },
+                { name: "book", impact: "Adds title page and double-sided margins." },
+                { name: "beamer", impact: "Used for creating academic presentations (PPT style)." }
+            ]
         },
         {
             tag: "\\begin{document}",
             icon: <Layers className="w-5 h-5 text-green-500" />,
             title: "The Front Door",
-            desc: "Everything after this point will actually appear in your final PDF."
+            desc: "Everything after this point will actually appear in your final PDF.",
+            options: [
+                { name: "Preamble", impact: "The space BEFORE this is where you load packages." }
+            ]
         },
         {
             tag: "The Body",
             icon: <Type className="w-5 h-5 text-orange-500" />,
             title: "The Content",
-            desc: "This is where your research lives. Just type naturally!"
+            desc: "This is where your research lives. Just type naturally!",
+            options: [
+                { name: "Commands", impact: "Functions that start with \\ change style." },
+                { name: "Comments", impact: "Lines starting with % are for your notes only." }
+            ]
         },
         {
             tag: "\\end{document}",
             icon: <Box className="w-5 h-5 text-red-500" />,
             title: "The Exit Sign",
-            desc: "Tells the compiler to stop reading. Essential for a clean finish."
+            desc: "Tells the compiler to stop reading.",
+            options: [
+                { name: "Impact", impact: "If missing, the PDF will fail to generate." }
+            ]
         },
     ];
 
@@ -73,7 +88,17 @@ This is my very first LaTeX document.
                             {ex.tag}
                         </code>
                         <h4 className="font-bold text-lg mb-2">{ex.title}</h4>
-                        <p className="text-sm text-muted-foreground leading-relaxed italic">{ex.desc}</p>
+                        <p className="text-sm text-muted-foreground leading-relaxed italic mb-4">{ex.desc}</p>
+
+                        <div className="pt-4 border-t border-slate-100 space-y-2">
+                            <p className="text-[10px] font-bold uppercase text-slate-400 tracking-widest">Options & Impact</p>
+                            {ex.options?.map((opt, idx) => (
+                                <div key={idx} className="text-[11px] leading-tight">
+                                    <span className="font-bold text-slate-700">{opt.name}:</span>{" "}
+                                    <span className="text-slate-500">{opt.impact}</span>
+                                </div>
+                            ))}
+                        </div>
                     </motion.div>
                 ))}
             </div>
@@ -101,6 +126,73 @@ This is my very first LaTeX document.
                             code={code}
                             isCompiling={isCompiling}
                         />
+                    </div>
+                </div>
+            </section>
+
+            {/* Interactive Q&A Deep Dive */}
+            <section className="bg-slate-900 rounded-[2.5rem] p-10 text-white space-y-8 shadow-2xl overflow-hidden relative">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 blur-[100px] rounded-full -mr-32 -mt-32" />
+
+                <div className="flex items-center gap-4 relative z-10">
+                    <div className="p-3 bg-primary rounded-2xl">
+                        <HelpCircle className="w-8 h-8" />
+                    </div>
+                    <div>
+                        <h2 className="text-3xl font-bold">Interactive Deep Dive</h2>
+                        <p className="text-slate-400">Mastering the &quot;Why&quot; behind the structure.</p>
+                    </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-8 relative z-10">
+                    <div className="space-y-6">
+                        <div className="bg-white/5 border border-white/10 p-6 rounded-3xl space-y-3">
+                            <h4 className="font-bold text-primary flex items-center gap-2">
+                                <CheckCircle2 className="w-4 h-4" /> Question:
+                            </h4>
+                            <p className="text-lg">What happens if I forget <code>{"\\end{document}"}</code>?</p>
+                            <div className="pt-4 border-t border-white/10">
+                                <p className="text-sm text-slate-300">
+                                    <span className="font-bold text-white uppercase text-xs block mb-1">Justification:</span>
+                                    The compiler will throw an error saying &quot;Emergency Stop&quot;. Think of it like a PDF container; without the closing lid, LaTeX cannot finalize the file structure.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="bg-white/5 border border-white/10 p-6 rounded-3xl space-y-3">
+                            <h4 className="font-bold text-primary flex items-center gap-2">
+                                <CheckCircle2 className="w-4 h-4" /> Question:
+                            </h4>
+                            <p className="text-lg">Can I have text before <code>{"\\begin{document}"}</code>?</p>
+                            <div className="pt-4 border-t border-white/10">
+                                <p className="text-sm text-slate-300">
+                                    <span className="font-bold text-white uppercase text-xs block mb-1">Justification:</span>
+                                    No. That area is the <strong>Preamble</strong>. Any text typed there will cause a &quot;Missing begin document&quot; error because LaTeX isn&apos;t ready to display content yet.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="space-y-6">
+                        <div className="bg-white/5 border border-white/10 p-6 rounded-3xl space-y-3">
+                            <h4 className="font-bold text-primary flex items-center gap-2">
+                                <CheckCircle2 className="w-4 h-4" /> Question:
+                            </h4>
+                            <p className="text-lg">Why use <code>article</code> and not <code>book</code> for research papers?</p>
+                            <div className="pt-4 border-t border-white/10">
+                                <p className="text-sm text-slate-300">
+                                    <span className="font-bold text-white uppercase text-xs block mb-1">Justification:</span>
+                                    <code>article</code> is optimized for short, single-sectioned works. <code>book</code> forces new chapters to start on odd-numbered pages, which wastes space in a short 5-page research article.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="bg-white/5 border border-white/10 p-6 rounded-3xl space-y-3 shadow-inner">
+                            <p className="text-xs font-bold text-primary uppercase tracking-widest">Interactive Outcome</p>
+                            <p className="text-sm italic text-slate-400">
+                                Choosing the right class (Article vs. Report) changes the font sizes and margins to match global publication standards (IEEE/Nature) automatically.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </section>

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { LatexEditor } from "@/components/LatexEditor";
 import { LatexPreview } from "@/components/LatexPreview";
 import { motion } from "framer-motion";
-import { CaseUpper, Bold, Italic, CheckCircle, LayoutGrid } from "lucide-react";
+import { CaseUpper, Bold, Italic, CheckCircle, LayoutGrid, HelpCircle, CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function SessionOneFormatting() {
@@ -34,10 +34,43 @@ Understand the \\textit{impact of pH levels} on growth rates.
     };
 
     const formattingCommands = [
-        { cmd: "\\section{...}", icon: <CaseUpper className="w-4 h-4" />, label: "Header 1", color: "bg-blue-500" },
-        { cmd: "\\subsection{...}", icon: <LayoutGrid className="w-4 h-4" />, label: "Header 2", color: "bg-cyan-500" },
-        { cmd: "\\textbf{...}", icon: <Bold className="w-4 h-4" />, label: "Bold Text", color: "bg-indigo-500" },
-        { cmd: "\\textit{...}", icon: <Italic className="w-4 h-4" />, label: "Italic Text", color: "bg-violet-500" },
+        {
+            cmd: "\\section{...}",
+            icon: <CaseUpper className="w-4 h-4" />,
+            label: "Header 1",
+            color: "bg-blue-500",
+            options: [
+                { name: "\\section*{...}", impact: "Removes auto-numbering." },
+                { name: "\\chapter{...}", impact: "Top-level for Reports/Books." }
+            ]
+        },
+        {
+            cmd: "\\subsection{...}",
+            icon: <LayoutGrid className="w-4 h-4" />,
+            label: "Header 2",
+            color: "bg-cyan-500",
+            options: [
+                { name: "\\subsubsection", impact: "Level 3 nesting." }
+            ]
+        },
+        {
+            cmd: "\\textbf{...}",
+            icon: <Bold className="w-4 h-4" />,
+            label: "Bold Text",
+            color: "bg-indigo-500",
+            options: [
+                { name: "\\underline{...}", impact: "Adds a line below text." }
+            ]
+        },
+        {
+            cmd: "\\textit{...}",
+            icon: <Italic className="w-4 h-4" />,
+            label: "Italic Text",
+            color: "bg-violet-500",
+            options: [
+                { name: "\\emph{...}", impact: "Semantic emphasis (toggles italic)." }
+            ]
+        },
     ];
 
     return (
@@ -59,9 +92,17 @@ Understand the \\textit{impact of pH levels} on growth rates.
                         <div className={cn("p-3 rounded-xl text-white shadow-lg", cmd.color)}>
                             {cmd.icon}
                         </div>
-                        <div>
+                        <div className="flex-1">
                             <p className="text-xs font-bold text-muted-foreground uppercase opacity-70 mb-1">{cmd.label}</p>
-                            <code className="text-sm font-mono font-bold text-primary">{cmd.cmd}</code>
+                            <code className="text-sm font-mono font-bold text-primary block mb-3">{cmd.cmd}</code>
+
+                            <div className="space-y-1">
+                                {cmd.options?.map((opt, idx) => (
+                                    <div key={idx} className="text-[10px] bg-slate-50 p-1 rounded border border-slate-100 italic">
+                                        <span className="font-bold text-slate-700">{opt.name}:</span> {opt.impact}
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </motion.div>
                 ))}
@@ -127,6 +168,81 @@ Understand the \\textit{impact of pH levels} on growth rates.
                     </div>
                 </div>
             </div>
+
+            {/* Interactive Q&A Deep Dive */}
+            <section className="bg-slate-900 rounded-[3rem] p-12 text-white space-y-10 shadow-2xl relative overflow-hidden mt-12">
+                <div className="absolute top-0 right-0 w-80 h-80 bg-primary/10 blur-[120px] rounded-full -mr-40 -mt-40" />
+
+                <div className="flex items-center gap-5 relative z-10">
+                    <div className="p-4 bg-primary rounded-3xl shadow-xl shadow-primary/20">
+                        <HelpCircle className="w-10 h-10" />
+                    </div>
+                    <div>
+                        <h2 className="text-4xl font-bold outfit-font">Formatting Masterclass</h2>
+                        <p className="text-slate-400 text-lg italic">&quot;Thinking in Logical Structures, not just Pixels.&quot;</p>
+                    </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-10 relative z-10">
+                    <div className="space-y-8">
+                        <div className="bg-white/5 border border-white/10 p-8 rounded-4xl space-y-4 hover:bg-white/[0.07] transition-colors">
+                            <h4 className="font-bold text-primary flex items-center gap-3 text-xl">
+                                <CheckCircle2 className="w-6 h-6" /> Starred Sections (*)?
+                            </h4>
+                            <p className="text-slate-200">Why use <code>{"\\section*{Abstract}"}</code> instead of <code>{"\\section{Abstract}"}</code>?</p>
+                            <div className="pt-6 border-t border-white/10">
+                                <p className="text-sm text-slate-300 leading-relaxed">
+                                    <span className="font-bold text-white uppercase text-xs block mb-2 tracking-widest">Scientific Justification:</span>
+                                    The asterisk (*) tells LaTeX to remove the numbering (e.g., &quot;0.1&quot;) and exclude it from the Table of Contents. This is required for standard components like <strong>Abstracts</strong> or <strong>Acknowledgements</strong>.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="bg-white/5 border border-white/10 p-8 rounded-4xl space-y-4 hover:bg-white/[0.07] transition-colors">
+                            <h4 className="font-bold text-primary flex items-center gap-3 text-xl">
+                                <CheckCircle2 className="w-6 h-6" /> Bold vs. Italic impact?
+                            </h4>
+                            <p className="text-slate-200">When should a researcher choose <code>{"\\textbf"}</code> over <code>{"\\textit"}</code>?</p>
+                            <div className="pt-6 border-t border-white/10">
+                                <p className="text-sm text-slate-300 leading-relaxed">
+                                    <span className="font-bold text-white uppercase text-xs block mb-2 tracking-widest">Justification:</span>
+                                    Use <strong>Bold</strong> for structural emphasis (definitions, keywords). Use <em>Italic</em> for taxonomic names (e.g., <i>Oryza sativa</i>), mathematical variables, or quotes.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="space-y-8 flex flex-col justify-center">
+                        <div className="bg-primary/10 border border-primary/20 p-8 rounded-4xl space-y-6">
+                            <h5 className="font-bold text-primary uppercase text-xs tracking-[0.2em]">The Nesting Rule</h5>
+                            <p className="text-sm text-slate-300 leading-relaxed italic">
+                                &quot;In LaTeX, you can nest lists within lists up to 4 levels deep. The engine automatically changes the bullet style (Bullet {"->"} Dash {"->"} Star) so the reader never gets lost.&quot;
+                            </p>
+                            <div className="bg-black/20 p-6 rounded-2xl font-mono text-[11px] text-primary/80">
+                                {"\\begin{itemize}"} <br />
+                                {"\u00A0\u00A0 \\item Crop Types"} <br />
+                                {"\u00A0\u00A0 \\begin{itemize}"} <br />
+                                {"\u00A0\u00A0\u00A0\u00A0 \\item Cereals"} <br />
+                                {"\u00A0\u00A0 \\end{itemize}"} <br />
+                                {"\\end{itemize}"}
+                            </div>
+                        </div>
+
+                        <div className="bg-white/5 border border-white/10 p-8 rounded-4xl space-y-4">
+                            <h4 className="font-bold text-primary flex items-center gap-3 text-xl">
+                                <CheckCircle2 className="w-6 h-6" /> Logical Separation?
+                            </h4>
+                            <p className="text-lg">What happens if I use <code>{"\\large"}</code>?</p>
+                            <div className="pt-6 border-t border-white/10">
+                                <p className="text-sm text-slate-300">
+                                    <span className="font-bold text-white uppercase text-xs block mb-2 tracking-widest">Impact:</span>
+                                    LaTeX is &quot;scope-based&quot;. Unless you wrap it in <code>{"{...}"}</code>, everything after <code>\\large</code> becomes big. Always use <code>{"{\\large focus text}"}</code> to maintain control.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     );
 }

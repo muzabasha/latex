@@ -5,7 +5,7 @@ import { LatexEditor } from "@/components/LatexEditor";
 import { LatexPreview } from "@/components/LatexPreview";
 import { MathBuilder } from "@/components/MathBuilder";
 import { motion } from "framer-motion";
-import { Sigma, FunctionSquare, Binary, Calculator } from "lucide-react";
+import { Sigma, FunctionSquare, Binary, Calculator, HelpCircle, CheckCircle2 } from "lucide-react";
 
 export function SessionOneMath() {
     const [code, setCode] = useState(`\\documentclass{article}
@@ -61,16 +61,30 @@ The formula for standard deviation is:
                     <div className="bg-card border rounded-3xl p-8 space-y-4 shadow-sm">
                         <div className="flex items-center gap-3 text-primary">
                             <Calculator className="w-6 h-6" />
-                            <h3 className="text-xl font-bold">Inline vs. Display Math</h3>
+                            <h3 className="text-xl font-bold">Math Mode Architectures</h3>
                         </div>
-                        <div className="text-muted-foreground text-sm leading-relaxed space-y-2">
-                            <p>Use <code>{"$...$"}</code> for math that stays inside your sentence (inline).</p>
-                            <p>Use <code>{"\\[ ... \\]"}</code> for big equations that need a dedicated center stage (display).</p>
-                        </div>
-                        <div className="bg-slate-50 p-4 rounded-xl border border-dotted border-slate-300 font-mono text-xs">
-                            <p className="text-slate-600 font-serif italic text-sm">The growth is $y = mx + b$.</p>
-                            <div className="h-px bg-slate-200 my-2" />
-                            <p className="text-slate-600 font-serif italic text-sm text-center py-2">The growth is \\[ y = mx + b \\]</p>
+                        <div className="grid grid-cols-1 gap-4">
+                            {[
+                                { mode: "Inline Math", cmd: "$...$", impact: "Keeps flow within a paragraph.", options: [{ name: "\\( ... \\)", impact: "Standard official alternative." }] },
+                                { mode: "Display Math", cmd: "\\[ ... \\]", impact: "Centers equation, adds spacing.", options: [{ name: "\\begin{equation}", impact: "Adds auto-numbering." }] },
+                                { mode: "Aligned Math", cmd: "\\begin{align}", impact: "Aligns multiple steps at = sign.", options: [{ name: "align*", impact: "Removes numbers from all steps." }] }
+                            ].map((mode, i) => (
+                                <div key={i} className="bg-slate-50 p-4 rounded-2xl border border-slate-100 hover:border-primary transition-colors group">
+                                    <div className="flex justify-between items-start mb-2">
+                                        <h4 className="font-bold text-sm text-slate-700">{mode.mode}</h4>
+                                        <code className="text-xs bg-white px-2 py-0.5 rounded border border-slate-200 text-primary">{mode.cmd}</code>
+                                    </div>
+                                    <p className="text-xs text-muted-foreground mb-3">{mode.impact}</p>
+                                    <div className="space-y-1">
+                                        {mode.options.map((opt, idx) => (
+                                            <div key={idx} className="text-[10px] bg-white/50 p-1.5 rounded italic flex gap-2">
+                                                <span className="font-bold text-slate-600 shrink-0">{opt.name}:</span>
+                                                <span>{opt.impact}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
 
@@ -98,6 +112,82 @@ The formula for standard deviation is:
                     />
                 </div>
             </div>
+            {/* Interactive Math Deep Dive */}
+            <section className="bg-slate-900 rounded-[3rem] p-12 text-white space-y-10 shadow-2xl relative overflow-hidden mt-12">
+                <div className="absolute top-0 right-0 w-96 h-96 bg-primary/20 blur-[130px] rounded-full -mr-48 -mt-48" />
+
+                <div className="flex items-center gap-6 relative z-10">
+                    <div className="p-4 bg-primary rounded-3xl shadow-2xl shadow-primary/30 rotate-3 transition-transform hover:rotate-0">
+                        <HelpCircle className="w-12 h-12" />
+                    </div>
+                    <div>
+                        <h2 className="text-4xl font-bold outfit-font">The Math Masterclass</h2>
+                        <p className="text-slate-400 text-lg italic">&quot;Communicating complex Agriculture Data with Mathematical Elegance.&quot;</p>
+                    </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-12 relative z-10">
+                    <div className="space-y-8">
+                        <div className="bg-white/5 border border-white/10 p-10 rounded-[2.5rem] space-y-6 hover:bg-white/8 transition-all duration-300">
+                            <h4 className="font-bold text-primary flex items-center gap-3 text-2xl">
+                                <CheckCircle2 className="w-8 h-8" /> Why <code>align</code> over <code>equation</code>?
+                            </h4>
+                            <p className="text-slate-200 text-lg">When writing a multi-step derivation for Soil Density calculation...</p>
+                            <div className="pt-6 border-t border-white/10">
+                                <p className="text-base text-slate-300 leading-relaxed font-light">
+                                    <span className="font-bold text-white uppercase text-xs block mb-3 tracking-[0.2em]">Publication Insight:</span>
+                                    Standard <code>equation</code> forces all steps on one line or centers them independently. <code>align</code> uses the <strong>&amp;</strong> symbol to align every equal sign (=) perfectly across lines, making your proof much easier for reviewers to follow.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="bg-white/5 border border-white/10 p-10 rounded-[2.5rem] space-y-6 hover:bg-white/8 transition-all">
+                            <h4 className="font-bold text-primary flex items-center gap-3 text-2xl">
+                                <CheckCircle2 className="w-8 h-8" /> The Non-Italic Mystery?
+                            </h4>
+                            <p className="text-slate-200">Why does <code>{"\\sin(x)"}</code> look better than <code>{"sin(x)"}</code>?</p>
+                            <div className="pt-6 border-t border-white/10">
+                                <p className="text-base text-slate-300 leading-relaxed font-light">
+                                    <span className="font-bold text-white uppercase text-xs block mb-3 tracking-[0.2em]">Scientific Protocol:</span>
+                                    In math, multiletter variables are rare. <code>sin(x)</code> is interpreted as <i>s &times; i &times; n &times; x</i>. Using the backslash <code>\\sin</code> tells LaTeX it is a <strong>Function Operator</strong>, typesetting it upright as per ISO standards.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="space-y-8">
+                        <div className="bg-primary/5 border border-primary/20 p-10 rounded-[2.5rem] space-y-6 relative group overflow-hidden">
+                            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-125 transition-transform">
+                                <Sigma className="w-24 h-24" />
+                            </div>
+                            <h5 className="font-extrabold text-primary uppercase text-xs tracking-[0.3em]">Advanced Tip: Fractions</h5>
+                            <p className="text-lg text-slate-200 leading-snug">
+                                &quot;For inline math, prefer <code>x/y</code>. For display math, always use <code>{"\\frac{numerator}{denominator}"}</code>.&quot;
+                            </p>
+                            <div className="p-8 bg-black/40 rounded-3xl font-mono text-sm border border-white/5 text-primary/90 space-y-2">
+                                <p className="text-slate-500">// Too big for inline</p>
+                                <code>{"$\\frac{Total\\ Yield}{Total\\ Area}$"}</code>
+                                <div className="h-px bg-white/5 my-4" />
+                                <p className="text-slate-500">// Correct for flow</p>
+                                <code>{"$Yield / Area_{total}$"}</code>
+                            </div>
+                        </div>
+
+                        <div className="bg-white/5 border border-white/10 p-10 rounded-[2.5rem] space-y-6">
+                            <h4 className="font-bold text-primary flex items-center gap-3 text-2xl">
+                                <CheckCircle2 className="w-8 h-8" /> Auto-Numbering?
+                            </h4>
+                            <p className="text-lg text-slate-200">How to remove the (1) next to an equation?</p>
+                            <div className="pt-6 border-t border-white/10">
+                                <p className="text-base text-slate-300 leading-relaxed font-light">
+                                    <span className="font-bold text-white uppercase text-xs block mb-3 tracking-[0.2em]">Solution:</span>
+                                    Simply add an asterisk (*) to the environment name. <code>{"\\begin{equation*}"}</code> or <code>{"\\begin{align*}"}</code>. Use this for intermediate steps that don&apos;t need to be cited in your text.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     );
 }
