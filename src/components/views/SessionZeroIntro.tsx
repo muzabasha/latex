@@ -18,6 +18,8 @@ import {
     Info
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SessionQuiz } from "@/components/SessionQuiz";
+import { SESSION_QUIZZES } from "@/lib/quiz-data";
 import { useAtom } from "jotai";
 import { currentModuleAtom } from "@/lib/store";
 
@@ -411,6 +413,11 @@ export function SessionZeroIntro() {
                     </motion.div>
                 )}
             </section>
+
+            <SessionQuiz
+                title="Mastery Check: The Mindset Phase"
+                questions={SESSION_QUIZZES["session-0-intro"]}
+            />
 
             {/* CTA */}
             <div className="flex justify-center">

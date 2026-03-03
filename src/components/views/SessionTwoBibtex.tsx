@@ -3,8 +3,10 @@
 import { useState } from "react";
 import { LatexEditor } from "@/components/LatexEditor";
 import { motion } from "framer-motion";
-import { BookMarked, Search, Quote, FileCode, Check, Copy, HelpCircle, CheckCircle2, Target, Rocket, Trophy, Star, X, ClipboardList } from "lucide-react";
+import { BookMarked, Search, Quote, FileCode, Check, Copy, HelpCircle, CheckCircle2, Target, Rocket, Trophy, Star, X, ClipboardList, ArrowRight, Info } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SessionQuiz } from "@/components/SessionQuiz";
+import { SESSION_QUIZZES } from "@/lib/quiz-data";
 
 export function SessionTwoBibtex() {
     const [doi, setDoi] = useState("");
@@ -359,6 +361,11 @@ climate change significantly affects crop rotation.
                     ))}
                 </div>
             </section>
+
+            <SessionQuiz
+                title="Mastery Check: The Research Archive"
+                questions={SESSION_QUIZZES["session-2-bibtex"]}
+            />
         </div>
     );
 }

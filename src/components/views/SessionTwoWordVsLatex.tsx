@@ -1,8 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { XCircle, CheckCircle, AlertTriangle, FileText, Zap, MousePointer2, ChevronRight, Target, Rocket, Trophy, Star, Check, X, ClipboardList } from "lucide-react";
+import { XCircle, CheckCircle, AlertTriangle, FileText, Zap, MousePointer2, ChevronRight, Target, Rocket, Trophy, Star, Check, X, ClipboardList, ArrowRight, CheckCircle2, Info, Layout, Palette, Shield } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SessionQuiz } from "@/components/SessionQuiz";
+import { SESSION_QUIZZES } from "@/lib/quiz-data";
 import Image from "next/image";
 
 export function SessionTwoWordVsLatex() {
@@ -258,6 +260,11 @@ export function SessionTwoWordVsLatex() {
                     ))}
                 </div>
             </section>
+
+            <SessionQuiz
+                title="Mastery Check: Engineering vs. Painting"
+                questions={SESSION_QUIZZES["session-2-word-vs-latex"]}
+            />
         </div>
     );
 }

@@ -3,8 +3,10 @@
 import { useState } from "react";
 import { LatexEditor } from "@/components/LatexEditor";
 import { motion, AnimatePresence } from "framer-motion";
-import { Table, Image as ImageIcon, Layout, Grid, Info, Sparkles, Plus, Trash2, HelpCircle, CheckCircle2, Target, Rocket, Trophy, Star, Check, X, ClipboardList } from "lucide-react";
+import { Table, Image as ImageIcon, Layout, Grid, Info, Sparkles, Plus, Trash2, HelpCircle, CheckCircle2, Target, Rocket, Trophy, Star, Check, X, ClipboardList, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SessionQuiz } from "@/components/SessionQuiz";
+import { SESSION_QUIZZES } from "@/lib/quiz-data";
 
 export function SessionTwoTablesFigures() {
     const [data, setData] = useState([
@@ -366,6 +368,11 @@ N2 & 100kg & 52cm \\\\ \\hline
                     ))}
                 </div>
             </section>
+
+            <SessionQuiz
+                title="Mastery Check: The Exhibition Hall"
+                questions={SESSION_QUIZZES["session-2-tables-figures"]}
+            />
         </div>
     );
 }

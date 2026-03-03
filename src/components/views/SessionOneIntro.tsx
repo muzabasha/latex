@@ -6,6 +6,8 @@ import { LatexPreview } from "@/components/LatexPreview";
 import { motion } from "framer-motion";
 import { Info, Lightbulb, ChefHat, ArrowRight, CheckCircle2, Target, Rocket, Trophy, Star, Check, X, ClipboardList } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SessionQuiz } from "@/components/SessionQuiz";
+import { SESSION_QUIZZES } from "@/lib/quiz-data";
 
 export function SessionOneIntro() {
     const [code, setCode] = useState("Hello Research World!\n\nThis is my first step into the world of LaTeX.");
@@ -228,6 +230,11 @@ export function SessionOneIntro() {
                     ))}
                 </div>
             </section>
+
+            <SessionQuiz
+                title="Mastery Check: The Seedling Phase"
+                questions={SESSION_QUIZZES["session-1-intro"]}
+            />
         </div>
     );
 }

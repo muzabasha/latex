@@ -5,6 +5,9 @@ import { LatexEditor } from "@/components/LatexEditor";
 import { LatexPreview } from "@/components/LatexPreview";
 import { motion } from "framer-motion";
 import { FileText, Type, Layers, Box, Info, HelpCircle, CheckCircle2, Rocket, Trophy, Target, Star, Check, X, ClipboardList } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { SessionQuiz } from "@/components/SessionQuiz";
+import { SESSION_QUIZZES } from "@/lib/quiz-data";
 
 export function SessionOneFirstDoc() {
     const [code, setCode] = useState(`\\documentclass{article}
@@ -287,8 +290,12 @@ This is my very first LaTeX document.
                     ))}
                 </div>
             </section>
+
+            <SessionQuiz
+                title="Mastery Check: The Research Journey"
+                questions={SESSION_QUIZZES["session-1-first-doc"]}
+            />
         </div>
     );
 }
 
-const cn = (...classes: string[]) => classes.filter(Boolean).join(" ");

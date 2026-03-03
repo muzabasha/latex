@@ -1,8 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FolderTree, FileCode, Layers, ShieldCheck, Download, ExternalLink, Target, Rocket, Trophy, Star, Check, X, ClipboardList } from "lucide-react";
+import { FolderTree, FileCode, Layers, ShieldCheck, Download, ExternalLink, Target, Rocket, Trophy, Star, Check, X, ClipboardList, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SessionQuiz } from "@/components/SessionQuiz";
+import { SESSION_QUIZZES } from "@/lib/quiz-data";
 
 export function SessionTwoThesis() {
     const structure = [
@@ -207,6 +209,11 @@ export function SessionTwoThesis() {
                     ))}
                 </div>
             </section>
+
+            <SessionQuiz
+                title="Mastery Check: The Thesis Architect"
+                questions={SESSION_QUIZZES["session-2-thesis"]}
+            />
         </div>
     );
 }

@@ -4,6 +4,8 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Download, Monitor, CheckCircle, Info, AlertTriangle, ExternalLink, Target, Rocket, Trophy, Star, Check, X, ClipboardList } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SessionQuiz } from "@/components/SessionQuiz";
+import { SESSION_QUIZZES } from "@/lib/quiz-data";
 
 interface InstallationStep {
     title: string;
@@ -280,6 +282,11 @@ export function SessionOneInstall() {
                     ))}
                 </div>
             </section>
+
+            <SessionQuiz
+                title="Mastery Check: The Workbench Setup"
+                questions={SESSION_QUIZZES["session-1-install"]}
+            />
         </div>
     );
 }

@@ -7,6 +7,8 @@ import { MathBuilder } from "@/components/MathBuilder";
 import { motion } from "framer-motion";
 import { Sigma, FunctionSquare, Binary, Calculator, HelpCircle, CheckCircle2, Target, Rocket, Trophy, Star, Check, X, ClipboardList } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SessionQuiz } from "@/components/SessionQuiz";
+import { SESSION_QUIZZES } from "@/lib/quiz-data";
 
 export function SessionOneMath() {
     const [code, setCode] = useState(`\\documentclass{article}
@@ -305,6 +307,11 @@ The formula for standard deviation is:
                     ))}
                 </div>
             </section>
+
+            <SessionQuiz
+                title="Mastery Check: The Formula Lab"
+                questions={SESSION_QUIZZES["session-1-math"]}
+            />
         </div>
     );
 }

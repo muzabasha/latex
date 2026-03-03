@@ -6,6 +6,8 @@ import { LatexPreview } from "@/components/LatexPreview";
 import { motion } from "framer-motion";
 import { CaseUpper, Bold, Italic, CheckCircle, LayoutGrid, HelpCircle, CheckCircle2, Target, Rocket, Trophy, Star, Check, X, ClipboardList } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SessionQuiz } from "@/components/SessionQuiz";
+import { SESSION_QUIZZES } from "@/lib/quiz-data";
 
 export function SessionOneFormatting() {
     const [code, setCode] = useState(`\\documentclass{article}
@@ -359,6 +361,11 @@ Understand the \\textit{impact of pH levels} on growth rates.
                     ))}
                 </div>
             </section>
+
+            <SessionQuiz
+                title="Mastery Check: The Formatting Garden"
+                questions={SESSION_QUIZZES["session-1-formatting"]}
+            />
         </div>
     );
 }
