@@ -33,17 +33,21 @@ export interface LabExperiment {
 }
 
 export const LAB_EXPERIMENTS: LabExperiment[] = [
-    // ─── SEEDLING: Foundation Skills ───
+    // ═══════════════════════════════════════════════
+    // SEEDLING: Foundation Skills (Beginner)
+    // ═══════════════════════════════════════════════
+
     {
         id: "seed-1",
         title: "Hello Agriculture World",
         difficulty: "seedling",
         category: "Document Structure",
         agriContext: "Every research journey starts with a single document — like planting your first seed.",
-        objective: "Create a minimal LaTeX document that compiles successfully.",
+        objective: "Create a minimal LaTeX document with \\documentclass, \\begin{document}, and \\end{document}.",
         instructions: [
             "Keep \\documentclass{article} as the first line.",
             "Write a greeting message between \\begin{document} and \\end{document}.",
+            "Add a % comment line to annotate your code.",
             "Click Compile and watch your first PDF appear on the right."
         ],
         starterCode: `\\documentclass{article}\n\\begin{document}\n\n% Replace this comment with your greeting!\n\n\\end{document}`,
@@ -51,18 +55,20 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
             { label: "Has \\documentclass", regex: /\\documentclass\{/, hint: "The very first line must declare the document type." },
             { label: "Has \\begin{document}", regex: /\\begin\{document\}/, hint: "This opens the content area of your paper." },
             { label: "Has visible text", regex: /\\begin\{document\}\s*\n[\s\S]*[A-Za-z]{3,}/, hint: "Write at least one sentence between \\begin and \\end." },
+            { label: "Has a % comment", regex: /%.*[A-Za-z]/, hint: "Add a comment line starting with % to annotate your code." },
             { label: "Has \\end{document}", regex: /\\end\{document\}/, hint: "Always close what you open — like closing the barn door." }
         ],
         successMessage: "Your first LaTeX document compiled! You've planted the seed. 🌱",
-        proTip: "LaTeX ignores extra spaces and blank lines between words. Use a blank line to start a new paragraph.",
+        proTip: "Lines starting with % are comments — LaTeX ignores them. Use them to leave notes for yourself.",
         snippets: [
             { label: "Document class", code: "\\documentclass{article}", description: "Declares document type" },
             { label: "Begin document", code: "\\begin{document}", description: "Opens content area" },
             { label: "End document", code: "\\end{document}", description: "Closes content area" },
+            { label: "Comment", code: "% This is a comment", description: "Ignored by compiler" },
         ],
         guidedSteps: [
-            { instruction: "The document class is already set. Now write a greeting like 'Hello, Agriculture World!' between \\begin{document} and \\end{document}.", codeToAdd: "Hello, Agriculture World!", checkRegex: /[A-Za-z]{3,}/ },
-            { instruction: "Click the Compile button to see your document rendered on the right panel.", codeToAdd: "", checkRegex: /\\end\{document\}/ },
+            { instruction: "The document class is already set. Write a greeting like 'Hello, Agriculture World!' between \\begin{document} and \\end{document}.", codeToAdd: "Hello, Agriculture World!", checkRegex: /[A-Za-z]{3,}/ },
+            { instruction: "Add a comment line starting with % to annotate your code, e.g., % My first LaTeX document", codeToAdd: "% My first LaTeX document", checkRegex: /%.*[A-Za-z]/ },
         ]
     },
     {
@@ -71,102 +77,130 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
         difficulty: "seedling",
         category: "Metadata",
         agriContext: "Every published paper needs a title page — it's the label on your seed packet.",
-        objective: "Add a title, author, and date to your document using LaTeX metadata commands.",
+        objective: "Add \\title, \\author, \\date, and \\maketitle to your document.",
         instructions: [
-            "Add \\title{...} in the preamble (before \\begin{document}) with a research topic.",
+            "Add \\title{...} in the preamble with a research topic.",
             "Add \\author{...} with your name.",
-            "Place \\maketitle right after \\begin{document} to render the title block."
+            "Add \\date{...} with a custom date, or use \\today for today's date.",
+            "Place \\maketitle right after \\begin{document}."
         ],
-        starterCode: `\\documentclass{article}\n\n% Add your title and author here (in the preamble)\n\n\\begin{document}\n\n% Render the title block here\n\nThis paper studies the effect of organic fertilizers on wheat yield.\n\n\\end{document}`,
+        starterCode: `\\documentclass{article}\n\n% Add title, author, and date here\n\n\\begin{document}\n\n% Render the title block here\n\nThis paper studies the effect of organic fertilizers on wheat yield.\n\n\\end{document}`,
         checks: [
             { label: "Has \\title{...}", regex: /\\title\{.+\}/, hint: "Use \\title{Your Research Title} before \\begin{document}." },
             { label: "Has \\author{...}", regex: /\\author\{.+\}/, hint: "Use \\author{Your Name} in the preamble." },
+            { label: "Has \\date{...} or \\today", regex: /\\date\{|\\today/, hint: "Use \\date{March 2026} or \\today for the current date." },
             { label: "Has \\maketitle", regex: /\\maketitle/, hint: "Place \\maketitle inside the document body to display the title." }
         ],
         successMessage: "Your paper now has a professional title page! 📄",
-        proTip: "Use \\date{} (empty braces) to hide the date, or \\date{March 2026} for a custom date.",
+        proTip: "Use \\date{} (empty braces) to hide the date entirely. Use \\today to auto-insert today's date.",
         snippets: [
             { label: "Title", code: "\\title{Your Research Title}", description: "Sets the document title" },
             { label: "Author", code: "\\author{Your Name}", description: "Sets the author name" },
+            { label: "Date", code: "\\date{March 2026}", description: "Sets a custom date" },
+            { label: "Today's date", code: "\\today", description: "Auto-inserts current date" },
             { label: "Make title", code: "\\maketitle", description: "Renders the title block" },
-            { label: "Custom date", code: "\\date{March 2026}", description: "Sets a custom date" },
         ],
         guidedSteps: [
-            { instruction: "Add \\title{Effect of Organic Fertilizers on Wheat Yield} in the preamble (between \\documentclass and \\begin{document}).", codeToAdd: "\\title{Effect of Organic Fertilizers on Wheat Yield}", checkRegex: /\\title\{.+\}/ },
-            { instruction: "Add \\author{Your Name} right after the \\title line.", codeToAdd: "\\author{Research Scholar}", checkRegex: /\\author\{.+\}/ },
-            { instruction: "Add \\maketitle right after \\begin{document} to render the title block.", codeToAdd: "\\maketitle", checkRegex: /\\maketitle/ },
+            { instruction: "Add \\title{Effect of Organic Fertilizers on Wheat Yield} in the preamble.", codeToAdd: "\\title{Effect of Organic Fertilizers on Wheat Yield}", checkRegex: /\\title\{.+\}/ },
+            { instruction: "Add \\author{Research Scholar} and \\date{\\today} after the title.", codeToAdd: "\\author{Research Scholar}\n\\date{\\today}", checkRegex: /\\author\{.+\}/ },
+            { instruction: "Add \\maketitle right after \\begin{document}.", codeToAdd: "\\maketitle", checkRegex: /\\maketitle/ },
         ]
     },
     {
         id: "seed-3",
-        title: "Bold & Italic Crops",
+        title: "Bold, Italic & Emphasis",
         difficulty: "seedling",
         category: "Text Formatting",
         agriContext: "Scientific names like Oryza sativa must be italicized. Key findings must be bold.",
-        objective: "Apply bold and italic formatting to text using LaTeX commands.",
+        objective: "Use \\textbf, \\textit, \\emph, and \\underline for text formatting.",
         instructions: [
             "Make at least one word bold using \\textbf{...}.",
             "Make at least one word italic using \\textit{...}.",
-            "Write a sentence about a crop using both styles."
+            "Use \\emph{...} for semantic emphasis.",
+            "Use \\underline{...} to underline a word."
         ],
-        starterCode: `\\documentclass{article}\n\\begin{document}\n\n\\section{Crop Analysis}\n\nThe rice variety known as Oryza sativa showed significant yield improvement.\nThe nitrogen content was the primary factor.\n\n% Make the scientific name italic and \"significant\" bold!\n\n\\end{document}`,
+        starterCode: `\\documentclass{article}\n\\begin{document}\n\n\\section{Crop Analysis}\n\nThe rice variety known as Oryza sativa showed significant yield improvement.\nThe nitrogen content was the primary factor.\nThis finding is important for future research.\n\n% Apply formatting: italic for scientific name, bold for key word,\n% emph for emphasis, underline for important term\n\n\\end{document}`,
         checks: [
             { label: "Uses \\textbf{...}", regex: /\\textbf\{.+\}/, hint: "Wrap important words in \\textbf{bold text}." },
             { label: "Uses \\textit{...}", regex: /\\textit\{.+\}/, hint: "Wrap scientific names in \\textit{italic text}." },
-            { label: "Has a \\section", regex: /\\section\{.+\}/, hint: "Keep the section heading to organize your content." }
+            { label: "Uses \\emph{...}", regex: /\\emph\{.+\}/, hint: "Use \\emph{text} for context-aware emphasis." },
+            { label: "Uses \\underline{...}", regex: /\\underline\{.+\}/, hint: "Use \\underline{text} to underline." }
         ],
         successMessage: "You can now emphasize key findings like a pro researcher! ✨",
-        proTip: "Use \\emph{} instead of \\textit{} — it's smarter and toggles italic based on context.",
+        proTip: "\\emph{} is smarter than \\textit{} — inside italic text, \\emph toggles back to upright.",
         snippets: [
             { label: "Bold", code: "\\textbf{bold text}", description: "Makes text bold" },
             { label: "Italic", code: "\\textit{italic text}", description: "Makes text italic" },
             { label: "Emphasis", code: "\\emph{emphasized}", description: "Context-aware emphasis" },
             { label: "Underline", code: "\\underline{text}", description: "Underlines text" },
         ],
-        guidedSteps: [
-            { instruction: "Replace 'Oryza sativa' with \\textit{Oryza sativa} to italicize the scientific name.", codeToAdd: "\\textit{Oryza sativa}", checkRegex: /\\textit\{.+\}/ },
-            { instruction: "Replace 'significant' with \\textbf{significant} to bold the key finding.", codeToAdd: "\\textbf{significant}", checkRegex: /\\textbf\{.+\}/ },
-        ]
     },
     {
         id: "seed-4",
-        title: "List Your Soil Types",
+        title: "Monospace & Font Sizes",
         difficulty: "seedling",
-        category: "Lists",
-        agriContext: "Research papers list materials, methods, and findings. Lists keep data organized.",
-        objective: "Create both a bulleted list and a numbered list.",
+        category: "Text Formatting",
+        agriContext: "Code snippets and variable names in research papers use monospace. Font sizes help create visual hierarchy.",
+        objective: "Use \\texttt for monospace and font size commands like \\large, \\Large, \\huge.",
         instructions: [
-            "Create a bulleted list using \\begin{itemize} with at least 3 soil types.",
-            "Create a numbered list using \\begin{enumerate} with at least 3 steps.",
-            "Each item starts with \\item."
+            "Use \\texttt{...} to display a code-like term.",
+            "Use {\\large ...} to make a paragraph larger.",
+            "Use {\\Large ...} for even larger text.",
+            "Use {\\footnotesize ...} for small text."
         ],
-        starterCode: `\\documentclass{article}\n\\begin{document}\n\n\\section{Materials}\nThe following soil types were collected:\n\n% Create a bulleted list of soil types here\n\n\\section{Methodology}\nThe experiment followed these steps:\n\n% Create a numbered list of steps here\n\n\\end{document}`,
+        starterCode: `\\documentclass{article}\n\\begin{document}\n\n\\section{Software Tools}\n\nThe data was processed using the R function lm() for linear regression.\n\nImportant Notice: Always calibrate instruments before field work.\n\nDetailed methodology is available in the supplementary materials.\n\nNote: Sample size was n=30.\n\n% Make 'lm()' monospace with \\texttt\n% Make 'Important Notice' large\n% Make 'Detailed methodology' Large\n% Make 'Note' footnotesize\n\n\\end{document}`,
         checks: [
-            { label: "Has \\begin{itemize}", regex: /\\begin\{itemize\}/, hint: "Start a bulleted list with \\begin{itemize}." },
-            { label: "Has \\begin{enumerate}", regex: /\\begin\{enumerate\}/, hint: "Start a numbered list with \\begin{enumerate}." },
-            { label: "Has 3+ \\item entries", regex: /(\\item[\s\S]*?){3,}/, hint: "Add at least 3 \\item entries across your lists." },
-            { label: "Lists are closed", regex: /\\end\{itemize\}[\s\S]*\\end\{enumerate\}|\\end\{enumerate\}[\s\S]*\\end\{itemize\}/, hint: "Close each list with \\end{itemize} or \\end{enumerate}." }
+            { label: "Uses \\texttt{...}", regex: /\\texttt\{.+\}/, hint: "Use \\texttt{lm()} for code-like text." },
+            { label: "Uses {\\large ...}", regex: /\{\\large\s/, hint: "Wrap text in {\\large your text} for larger font." },
+            { label: "Uses {\\Large ...}", regex: /\{\\Large\s/, hint: "Use {\\Large text} for even bigger text." },
+            { label: "Uses {\\footnotesize ...}", regex: /\{\\footnotesize\s/, hint: "Use {\\footnotesize text} for smaller text." }
         ],
-        successMessage: "Your materials and methods are neatly organized! 📋",
-        proTip: "You can nest lists inside each other up to 4 levels deep. LaTeX auto-changes the bullet style.",
+        successMessage: "You now control font styles and sizes like a typographer! 🔤",
+        proTip: "Always scope font size changes with braces: {\\large text}. Without braces, everything after becomes large.",
         snippets: [
-            { label: "Bullet list", code: "\\begin{itemize}\n  \\item First item\n  \\item Second item\n\\end{itemize}", description: "Unordered list" },
-            { label: "Numbered list", code: "\\begin{enumerate}\n  \\item Step one\n  \\item Step two\n\\end{enumerate}", description: "Ordered list" },
-            { label: "List item", code: "\\item ", description: "Single list entry" },
+            { label: "Monospace", code: "\\texttt{code text}", description: "Typewriter/code font" },
+            { label: "Large", code: "{\\large larger text}", description: "Slightly larger font" },
+            { label: "LARGE", code: "{\\Large even larger}", description: "Bigger font" },
+            { label: "Huge", code: "{\\huge huge text}", description: "Very large font" },
+            { label: "Footnote size", code: "{\\footnotesize small text}", description: "Smaller font" },
+            { label: "Tiny", code: "{\\tiny tiny text}", description: "Smallest font" },
         ],
-        guidedSteps: [
-            { instruction: "Under the Materials section, add \\begin{itemize} to start a bulleted list.", codeToAdd: "\\begin{itemize}", checkRegex: /\\begin\{itemize\}/ },
-            { instruction: "Add 3 soil types using \\item, e.g., \\item Alluvial Soil, \\item Black Soil, \\item Red Soil.", codeToAdd: "\\item Alluvial Soil\n  \\item Black Soil\n  \\item Red Soil", checkRegex: /(\\item[\s\S]*?){3,}/ },
-            { instruction: "Close the list with \\end{itemize}, then under Methodology add a numbered list with \\begin{enumerate}...\\end{enumerate}.", codeToAdd: "\\end{itemize}", checkRegex: /\\end\{itemize\}/ },
-        ]
     },
     {
         id: "seed-5",
+        title: "Lists: Bullets, Numbers & Descriptions",
+        difficulty: "seedling",
+        category: "Lists",
+        agriContext: "Research papers list materials, methods, and findings. Lists keep data organized.",
+        objective: "Create itemize, enumerate, and description lists.",
+        instructions: [
+            "Create a bulleted list using \\begin{itemize} with 3+ items.",
+            "Create a numbered list using \\begin{enumerate} with 3+ steps.",
+            "Create a description list using \\begin{description} with labeled items."
+        ],
+        starterCode: `\\documentclass{article}\n\\begin{document}\n\n\\section{Materials}\nThe following soil types were collected:\n\n% Create a bulleted list of soil types\n\n\\section{Methodology}\nThe experiment followed these steps:\n\n% Create a numbered list of steps\n\n\\section{Key Terms}\n\n% Create a description list with definitions\n\n\\end{document}`,
+        checks: [
+            { label: "Has \\begin{itemize}", regex: /\\begin\{itemize\}/, hint: "Start a bulleted list with \\begin{itemize}." },
+            { label: "Has \\begin{enumerate}", regex: /\\begin\{enumerate\}/, hint: "Start a numbered list with \\begin{enumerate}." },
+            { label: "Has \\begin{description}", regex: /\\begin\{description\}/, hint: "Start a description list with \\begin{description}." },
+            { label: "Has 5+ \\item entries", regex: /(\\item[\s\S]*?){5,}/, hint: "Add at least 5 \\item entries across all lists." },
+            { label: "All lists closed", regex: /\\end\{itemize\}[\s\S]*\\end\{enumerate\}|\\end\{enumerate\}[\s\S]*\\end\{itemize\}/, hint: "Close each list with the matching \\end{...}." }
+        ],
+        successMessage: "Your materials and methods are neatly organized! 📋",
+        proTip: "In description lists, use \\item[Term] to define the label. Nest lists up to 4 levels deep.",
+        snippets: [
+            { label: "Bullet list", code: "\\begin{itemize}\n  \\item First\n  \\item Second\n\\end{itemize}", description: "Unordered list" },
+            { label: "Numbered list", code: "\\begin{enumerate}\n  \\item Step one\n  \\item Step two\n\\end{enumerate}", description: "Ordered list" },
+            { label: "Description list", code: "\\begin{description}\n  \\item[Term] Definition here\n\\end{description}", description: "Labeled definitions" },
+        ],
+    },
+    {
+        id: "seed-6",
         title: "Packages & Colors",
         difficulty: "seedling",
         category: "Packages",
         agriContext: "Just like adding fertilizer to soil, packages add capabilities to your LaTeX document.",
-        objective: "Learn to import packages and use colored text.",
+        objective: "Import packages with \\usepackage and use colored text with xcolor.",
         instructions: [
             "Add \\usepackage{xcolor} in the preamble.",
             "Use \\textcolor{red}{...} to color a warning text.",
@@ -176,7 +210,7 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
         checks: [
             { label: "Has \\usepackage{xcolor}", regex: /\\usepackage\{xcolor\}/, hint: "Add \\usepackage{xcolor} before \\begin{document}." },
             { label: "Uses \\textcolor", regex: /\\textcolor\{.+\}\{.+\}/, hint: "Use \\textcolor{red}{warning text} to color text." },
-            { label: "Uses \\colorbox", regex: /\\colorbox\{.+\}\{.+\}/, hint: "Use \\colorbox{yellow}{highlighted text} for background color." }
+            { label: "Uses \\colorbox", regex: /\\colorbox\{.+\}\{.+\}/, hint: "Use \\colorbox{yellow}{text} for background color." }
         ],
         successMessage: "You've learned to enhance documents with color! 🎨",
         proTip: "Use colors sparingly in academic papers. Most journals prefer black text with minimal color.",
@@ -185,257 +219,461 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
             { label: "Text color", code: "\\textcolor{red}{text}", description: "Colors the text" },
             { label: "Color box", code: "\\colorbox{yellow}{text}", description: "Highlights with background" },
         ],
-        guidedSteps: [
-            { instruction: "Add \\usepackage{xcolor} in the preamble (after \\documentclass).", codeToAdd: "\\usepackage{xcolor}", checkRegex: /\\usepackage\{xcolor\}/ },
-            { instruction: "Wrap 'critically acidic' with \\textcolor{red}{critically acidic}.", codeToAdd: "\\textcolor{red}{critically acidic}", checkRegex: /\\textcolor\{.+\}\{.+\}/ },
-            { instruction: "Wrap the key finding with \\colorbox{yellow}{...}.", codeToAdd: "\\colorbox{yellow}{Lime application restored pH to 6.8}", checkRegex: /\\colorbox\{.+\}\{.+\}/ },
-        ]
     },
-    // ─── SPROUT: Intermediate Skills ───
+    {
+        id: "seed-7",
+        title: "Page Layout & Geometry",
+        difficulty: "seedling",
+        category: "Page Setup",
+        agriContext: "Journals have strict margin requirements. The geometry package gives you precise control.",
+        objective: "Use the geometry package to set margins and the \\newpage command.",
+        instructions: [
+            "Add \\usepackage{geometry} in the preamble.",
+            "Set margins using \\geometry{margin=1in} or individual margins.",
+            "Use \\newpage to force a page break.",
+            "Add a \\footnote{...} to a sentence."
+        ],
+        starterCode: `\\documentclass[12pt, a4paper]{article}\n\n% Add geometry package and set margins\n\n\\begin{document}\n\n\\section{Introduction}\nThis study examines soil moisture retention in semi-arid regions.\nThe research was conducted at the university farm.\n\n% Add a footnote to 'university farm'\n% Add a \\newpage here\n\n\\section{Results}\nThe results show significant improvement.\n\n\\end{document}`,
+        checks: [
+            { label: "Has \\usepackage{geometry}", regex: /\\usepackage\{geometry\}|\\usepackage\[.*\]\{geometry\}/, hint: "Add \\usepackage{geometry} in the preamble." },
+            { label: "Has margin setting", regex: /\\geometry\{|margin=|top=|bottom=|left=|right=/, hint: "Set margins with \\geometry{margin=1in} or individual values." },
+            { label: "Has \\newpage", regex: /\\newpage|\\clearpage/, hint: "Use \\newpage to start a new page." },
+            { label: "Has \\footnote{...}", regex: /\\footnote\{.+\}/, hint: "Add \\footnote{explanation} after a word." }
+        ],
+        successMessage: "You now control page layout like a journal editor! 📐",
+        proTip: "Use \\clearpage instead of \\newpage when you want all pending floats (tables/figures) to be placed first.",
+        snippets: [
+            { label: "Geometry package", code: "\\usepackage[margin=1in]{geometry}", description: "Sets all margins to 1 inch" },
+            { label: "Custom margins", code: "\\geometry{top=2cm, bottom=2cm, left=2.5cm, right=2.5cm}", description: "Individual margins" },
+            { label: "New page", code: "\\newpage", description: "Forces a page break" },
+            { label: "Clear page", code: "\\clearpage", description: "Page break + flush floats" },
+            { label: "Footnote", code: "\\footnote{Explanation text}", description: "Adds a footnote" },
+        ],
+    },
+    {
+        id: "seed-8",
+        title: "Verbatim & Special Characters",
+        difficulty: "seedling",
+        category: "Special Text",
+        agriContext: "When documenting code or commands in your paper, you need verbatim mode to prevent LaTeX from interpreting them.",
+        objective: "Use \\verb, \\begin{verbatim}, and escape special characters like %, $, &, #, _.",
+        instructions: [
+            "Use \\verb|...| to display inline code.",
+            "Use \\begin{verbatim} for a block of code.",
+            "Escape special characters: \\%, \\$, \\&, \\#, \\_."
+        ],
+        starterCode: `\\documentclass{article}\n\\begin{document}\n\n\\section{Data Processing}\n\nThe R command used was: % add inline verbatim here\n\nThe full script:\n% Add a verbatim block here\n\nThe yield increased by 40% and the cost was $500 per hectare.\nThe soil samples were labeled A&B with code #12.\n\n% Fix the special characters above!\n\n\\end{document}`,
+        checks: [
+            { label: "Has \\verb|...|", regex: /\\verb[|!+]/, hint: "Use \\verb|your code| for inline code display." },
+            { label: "Has \\begin{verbatim}", regex: /\\begin\{verbatim\}/, hint: "Use \\begin{verbatim}...\\end{verbatim} for code blocks." },
+            { label: "Escapes % correctly", regex: /\\%/, hint: "Use \\% to display a literal percent sign." },
+            { label: "Escapes $ correctly", regex: /\\\$/, hint: "Use \\$ to display a literal dollar sign." },
+            { label: "Escapes & correctly", regex: /\\&/, hint: "Use \\& to display a literal ampersand." }
+        ],
+        successMessage: "You can now safely display code and special characters! 💻",
+        proTip: "The 10 special characters in LaTeX are: # $ % & _ { } ~ ^ \\. Escape them with a backslash.",
+        snippets: [
+            { label: "Inline verb", code: "\\verb|code here|", description: "Inline code display" },
+            { label: "Verbatim block", code: "\\begin{verbatim}\nyour code here\n\\end{verbatim}", description: "Code block" },
+            { label: "Escape %", code: "\\%", description: "Literal percent" },
+            { label: "Escape $", code: "\\$", description: "Literal dollar" },
+            { label: "Escape &", code: "\\&", description: "Literal ampersand" },
+            { label: "Escape #", code: "\\#", description: "Literal hash" },
+            { label: "Escape _", code: "\\_", description: "Literal underscore" },
+        ],
+    },
+    // ═══════════════════════════════════════════════
+    // SPROUT: Intermediate Skills
+    // ═══════════════════════════════════════════════
+
     {
         id: "sprout-1",
-        title: "Crop Yield Equation",
+        title: "Sections & Document Hierarchy",
         difficulty: "sprout",
-        category: "Mathematics",
-        agriContext: "Agriculture statistics rely on precise equations — yield models, regression, ANOVA.",
-        objective: "Write both an inline equation and a display equation about crop yield.",
+        category: "Document Structure",
+        agriContext: "A well-structured paper has clear sections: Introduction, Methods, Results, Discussion.",
+        objective: "Use \\section, \\subsection, \\subsubsection, \\paragraph, and starred variants.",
         instructions: [
-            "Write an inline equation using $...$ within a sentence (e.g., $Y = aR + b$).",
-            "Write a display equation using \\[ ... \\] for the standard deviation formula.",
-            "Use \\frac{}{} for at least one fraction."
+            "Create 3+ sections using \\section{...}.",
+            "Add a \\subsection{...} and a \\subsubsection{...}.",
+            "Use \\section*{...} for an unnumbered Abstract.",
+            "Use \\paragraph{...} for a named paragraph."
         ],
-        starterCode: `\\documentclass{article}\n\\begin{document}\n\n\\section{Statistical Model}\n\nThe crop yield model is expressed as: % add inline equation here\n\nThe standard deviation of soil pH measurements is:\n% Add a display equation here using \\[ ... \\]\n\n\\end{document}`,
+        starterCode: `\\documentclass{article}\n\\title{Effect of Mulching on Soil Moisture}\n\\author{Agriculture Scholar}\n\\begin{document}\n\\maketitle\n\n% Add unnumbered Abstract, then numbered sections with subsections\n\n\\end{document}`,
         checks: [
-            { label: "Has inline math $...$", regex: /\$[^$]+\$/, hint: "Wrap math in single dollar signs for inline: $Y = aR + b$." },
-            { label: "Has display math \\[...\\]", regex: /\\\[[\s\S]+?\\\]/, hint: "Use \\[ and \\] for centered display equations." },
-            { label: "Uses \\frac{}{}", regex: /\\frac\{/, hint: "Create a fraction with \\frac{numerator}{denominator}." }
+            { label: "Has 3+ \\section{}", regex: /(\\section\*?\{[^}]+\}[\s\S]*?){3,}/, hint: "Create at least 3 sections." },
+            { label: "Has \\subsection{}", regex: /\\subsection\{.+\}/, hint: "Add a subsection inside a section." },
+            { label: "Has \\subsubsection{}", regex: /\\subsubsection\{.+\}/, hint: "Add a subsubsection for deeper nesting." },
+            { label: "Has \\section*{} (unnumbered)", regex: /\\section\*\{/, hint: "Use \\section*{Abstract} for no number." },
+            { label: "Has \\paragraph{}", regex: /\\paragraph\{.+\}/, hint: "Use \\paragraph{Title} for a named paragraph." }
         ],
-        successMessage: "Your equations are publication-ready! No more blurry Word equation images. 📐",
-        proTip: "Use \\begin{equation} instead of \\[...\\] when you need auto-numbered equations for cross-referencing.",
+        successMessage: "Your paper has professional structure with full hierarchy! 🏗️",
+        proTip: "The hierarchy is: \\part > \\chapter > \\section > \\subsection > \\subsubsection > \\paragraph > \\subparagraph.",
         snippets: [
-            { label: "Inline math", code: "$Y = aR + b$", description: "Math within text" },
-            { label: "Display math", code: "\\[\n  \\sigma = \\sqrt{\\frac{1}{N}\\sum_{i=1}^{N}(x_i - \\mu)^2}\n\\]", description: "Centered equation" },
-            { label: "Fraction", code: "\\frac{numerator}{denominator}", description: "Creates a fraction" },
-            { label: "Square root", code: "\\sqrt{expression}", description: "Square root" },
-            { label: "Summation", code: "\\sum_{i=1}^{N}", description: "Summation symbol" },
+            { label: "Section", code: "\\section{Title}", description: "Numbered heading" },
+            { label: "Subsection", code: "\\subsection{Title}", description: "Sub-heading" },
+            { label: "Subsubsection", code: "\\subsubsection{Title}", description: "Sub-sub-heading" },
+            { label: "Paragraph", code: "\\paragraph{Title}", description: "Named paragraph" },
+            { label: "Unnumbered", code: "\\section*{Abstract}", description: "No number prefix" },
         ],
-        guidedSteps: [
-            { instruction: "After 'expressed as:', add the inline equation $Y = aR + b$ where Y is yield, R is rainfall, a and b are constants.", codeToAdd: "$Y = aR + b$", checkRegex: /\$[^$]+\$/ },
-            { instruction: "Below the standard deviation line, add a display equation: \\[ \\sigma = \\sqrt{\\frac{1}{N}\\sum_{i=1}^{N}(x_i - \\mu)^2} \\]", codeToAdd: "\\[\n  \\sigma = \\sqrt{\\frac{1}{N}\\sum_{i=1}^{N}(x_i - \\mu)^2}\n\\]", checkRegex: /\\\[[\s\S]+?\\\]/ },
-        ]
     },
     {
         id: "sprout-2",
+        title: "Inline & Display Math",
+        difficulty: "sprout",
+        category: "Mathematics",
+        agriContext: "Agriculture statistics rely on precise equations — yield models, regression, ANOVA.",
+        objective: "Write inline math with $...$ and \\(...\\), display math with \\[...\\], and use superscripts/subscripts.",
+        instructions: [
+            "Write an inline equation using $...$ (e.g., $Y = aR + b$).",
+            "Write another inline equation using \\(...\\).",
+            "Write a display equation using \\[...\\] with \\frac.",
+            "Use ^ for superscript and _ for subscript."
+        ],
+        starterCode: `\\documentclass{article}\n\\begin{document}\n\n\\section{Statistical Model}\n\nThe crop yield model is expressed as: % add inline $...$ equation\n\nAlternatively written as: % add inline \\(...\\) equation\n\nThe standard deviation formula:\n% Add display equation with \\frac, ^, and _\n\n\\end{document}`,
+        checks: [
+            { label: "Has $...$ inline math", regex: /\$[^$]+\$/, hint: "Wrap math in $Y = aR + b$." },
+            { label: "Has \\(...\\) inline math", regex: /\\\([^)]+\\\)/, hint: "Use \\(Y = aR + b\\) as alternative inline math." },
+            { label: "Has \\[...\\] display math", regex: /\\\[[\s\S]+?\\\]/, hint: "Use \\[ and \\] for centered display equations." },
+            { label: "Uses \\frac{}{}", regex: /\\frac\{/, hint: "Create a fraction with \\frac{num}{den}." },
+            { label: "Uses ^ (superscript)", regex: /\^/, hint: "Use x^2 for superscript." },
+            { label: "Uses _ (subscript)", regex: /_/, hint: "Use x_i for subscript." }
+        ],
+        successMessage: "Your equations are publication-ready! 📐",
+        proTip: "Use \\(...\\) instead of $...$ in modern LaTeX — it's the official recommended syntax.",
+        snippets: [
+            { label: "Inline $", code: "$Y = aR + b$", description: "Dollar-sign inline math" },
+            { label: "Inline \\(\\)", code: "\\(Y = aR + b\\)", description: "Paren inline math" },
+            { label: "Display \\[\\]", code: "\\[\n  \\sigma = \\sqrt{\\frac{1}{N}\\sum_{i=1}^{N}(x_i - \\mu)^2}\n\\]", description: "Centered equation" },
+            { label: "Fraction", code: "\\frac{a}{b}", description: "a over b" },
+            { label: "Superscript", code: "x^{2}", description: "x squared" },
+            { label: "Subscript", code: "x_{i}", description: "x sub i" },
+        ],
+    },
+    {
+        id: "sprout-3",
+        title: "Greek Letters & Math Operators",
+        difficulty: "sprout",
+        category: "Mathematics",
+        agriContext: "Statistical formulas use Greek letters (α, β, σ, μ) and operators (sin, log, lim).",
+        objective: "Use Greek letters, math operators, and the \\sqrt command.",
+        instructions: [
+            "Use at least 3 Greek letters: \\alpha, \\beta, \\sigma, \\mu, \\epsilon, etc.",
+            "Use a math operator: \\sin, \\cos, \\log, or \\lim.",
+            "Use \\sqrt{...} for a square root.",
+            "Use \\sum_{i=1}^{n} for summation notation."
+        ],
+        starterCode: `\\documentclass{article}\n\\usepackage{amsmath}\n\\begin{document}\n\n\\section{Growth Model Parameters}\n\nThe regression coefficients are $\\alpha$ and $\\beta$.\n\nThe error term follows a normal distribution with mean and standard deviation.\n\nThe growth rate is modeled as:\n% Add a display equation using Greek letters, \\sqrt, \\sum, and an operator\n\n\\end{document}`,
+        checks: [
+            { label: "Has 3+ Greek letters", regex: /(\\alpha|\\beta|\\gamma|\\delta|\\epsilon|\\sigma|\\mu|\\lambda|\\theta|\\pi|\\omega|\\phi|\\rho|\\tau|\\eta|\\nu|\\xi|\\zeta)[\s\S]*(\\alpha|\\beta|\\gamma|\\delta|\\epsilon|\\sigma|\\mu|\\lambda|\\theta|\\pi|\\omega|\\phi|\\rho|\\tau|\\eta|\\nu|\\xi|\\zeta)[\s\S]*(\\alpha|\\beta|\\gamma|\\delta|\\epsilon|\\sigma|\\mu|\\lambda|\\theta|\\pi|\\omega|\\phi|\\rho|\\tau|\\eta|\\nu|\\xi|\\zeta)/, hint: "Use \\alpha, \\beta, \\sigma, \\mu, etc." },
+            { label: "Has math operator", regex: /\\sin|\\cos|\\tan|\\log|\\ln|\\lim|\\max|\\min|\\exp/, hint: "Use \\sin, \\cos, \\log, or \\lim." },
+            { label: "Has \\sqrt{}", regex: /\\sqrt\{/, hint: "Use \\sqrt{expression} for square root." },
+            { label: "Has \\sum", regex: /\\sum/, hint: "Use \\sum_{i=1}^{n} for summation." }
+        ],
+        successMessage: "You speak the mathematical language of research! 🧮",
+        proTip: "Capital Greek letters use uppercase: \\Sigma (Σ), \\Delta (Δ), \\Omega (Ω). Lowercase: \\sigma (σ).",
+        snippets: [
+            { label: "Alpha/Beta", code: "\\alpha, \\beta", description: "α, β" },
+            { label: "Sigma/Mu", code: "\\sigma, \\mu", description: "σ, μ" },
+            { label: "Pi/Theta", code: "\\pi, \\theta", description: "π, θ" },
+            { label: "Square root", code: "\\sqrt{x^2 + y^2}", description: "√(x²+y²)" },
+            { label: "Summation", code: "\\sum_{i=1}^{n} x_i", description: "Σ from 1 to n" },
+            { label: "Log", code: "\\log(x)", description: "Logarithm" },
+            { label: "Sin", code: "\\sin(\\theta)", description: "Sine function" },
+        ],
+    },
+    {
+        id: "sprout-4",
+        title: "Numbered Equations & Align",
+        difficulty: "sprout",
+        category: "Mathematics",
+        agriContext: "Multi-step derivations for regression models need aligned, numbered equations.",
+        objective: "Use equation, equation*, align, and align* environments with \\label and \\eqref.",
+        instructions: [
+            "Load \\usepackage{amsmath}.",
+            "Create a numbered equation with \\begin{equation} and \\label{eq:...}.",
+            "Reference it with \\eqref{eq:...}.",
+            "Create a multi-line aligned equation with \\begin{align*}."
+        ],
+        starterCode: `\\documentclass{article}\n\\usepackage{amsmath}\n\\begin{document}\n\n\\section{Yield Model}\n\nThe primary yield equation is shown in Equation ???.\n\n% Add a numbered equation with \\begin{equation} and \\label{eq:yield}\n\n% Reference it with \\eqref{eq:yield}\n\nThe derivation steps:\n% Add multi-line aligned equation with \\begin{align*}\n\n\\end{document}`,
+        checks: [
+            { label: "Has \\begin{equation}", regex: /\\begin\{equation\}/, hint: "Use \\begin{equation} for a numbered equation." },
+            { label: "Has \\label{eq:...}", regex: /\\label\{eq:.+\}/, hint: "Add \\label{eq:yield} inside the equation." },
+            { label: "Has \\eqref{eq:...}", regex: /\\eqref\{eq:.+\}/, hint: "Reference with \\eqref{eq:yield} in text." },
+            { label: "Has \\begin{align*}", regex: /\\begin\{align\*?\}/, hint: "Use \\begin{align*} for multi-line equations." },
+            { label: "Has & alignment", regex: /&\s*=/, hint: "Place & before = to align." },
+            { label: "Has line breaks \\\\", regex: /\\\\/, hint: "End each line with \\\\ to break." }
+        ],
+        successMessage: "Your equations are numbered, referenced, and aligned! 📊",
+        proTip: "Use align (without *) for numbered lines. Use \\nonumber on specific lines to skip numbering.",
+        snippets: [
+            { label: "Numbered equation", code: "\\begin{equation}\n  Y = \\beta_0 + \\beta_1 X\n  \\label{eq:yield}\n\\end{equation}", description: "Auto-numbered" },
+            { label: "Equation reference", code: "\\eqref{eq:yield}", description: "References (1)" },
+            { label: "Align block", code: "\\begin{align*}\n  Y &= a + bX \\\\\n    &= 2.5 + 0.8X\n\\end{align*}", description: "Multi-line aligned" },
+        ],
+    },
+    {
+        id: "sprout-5",
         title: "Fertilizer Data Table",
         difficulty: "sprout",
         category: "Tables",
         agriContext: "Every field trial needs a results table — treatment, dose, yield, significance.",
-        objective: "Build a complete table with headers, data rows, caption, and label.",
+        objective: "Build a table with tabular, table float, caption, label, hline, and column alignment (l, c, r).",
         instructions: [
             "Create a table environment with \\begin{table}[h] and \\centering.",
-            "Use \\begin{tabular}{|l|c|r|} for a 3-column grid.",
-            "Add at least 2 data rows with & separators and \\\\ line endings.",
-            "Add \\caption{...} and \\label{...} after the tabular."
+            "Use \\begin{tabular}{|l|c|r|} for left, center, right columns.",
+            "Add \\hline for horizontal lines and & for column separators.",
+            "Add \\caption{...} and \\label{tab:...}.",
+            "Reference with \\ref{tab:...} in text."
         ],
-        starterCode: `\\documentclass{article}\n\\begin{document}\n\n\\section{Results}\nTable \\ref{tab:fert} shows the fertilizer trial results.\n\n% Build your table here\n% Remember: \\begin{table}[h] → \\centering → \\begin{tabular} → data → \\end{tabular} → \\caption → \\label → \\end{table}\n\n\\end{document}`,
+        starterCode: `\\documentclass{article}\n\\begin{document}\n\n\\section{Results}\nTable \\ref{tab:fert} shows the fertilizer trial results.\n\n% Build your table here\n\n\\end{document}`,
         checks: [
-            { label: "Has \\begin{table}", regex: /\\begin\{table\}/, hint: "Wrap everything in \\begin{table}[h] ... \\end{table}." },
-            { label: "Has \\begin{tabular}", regex: /\\begin\{tabular\}/, hint: "The actual grid is \\begin{tabular}{|l|c|r|}." },
-            { label: "Has column separator &", regex: /&/, hint: "Separate columns with the & character." },
-            { label: "Has \\caption{...}", regex: /\\caption\{.+\}/, hint: "Add a descriptive caption below the tabular." },
-            { label: "Has \\label{...}", regex: /\\label\{.+\}/, hint: "Add \\label{tab:fert} AFTER \\caption for cross-referencing." },
-            { label: "Has \\hline", regex: /\\hline/, hint: "Use \\hline to draw horizontal lines in your table." }
+            { label: "Has \\begin{table}", regex: /\\begin\{table\}/, hint: "Wrap in \\begin{table}[h]...\\end{table}." },
+            { label: "Has \\centering", regex: /\\centering/, hint: "Add \\centering to center the table." },
+            { label: "Has \\begin{tabular}", regex: /\\begin\{tabular\}/, hint: "The grid is \\begin{tabular}{|l|c|r|}." },
+            { label: "Has & separator", regex: /&/, hint: "Separate columns with &." },
+            { label: "Has \\hline", regex: /\\hline/, hint: "Use \\hline for horizontal lines." },
+            { label: "Has \\caption{...}", regex: /\\caption\{.+\}/, hint: "Add a caption below the tabular." },
+            { label: "Has \\label{tab:...}", regex: /\\label\{tab:.+\}/, hint: "Add \\label{tab:fert} AFTER \\caption." },
+            { label: "Has \\ref{tab:...}", regex: /\\ref\{tab:.+\}/, hint: "Reference with \\ref{tab:fert} in text." }
         ],
-        successMessage: "Your data table is structured and referenceable! Journals will love this. 📊",
-        proTip: "Professional journals prefer minimal vertical lines. Use \\hline only at top, bottom, and below headers.",
+        successMessage: "Your data table is structured and referenceable! 📊",
+        proTip: "Professional journals prefer minimal vertical lines. Use booktabs package with \\toprule, \\midrule, \\bottomrule.",
         snippets: [
-            { label: "Table skeleton", code: "\\begin{table}[h]\n  \\centering\n  \\begin{tabular}{|l|c|r|}\n    \\hline\n    Header 1 & Header 2 & Header 3 \\\\\n    \\hline\n    Data & Data & Data \\\\\n    \\hline\n  \\end{tabular}\n  \\caption{Your caption}\n  \\label{tab:label}\n\\end{table}", description: "Complete table template" },
-            { label: "Horizontal line", code: "\\hline", description: "Table row separator" },
-            { label: "Centering", code: "\\centering", description: "Centers the table" },
+            { label: "Full table", code: "\\begin{table}[h]\n  \\centering\n  \\begin{tabular}{|l|c|r|}\n    \\hline\n    Treatment & Dose & Yield \\\\\n    \\hline\n    Urea & 120 & 4.5 \\\\\n    DAP & 80 & 5.2 \\\\\n    \\hline\n  \\end{tabular}\n  \\caption{Fertilizer results}\n  \\label{tab:fert}\n\\end{table}", description: "Complete table" },
         ],
-        guidedSteps: [
-            { instruction: "Start with \\begin{table}[h] and add \\centering on the next line.", codeToAdd: "\\begin{table}[h]\n  \\centering", checkRegex: /\\begin\{table\}/ },
-            { instruction: "Add \\begin{tabular}{|l|c|r|} and a \\hline, then add headers: Treatment & Dose (kg/ha) & Yield (t/ha) \\\\", codeToAdd: "\\begin{tabular}{|l|c|r|}\n    \\hline\n    Treatment & Dose (kg/ha) & Yield (t/ha) \\\\", checkRegex: /\\begin\{tabular\}/ },
-            { instruction: "Add 2 data rows, close with \\end{tabular}, then add \\caption{Fertilizer trial results} and \\label{tab:fert}.", codeToAdd: "\\hline\n    Urea & 120 & 4.5 \\\\\n    DAP & 80 & 5.2 \\\\\n    \\hline\n  \\end{tabular}\n  \\caption{Fertilizer trial results}\n  \\label{tab:fert}\n\\end{table}", checkRegex: /\\caption\{.+\}/ },
-        ]
     },
     {
-        id: "sprout-3",
-        title: "Cite Your Sources",
-        difficulty: "sprout",
-        category: "Citations",
-        agriContext: "No research paper survives without proper citations. BibTeX automates the pain.",
-        objective: "Use \\cite{} to reference a paper and set up a bibliography.",
-        instructions: [
-            "Use \\cite{sharma2024} at least once in your text.",
-            "Add \\bibliographystyle{plain} before the bibliography.",
-            "Add \\bibliography{references} to load the .bib file."
-        ],
-        starterCode: `\\documentclass{article}\n\\begin{document}\n\n\\section{Literature Review}\n\nRecent studies have shown that drip irrigation improves water efficiency\nby up to 40\\% compared to flood irrigation.\n\n% Add a citation here using \\cite{sharma2024}\n\n% Add bibliography commands at the end\n\n\\end{document}`,
-        checks: [
-            { label: "Has \\cite{...}", regex: /\\cite\{.+\}/, hint: "Insert \\cite{sharma2024} where you reference the study." },
-            { label: "Has \\bibliographystyle", regex: /\\bibliographystyle\{/, hint: "Add \\bibliographystyle{plain} before \\bibliography." },
-            { label: "Has \\bibliography{...}", regex: /\\bibliography\{.+\}/, hint: "Add \\bibliography{references} to load your .bib file." }
-        ],
-        successMessage: "Your citations are automated! No more manual [1], [2] numbering. 📚",
-        proTip: "Use \\cite{key1, key2, key3} to cite multiple papers at once. LaTeX groups them automatically.",
-        snippets: [
-            { label: "Citation", code: "\\cite{sharma2024}", description: "Cites a reference" },
-            { label: "Multi-cite", code: "\\cite{key1, key2, key3}", description: "Multiple citations" },
-            { label: "Bib style", code: "\\bibliographystyle{plain}", description: "Sets citation style" },
-            { label: "Bibliography", code: "\\bibliography{references}", description: "Loads .bib file" },
-        ],
-        guidedSteps: [
-            { instruction: "After the irrigation sentence, add \\cite{sharma2024} to reference the study.", codeToAdd: "\\cite{sharma2024}", checkRegex: /\\cite\{.+\}/ },
-            { instruction: "Before \\end{document}, add \\bibliographystyle{plain}.", codeToAdd: "\\bibliographystyle{plain}", checkRegex: /\\bibliographystyle\{/ },
-            { instruction: "Right after the style, add \\bibliography{references} to load the .bib file.", codeToAdd: "\\bibliography{references}", checkRegex: /\\bibliography\{.+\}/ },
-        ]
-    },
-    {
-        id: "sprout-4",
-        title: "Sections & Subsections",
-        difficulty: "sprout",
-        category: "Document Structure",
-        agriContext: "A well-structured paper has clear sections: Introduction, Methods, Results, Discussion.",
-        objective: "Create a multi-section document with proper hierarchy.",
-        instructions: [
-            "Create at least 3 sections using \\section{...}.",
-            "Add at least 1 subsection using \\subsection{...}.",
-            "Use \\section*{...} (starred) for an unnumbered Abstract.",
-            "Write at least one paragraph in each section."
-        ],
-        starterCode: `\\documentclass{article}\n\\title{Effect of Mulching on Soil Moisture Retention}\n\\author{Agriculture Scholar}\n\\begin{document}\n\\maketitle\n\n% Add an unnumbered Abstract section here\n\n% Add numbered sections: Introduction, Methodology, Results\n% Add a subsection inside Methodology\n\n\\end{document}`,
-        checks: [
-            { label: "Has 3+ \\section{}", regex: /(\\section\*?\{[^}]+\}[\s\S]*?){3,}/, hint: "Create at least 3 sections for a proper paper structure." },
-            { label: "Has \\subsection{}", regex: /\\subsection\{.+\}/, hint: "Add a subsection inside one of your sections." },
-            { label: "Has \\section*{} (unnumbered)", regex: /\\section\*\{/, hint: "Use \\section*{Abstract} for an unnumbered heading." },
-            { label: "Has \\maketitle", regex: /\\maketitle/, hint: "Keep \\maketitle to display the title block." }
-        ],
-        successMessage: "Your paper has professional structure! The Table of Contents would auto-generate from this. 🏗️",
-        proTip: "Add \\tableofcontents after \\maketitle to auto-generate a TOC. Compile twice for it to appear.",
-        snippets: [
-            { label: "Section", code: "\\section{Section Title}", description: "Numbered section" },
-            { label: "Subsection", code: "\\subsection{Subsection Title}", description: "Numbered subsection" },
-            { label: "Unnumbered section", code: "\\section*{Abstract}", description: "No number prefix" },
-            { label: "Table of contents", code: "\\tableofcontents", description: "Auto-generated TOC" },
-        ],
-        guidedSteps: [
-            { instruction: "Add \\section*{Abstract} after \\maketitle and write a brief abstract paragraph.", codeToAdd: "\\section*{Abstract}\nThis study investigates the effect of mulching on soil moisture retention in semi-arid regions.", checkRegex: /\\section\*\{/ },
-            { instruction: "Add \\section{Introduction} with a paragraph about the research background.", codeToAdd: "\\section{Introduction}\nSoil moisture is critical for crop growth in rain-fed agriculture.", checkRegex: /\\section\{Introduction\}/ },
-            { instruction: "Add \\section{Methodology} with a \\subsection{Study Area}, then add \\section{Results}.", codeToAdd: "\\section{Methodology}\n\\subsection{Study Area}\nThe experiment was conducted at the university farm.", checkRegex: /\\subsection\{.+\}/ },
-        ]
-    },
-    {
-        id: "sprout-5",
-        title: "Figure Insertion",
+        id: "sprout-6",
+        title: "Figure Insertion & Scaling",
         difficulty: "sprout",
         category: "Figures",
         agriContext: "A picture is worth a thousand words — especially for crop growth charts and field photos.",
-        objective: "Insert a figure with caption, label, and proper sizing.",
+        objective: "Use graphicx package, \\includegraphics with width/height/scale/angle options, figure float, caption, label.",
         instructions: [
             "Add \\usepackage{graphicx} in the preamble.",
-            "Create a figure environment with \\begin{figure}[h].",
-            "Use \\includegraphics with width option.",
-            "Add \\caption{} and \\label{} for cross-referencing."
+            "Create a figure with \\begin{figure}[h] and \\centering.",
+            "Use \\includegraphics with [width=0.8\\textwidth].",
+            "Add \\caption{} and \\label{fig:...}.",
+            "Reference with \\ref{fig:...} in text."
         ],
-        starterCode: `\\documentclass{article}\n\n% Add graphicx package here\n\n\\begin{document}\n\n\\section{Field Observations}\n\nFigure \\ref{fig:growth} shows the crop growth pattern over 12 weeks.\n\n% Insert your figure here\n% Use: \\begin{figure}[h] → \\centering → \\includegraphics → \\caption → \\label → \\end{figure}\n\n\\end{document}`,
+        starterCode: `\\documentclass{article}\n\n% Add graphicx package\n\n\\begin{document}\n\n\\section{Field Observations}\nFigure \\ref{fig:growth} shows the crop growth pattern.\n\n% Insert figure with caption, label, and width option\n\n% Try adding scale=0.5 or angle=90 as alternative options\n\n\\end{document}`,
         checks: [
-            { label: "Has \\usepackage{graphicx}", regex: /\\usepackage\{graphicx\}/, hint: "Load graphicx package for image support." },
-            { label: "Has \\begin{figure}", regex: /\\begin\{figure\}/, hint: "Wrap image in \\begin{figure}[h]...\\end{figure}." },
-            { label: "Has \\includegraphics", regex: /\\includegraphics/, hint: "Use \\includegraphics[width=0.8\\textwidth]{image.png}." },
-            { label: "Has \\caption{...}", regex: /\\caption\{.+\}/, hint: "Add a descriptive caption for the figure." },
-            { label: "Has \\label{fig:...}", regex: /\\label\{fig:.+\}/, hint: "Add \\label{fig:growth} for cross-referencing." }
+            { label: "Has \\usepackage{graphicx}", regex: /\\usepackage\{graphicx\}/, hint: "Load graphicx for image support." },
+            { label: "Has \\begin{figure}", regex: /\\begin\{figure\}/, hint: "Wrap in \\begin{figure}[h]." },
+            { label: "Has \\centering", regex: /\\centering/, hint: "Center the figure." },
+            { label: "Has \\includegraphics", regex: /\\includegraphics/, hint: "Use \\includegraphics[width=0.8\\textwidth]{image}." },
+            { label: "Has width/scale/height option", regex: /width=|scale=|height=/, hint: "Add [width=0.8\\textwidth] or [scale=0.5]." },
+            { label: "Has \\caption{...}", regex: /\\caption\{.+\}/, hint: "Add a descriptive caption." },
+            { label: "Has \\label{fig:...}", regex: /\\label\{fig:.+\}/, hint: "Add \\label{fig:growth} for referencing." }
         ],
-        successMessage: "Your figure is properly formatted for journal submission! 📸",
-        proTip: "Use [width=\\textwidth] for full-width or [width=0.5\\textwidth] for half-width images.",
+        successMessage: "Your figures are properly formatted for journal submission! 📸",
+        proTip: "Options: width=\\textwidth (full), scale=2 (double), height=5cm (fixed), angle=90 (rotated).",
         snippets: [
-            { label: "graphicx package", code: "\\usepackage{graphicx}", description: "Enables image insertion" },
-            { label: "Figure skeleton", code: "\\begin{figure}[h]\n  \\centering\n  \\includegraphics[width=0.8\\textwidth]{image.png}\n  \\caption{Description}\n  \\label{fig:label}\n\\end{figure}", description: "Complete figure template" },
-            { label: "Include image", code: "\\includegraphics[width=0.8\\textwidth]{filename}", description: "Inserts an image" },
+            { label: "Full figure", code: "\\begin{figure}[h]\n  \\centering\n  \\includegraphics[width=0.8\\textwidth]{image.png}\n  \\caption{Description}\n  \\label{fig:label}\n\\end{figure}", description: "Complete figure" },
+            { label: "Scale option", code: "\\includegraphics[scale=0.5]{image}", description: "Half size" },
+            { label: "Angle option", code: "\\includegraphics[angle=90]{image}", description: "Rotated 90°" },
+            { label: "Height option", code: "\\includegraphics[height=5cm]{image}", description: "Fixed height" },
         ],
-        guidedSteps: [
-            { instruction: "Add \\usepackage{graphicx} in the preamble.", codeToAdd: "\\usepackage{graphicx}", checkRegex: /\\usepackage\{graphicx\}/ },
-            { instruction: "Add \\begin{figure}[h] with \\centering and \\includegraphics[width=0.8\\textwidth]{growth_chart.png}.", codeToAdd: "\\begin{figure}[h]\n  \\centering\n  \\includegraphics[width=0.8\\textwidth]{growth_chart.png}", checkRegex: /\\includegraphics/ },
-            { instruction: "Add \\caption{Crop growth pattern over 12 weeks} and \\label{fig:growth}, then close with \\end{figure}.", codeToAdd: "  \\caption{Crop growth pattern over 12 weeks}\n  \\label{fig:growth}\n\\end{figure}", checkRegex: /\\caption\{.+\}/ },
-        ]
     },
-    // ─── HARVESTER: Advanced Skills ───
+    {
+        id: "sprout-7",
+        title: "Citations & Bibliography",
+        difficulty: "sprout",
+        category: "Citations",
+        agriContext: "No research paper survives without proper citations. BibTeX automates the pain.",
+        objective: "Use \\cite, \\nocite, \\bibliographystyle (plain/unsrt/alpha), \\bibliography, and thebibliography.",
+        instructions: [
+            "Use \\cite{key} to reference a paper.",
+            "Use \\cite{key1, key2} for multiple citations.",
+            "Add \\bibliographystyle{plain} (try unsrt, alpha too).",
+            "Add \\bibliography{references} OR use \\begin{thebibliography} for manual entries."
+        ],
+        starterCode: `\\documentclass{article}\n\\begin{document}\n\n\\section{Literature Review}\n\nDrip irrigation improves water efficiency by 40\\%.\n\n% Add citations and bibliography\n\n\\end{document}`,
+        checks: [
+            { label: "Has \\cite{...}", regex: /\\cite\{.+\}/, hint: "Insert \\cite{sharma2024} where you reference." },
+            { label: "Has multi-cite or single", regex: /\\cite\{.+\}/, hint: "Use \\cite{key1, key2} for multiple." },
+            { label: "Has \\bibliographystyle", regex: /\\bibliographystyle\{/, hint: "Add \\bibliographystyle{plain}." },
+            { label: "Has bibliography", regex: /\\bibliography\{|\\begin\{thebibliography\}/, hint: "Add \\bibliography{refs} or \\begin{thebibliography}." }
+        ],
+        successMessage: "Your citations are automated! 📚",
+        proTip: "Styles: plain (numbered, sorted), unsrt (numbered, order of appearance), alpha (letter keys like [Sha24]).",
+        snippets: [
+            { label: "Cite", code: "\\cite{sharma2024}", description: "Single citation" },
+            { label: "Multi-cite", code: "\\cite{key1, key2, key3}", description: "Multiple citations" },
+            { label: "Bib style", code: "\\bibliographystyle{plain}", description: "plain/unsrt/alpha" },
+            { label: "Bibliography", code: "\\bibliography{references}", description: "Loads .bib file" },
+            { label: "Manual bib", code: "\\begin{thebibliography}{9}\n  \\bibitem{key1} Author, Title, Year.\n\\end{thebibliography}", description: "Inline bibliography" },
+        ],
+    },
+    {
+        id: "sprout-8",
+        title: "Cross-References & Hyperlinks",
+        difficulty: "sprout",
+        category: "References",
+        agriContext: "A 50-page thesis needs clickable cross-references — 'See Table 3' should jump to Table 3.",
+        objective: "Use hyperref package, \\label, \\ref, \\pageref, \\url, \\href, and \\hypersetup.",
+        instructions: [
+            "Add \\usepackage{hyperref} in the preamble.",
+            "Use \\label{...} on a section, table, or figure.",
+            "Reference with \\ref{...} and \\pageref{...}.",
+            "Add a URL with \\url{...} or \\href{url}{text}."
+        ],
+        starterCode: `\\documentclass{article}\n\n% Add hyperref package\n\n\\begin{document}\n\n\\section{Introduction}\n\\label{sec:intro}\n\nSee Section ??? on page ??? for details.\n\nFor more data, visit the ICAR website: % add URL\n\n\\section{Results}\nResults are discussed in Section ??? above.\n\n\\end{document}`,
+        checks: [
+            { label: "Has \\usepackage{hyperref}", regex: /\\usepackage\{hyperref\}/, hint: "Add hyperref for clickable links." },
+            { label: "Has \\label{...}", regex: /\\label\{.+\}/, hint: "Add \\label{sec:intro} to a section." },
+            { label: "Has \\ref{...}", regex: /\\ref\{.+\}/, hint: "Use \\ref{sec:intro} to reference." },
+            { label: "Has \\pageref{...}", regex: /\\pageref\{.+\}/, hint: "Use \\pageref{sec:intro} for page number." },
+            { label: "Has \\url or \\href", regex: /\\url\{|\\href\{/, hint: "Use \\url{https://icar.org.in}." }
+        ],
+        successMessage: "Your document has clickable cross-references! 🔗",
+        proTip: "Load hyperref LAST to avoid conflicts. Use \\hypersetup{colorlinks=true, linkcolor=blue}.",
+        snippets: [
+            { label: "hyperref", code: "\\usepackage{hyperref}", description: "Clickable links" },
+            { label: "Label", code: "\\label{sec:intro}", description: "Mark a location" },
+            { label: "Ref", code: "\\ref{sec:intro}", description: "Reference number" },
+            { label: "Page ref", code: "\\pageref{sec:intro}", description: "Page number" },
+            { label: "URL", code: "\\url{https://icar.org.in}", description: "Clickable URL" },
+            { label: "Hyperlink", code: "\\href{https://icar.org.in}{ICAR}", description: "Named link" },
+        ],
+    },
+    {
+        id: "sprout-9",
+        title: "Float Placement Control",
+        difficulty: "sprout",
+        category: "Floats",
+        agriContext: "Tables and figures 'float' to optimal positions. Control where they land with placement specifiers.",
+        objective: "Master float placement options [h], [t], [b], [p], [h!], [H] and use \\listoftables / \\listoffigures.",
+        instructions: [
+            "Create a table with [h] placement.",
+            "Create a figure with [t] placement.",
+            "Add \\listoftables and \\listoffigures after \\tableofcontents.",
+            "Use \\usepackage{float} and [H] for exact placement."
+        ],
+        starterCode: `\\documentclass{article}\n\\usepackage{graphicx}\n\\usepackage{float}\n\\begin{document}\n\n\\tableofcontents\n% Add \\listoftables and \\listoffigures\n\n\\section{Data}\n\n% Create a table with [h] placement\n\n% Create a figure with [t] placement\n\n% Try [H] for strict placement (requires float package)\n\n\\end{document}`,
+        checks: [
+            { label: "Has \\begin{table}[h]", regex: /\\begin\{table\}\[h/, hint: "Use [h] for 'here' placement." },
+            { label: "Has \\begin{figure}[t]", regex: /\\begin\{figure\}\[t/, hint: "Use [t] for 'top of page' placement." },
+            { label: "Has \\listoftables", regex: /\\listoftables/, hint: "Add \\listoftables for auto-generated list." },
+            { label: "Has \\listoffigures", regex: /\\listoffigures/, hint: "Add \\listoffigures for figure list." },
+            { label: "Has [H] placement", regex: /\[H\]/, hint: "Use [H] with float package for exact placement." }
+        ],
+        successMessage: "You now control exactly where floats appear! 📍",
+        proTip: "Placement priority: [h]=here, [t]=top, [b]=bottom, [p]=float page, [H]=EXACTLY here (float pkg).",
+        snippets: [
+            { label: "Here", code: "\\begin{table}[h]", description: "Approximate here" },
+            { label: "Top", code: "\\begin{figure}[t]", description: "Top of page" },
+            { label: "Bottom", code: "\\begin{table}[b]", description: "Bottom of page" },
+            { label: "Exact", code: "\\begin{figure}[H]", description: "Exactly here (float pkg)" },
+            { label: "List of tables", code: "\\listoftables", description: "Auto table list" },
+            { label: "List of figures", code: "\\listoffigures", description: "Auto figure list" },
+        ],
+    },
+    {
+        id: "sprout-10",
+        title: "Custom Commands",
+        difficulty: "sprout",
+        category: "Advanced",
+        agriContext: "Typing \\textit{Oryza sativa} 50 times is tedious. Define a shortcut once, use it everywhere.",
+        objective: "Use \\newcommand and \\renewcommand to create custom shortcuts.",
+        instructions: [
+            "Define \\newcommand{\\rice}{\\textit{Oryza sativa}} in the preamble.",
+            "Define a command with arguments: \\newcommand{\\yield}[1]{Y_{#1}}.",
+            "Use your custom commands in the document body.",
+            "Use \\renewcommand to override an existing command."
+        ],
+        starterCode: `\\documentclass{article}\n\\usepackage{amsmath}\n\n% Define custom commands here\n\n\\begin{document}\n\n\\section{Crop Study}\n\nThe rice variety known as Oryza sativa was studied.\nThe yield for treatment 1 was measured.\nThe yield for treatment 2 was also recorded.\n\n% Replace repetitive text with your custom commands\n\n\\end{document}`,
+        checks: [
+            { label: "Has \\newcommand", regex: /\\newcommand\{/, hint: "Define with \\newcommand{\\rice}{\\textit{Oryza sativa}}." },
+            { label: "Has command with args [#1]", regex: /\\newcommand\{[^}]+\}\[/, hint: "Use [1] for one argument: \\newcommand{\\yield}[1]{Y_{#1}}." },
+            { label: "Uses custom command", regex: /\\rice|\\yield|\\crop|\\var/, hint: "Use your defined command in the document body." },
+            { label: "Has \\renewcommand", regex: /\\renewcommand\{/, hint: "Override an existing command with \\renewcommand." }
+        ],
+        successMessage: "You've automated repetitive typing with custom commands! ⚡",
+        proTip: "Use \\newcommand for new commands, \\renewcommand to override existing ones. Never redefine \\section!",
+        snippets: [
+            { label: "Simple command", code: "\\newcommand{\\rice}{\\textit{Oryza sativa}}", description: "No arguments" },
+            { label: "With argument", code: "\\newcommand{\\yield}[1]{Y_{#1}}", description: "One argument" },
+            { label: "Two arguments", code: "\\newcommand{\\ratio}[2]{\\frac{#1}{#2}}", description: "Two arguments" },
+            { label: "Renew command", code: "\\renewcommand{\\abstractname}{Summary}", description: "Override existing" },
+        ],
+    },
+    // ═══════════════════════════════════════════════
+    // HARVESTER: Advanced Skills
+    // ═══════════════════════════════════════════════
+
     {
         id: "harvest-1",
         title: "Complete Research Article",
         difficulty: "harvester",
         category: "Full Document",
         agriContext: "This is your capstone: a mini research article with all the elements you've learned.",
-        objective: "Build a complete 2-page research article with title, abstract, sections, math, table, and citations.",
+        objective: "Build a complete article with title, abstract, sections, math, table, figure reference, and citations.",
         instructions: [
-            "Include \\title, \\author, \\maketitle.",
+            "Include \\title, \\author, \\date, \\maketitle.",
             "Add an abstract using \\begin{abstract}.",
             "Create sections: Introduction, Methodology, Results, Conclusion.",
-            "Include at least one display equation.",
-            "Include at least one table with caption and label.",
-            "Add at least one \\cite{} reference."
+            "Include at least one display equation with \\label and \\eqref.",
+            "Include a table with caption and label.",
+            "Add \\cite{} references and a bibliography."
         ],
-        starterCode: `\\documentclass[12pt, a4paper]{article}\n\\usepackage{amsmath}\n\n\\title{Impact of Nitrogen Fertilization on Maize Yield}\n\\author{Your Name \\\\\\\\ Department of Agriculture}\n\\date{March 2026}\n\n\\begin{document}\n\\maketitle\n\n% Add abstract here\n\n% Add sections: Introduction, Methodology, Results, Conclusion\n% Include an equation, a table, and a citation\n\n\\end{document}`,
+        starterCode: `\\documentclass[12pt, a4paper]{article}\n\\usepackage{amsmath}\n\\usepackage{graphicx}\n\\usepackage{hyperref}\n\n\\title{Impact of Nitrogen Fertilization on Maize Yield}\n\\author{Your Name \\\\\\\\ Department of Agriculture}\n\\date{March 2026}\n\n\\begin{document}\n\\maketitle\n\n% Add abstract, sections, equation, table, citations\n\n\\end{document}`,
         checks: [
-            { label: "Has \\begin{abstract}", regex: /\\begin\{abstract\}/, hint: "Add \\begin{abstract}...\\end{abstract} after \\maketitle." },
-            { label: "Has 4+ sections", regex: /(\\section\*?\{[^}]+\}[\s\S]*?){4,}/, hint: "Create Introduction, Methodology, Results, and Conclusion." },
-            { label: "Has display math", regex: /\\\[[\s\S]+?\\\]|\\begin\{equation\}/, hint: "Add a display equation using \\[...\\] or \\begin{equation}." },
-            { label: "Has a table", regex: /\\begin\{table\}/, hint: "Include a data table with \\begin{table}." },
-            { label: "Has \\caption", regex: /\\caption\{/, hint: "Every table needs a \\caption{} for the title." },
-            { label: "Has \\cite{}", regex: /\\cite\{/, hint: "Reference at least one source with \\cite{key}." },
-            { label: "Has bibliography", regex: /\\bibliography|\\begin\{thebibliography\}/, hint: "Add \\bibliography{refs} or \\begin{thebibliography} at the end." }
+            { label: "Has \\begin{abstract}", regex: /\\begin\{abstract\}/, hint: "Add abstract after \\maketitle." },
+            { label: "Has 4+ sections", regex: /(\\section\*?\{[^}]+\}[\s\S]*?){4,}/, hint: "Create Intro, Methods, Results, Conclusion." },
+            { label: "Has display math", regex: /\\\[[\s\S]+?\\\]|\\begin\{equation\}/, hint: "Add a display equation." },
+            { label: "Has a table", regex: /\\begin\{table\}/, hint: "Include a data table." },
+            { label: "Has \\caption", regex: /\\caption\{/, hint: "Every table needs a caption." },
+            { label: "Has \\cite{}", regex: /\\cite\{/, hint: "Reference at least one source." },
+            { label: "Has bibliography", regex: /\\bibliography|\\begin\{thebibliography\}/, hint: "Add bibliography at the end." }
         ],
-        successMessage: "You've built a complete research article from scratch! You're ready for journal submission. 🎓🏆",
-        proTip: "Download a real journal template (IEEE, Elsevier) and replace the content with your research. The structure is identical.",
+        successMessage: "You've built a complete research article! Ready for journal submission. 🎓🏆",
+        proTip: "Download a real journal template (IEEE, Elsevier) and replace the content. The structure is identical.",
         snippets: [
-            { label: "Abstract", code: "\\begin{abstract}\nYour abstract text here.\n\\end{abstract}", description: "Paper abstract" },
-            { label: "Equation", code: "\\[\n  Y = \\beta_0 + \\beta_1 X + \\epsilon\n\\]", description: "Display equation" },
-            { label: "Table", code: "\\begin{table}[h]\n  \\centering\n  \\begin{tabular}{|l|c|r|}\n    \\hline\n    Treatment & Dose & Yield \\\\\n    \\hline\n    Control & 0 & 3.2 \\\\\n    NPK & 120 & 5.8 \\\\\n    \\hline\n  \\end{tabular}\n  \\caption{Results}\n  \\label{tab:results}\n\\end{table}", description: "Data table" },
-            { label: "Bibliography", code: "\\begin{thebibliography}{9}\n  \\bibitem{key1} Author, Title, Journal, Year.\n\\end{thebibliography}", description: "Manual bibliography" },
+            { label: "Abstract", code: "\\begin{abstract}\nYour abstract here.\n\\end{abstract}", description: "Paper abstract" },
+            { label: "Equation", code: "\\begin{equation}\n  Y = \\beta_0 + \\beta_1 X\n  \\label{eq:model}\n\\end{equation}", description: "Numbered equation" },
+            { label: "Table", code: "\\begin{table}[h]\n  \\centering\n  \\begin{tabular}{|l|c|r|}\n    \\hline\n    Treatment & Dose & Yield \\\\\n    \\hline\n    Control & 0 & 3.2 \\\\\n    \\hline\n  \\end{tabular}\n  \\caption{Results}\n  \\label{tab:results}\n\\end{table}", description: "Data table" },
+            { label: "Manual bib", code: "\\begin{thebibliography}{9}\n  \\bibitem{kumar2024} Kumar R., Title, Journal, 2024.\n\\end{thebibliography}", description: "Bibliography" },
         ],
-        guidedSteps: [
-            { instruction: "Add \\begin{abstract}...\\end{abstract} after \\maketitle with a brief summary of the study.", codeToAdd: "\\begin{abstract}\nThis study examines the impact of nitrogen fertilization rates on maize yield in tropical conditions.\n\\end{abstract}", checkRegex: /\\begin\{abstract\}/ },
-            { instruction: "Add \\section{Introduction} and \\section{Methodology} with content.", codeToAdd: "\\section{Introduction}\nNitrogen is essential for maize growth \\cite{kumar2024}.\n\n\\section{Methodology}\nField trials were conducted during Kharif 2025.", checkRegex: /(\\section\{[^}]+\}[\s\S]*?){2,}/ },
-            { instruction: "Add \\section{Results} with a display equation and a table, then \\section{Conclusion}.", codeToAdd: "\\section{Results}\nThe yield model is:\n\\[\n  Y = 2.1 + 0.035N - 0.0001N^2\n\\]", checkRegex: /\\\[[\s\S]+?\\\]/ },
-        ]
     },
     {
         id: "harvest-2",
         title: "Modular Thesis Structure",
         difficulty: "harvester",
         category: "Thesis",
-        agriContext: "A PhD thesis is 200+ pages. You MUST split it into modules or Word-style chaos awaits.",
-        objective: "Design a main.tex that uses \\input or \\include to manage chapters.",
+        agriContext: "A PhD thesis is 200+ pages. Split it into modules or Word-style chaos awaits.",
+        objective: "Use report class, \\chapter, \\include, \\input, \\includeonly, \\tableofcontents, \\appendix.",
         instructions: [
-            "Use \\documentclass{report} (not article) for chapter support.",
-            "Add \\tableofcontents after \\maketitle.",
-            "Use \\include{} or \\input{} for at least 2 chapter references.",
+            "Use \\documentclass{report} for chapter support.",
+            "Add \\tableofcontents, \\listoffigures, \\listoftables.",
+            "Use \\chapter{} for top-level headings.",
+            "Use \\include{} or \\input{} for 2+ chapter files.",
             "Add \\appendix before appendix content.",
-            "Include \\bibliography{references} at the end."
+            "Add \\includeonly{} (commented) for selective compilation."
         ],
-        starterCode: `\\documentclass{report}\n\\usepackage{graphicx}\n\n\\title{Impact of Climate Variability on Crop Production in Semi-Arid Regions}\n\\author{PhD Scholar \\\\\\\\ Department of Agricultural Sciences}\n\\date{2026}\n\n\\begin{document}\n\\maketitle\n\n% Add table of contents here\n\n% Include chapter files here (e.g., \\include{chapters/introduction})\n\n% Add appendix marker and bibliography\n\n\\end{document}`,
+        starterCode: `\\documentclass{report}\n\\usepackage{graphicx}\n\\usepackage{hyperref}\n\n\\title{Impact of Climate Variability on Crop Production}\n\\author{PhD Scholar \\\\\\\\ Department of Agricultural Sciences}\n\\date{2026}\n\n% \\includeonly{chapters/results}  % Uncomment to compile only one chapter\n\n\\begin{document}\n\\maketitle\n\n% Add TOC, list of figures, list of tables\n% Add chapters using \\include or \\chapter\n% Add appendix and bibliography\n\n\\end{document}`,
         checks: [
-            { label: "Uses report class", regex: /\\documentclass.*\{report\}/, hint: "Theses use \\documentclass{report} for chapter support." },
-            { label: "Has \\tableofcontents", regex: /\\tableofcontents/, hint: "Add \\tableofcontents after \\maketitle." },
-            { label: "Has \\include or \\input", regex: /\\include\{|\\input\{/, hint: "Use \\include{chapters/intro} to load chapter files." },
+            { label: "Uses report class", regex: /\\documentclass.*\{report\}/, hint: "Theses use report class." },
+            { label: "Has \\tableofcontents", regex: /\\tableofcontents/, hint: "Add TOC after \\maketitle." },
+            { label: "Has \\chapter{}", regex: /\\chapter\{|\\include\{|\\input\{/, hint: "Use \\chapter{} or \\include{} for chapters." },
             { label: "Has 2+ chapter refs", regex: /(\\include\{[^}]+\}|\\input\{[^}]+\}|\\chapter\{[^}]+\})[\s\S]*(\\include\{[^}]+\}|\\input\{[^}]+\}|\\chapter\{[^}]+\})/, hint: "Reference at least 2 chapters." },
-            { label: "Has \\appendix", regex: /\\appendix/, hint: "Add \\appendix before your appendix content." },
-            { label: "Has \\bibliography", regex: /\\bibliography\{/, hint: "End with \\bibliography{references}." }
+            { label: "Has \\appendix", regex: /\\appendix/, hint: "Add \\appendix before appendix content." },
+            { label: "Has \\bibliography", regex: /\\bibliography\{|\\begin\{thebibliography\}/, hint: "End with bibliography." },
+            { label: "Has \\listoffigures or \\listoftables", regex: /\\listoffigures|\\listoftables/, hint: "Add auto-generated lists." }
         ],
-        successMessage: "You've designed a professional thesis structure! No more 'Not Responding' on 300-page Word files. 🏛️",
+        successMessage: "Professional thesis structure! No more 'Not Responding' on 300-page files. 🏛️",
         proTip: "Use \\includeonly{chapters/results} during drafting to compile only one chapter — saves massive time.",
         snippets: [
-            { label: "Table of contents", code: "\\tableofcontents", description: "Auto-generated TOC" },
-            { label: "Include chapter", code: "\\include{chapters/introduction}", description: "Loads a chapter file" },
-            { label: "Input file", code: "\\input{sections/abstract}", description: "Inserts file content" },
-            { label: "Appendix marker", code: "\\appendix", description: "Marks start of appendices" },
-            { label: "Chapter", code: "\\chapter{Chapter Title}", description: "Top-level heading (report)" },
+            { label: "TOC", code: "\\tableofcontents", description: "Table of contents" },
+            { label: "Chapter", code: "\\chapter{Introduction}", description: "Top-level heading" },
+            { label: "Include", code: "\\include{chapters/intro}", description: "Load chapter file" },
+            { label: "Input", code: "\\input{sections/abstract}", description: "Insert without page break" },
+            { label: "Include only", code: "\\includeonly{chapters/results}", description: "Selective compilation" },
+            { label: "Appendix", code: "\\appendix", description: "Start appendices" },
+            { label: "List of figures", code: "\\listoffigures", description: "Auto figure list" },
+            { label: "List of tables", code: "\\listoftables", description: "Auto table list" },
         ],
-        guidedSteps: [
-            { instruction: "Add \\tableofcontents after \\maketitle.", codeToAdd: "\\tableofcontents", checkRegex: /\\tableofcontents/ },
-            { instruction: "Add \\include{chapters/introduction} and \\include{chapters/literature_review} to load chapter files.", codeToAdd: "\\include{chapters/introduction}\n\\include{chapters/literature_review}\n\\include{chapters/methodology}\n\\include{chapters/results}", checkRegex: /(\\include\{[^}]+\}|\\input\{[^}]+\})[\s\S]*(\\include\{[^}]+\}|\\input\{[^}]+\})/ },
-            { instruction: "Add \\appendix followed by \\include{chapters/appendix_a}, then \\bibliographystyle{plain} and \\bibliography{references}.", codeToAdd: "\\appendix\n\\include{chapters/appendix_a}\n\n\\bibliographystyle{plain}\n\\bibliography{references}", checkRegex: /\\appendix/ },
-        ]
     },
     {
         id: "harvest-3",
@@ -443,70 +681,122 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
         difficulty: "harvester",
         category: "Mathematics",
         agriContext: "Multi-step derivations for regression models, ANOVA tables, and growth curves.",
-        objective: "Write a multi-line aligned equation using the align environment.",
+        objective: "Use align with numbering, cases, matrix, and advanced math environments.",
         instructions: [
-            "Load the amsmath package with \\usepackage{amsmath}.",
-            "Use \\begin{align*} for a multi-line equation.",
-            "Align at the = sign using & before each =.",
-            "Use \\\\\\\\ to break lines.",
-            "Include \\frac, \\sqrt, or \\sum in your equations."
+            "Use \\begin{align} (numbered) with & alignment and \\\\.",
+            "Use \\begin{cases} for piecewise functions.",
+            "Use \\begin{pmatrix} or \\begin{bmatrix} for matrices.",
+            "Include \\frac, \\sqrt, \\sum, \\prod, \\int in equations."
         ],
-        starterCode: `\\documentclass{article}\n\\usepackage{amsmath}\n\n\\begin{document}\n\n\\section{Yield Regression Model}\n\nThe total yield $Y$ is derived as follows:\n\n% Write a multi-line aligned equation here\n% Example structure:\n% \\begin{align*}\n%   Y &= ... \\\\\n%     &= ... \\\\\n%     &= ...\n% \\end{align*}\n\n\\end{document}`,
+        starterCode: `\\documentclass{article}\n\\usepackage{amsmath}\n\\begin{document}\n\n\\section{Advanced Yield Model}\n\nThe yield derivation:\n% Add numbered align environment\n\nThe growth function is defined as:\n% Add a piecewise function using cases\n\nThe transformation matrix:\n% Add a matrix using pmatrix or bmatrix\n\n\\end{document}`,
         checks: [
-            { label: "Has \\usepackage{amsmath}", regex: /\\usepackage\{amsmath\}/, hint: "Load amsmath in the preamble for align environments." },
-            { label: "Has \\begin{align", regex: /\\begin\{align/, hint: "Use \\begin{align*} or \\begin{align} for multi-line math." },
-            { label: "Has & alignment", regex: /&\s*=/, hint: "Place & before each = sign to align them vertically." },
-            { label: "Has line breaks \\\\", regex: /\\\\/, hint: "End each line (except the last) with \\\\ to break." },
-            { label: "Uses \\frac, \\sqrt, or \\sum", regex: /\\frac\{|\\sqrt\{|\\sum/, hint: "Include at least one advanced math command." }
+            { label: "Has \\begin{align}", regex: /\\begin\{align\*?\}/, hint: "Use \\begin{align} for multi-line math." },
+            { label: "Has & alignment", regex: /&\s*=/, hint: "Place & before = to align." },
+            { label: "Has \\begin{cases}", regex: /\\begin\{cases\}/, hint: "Use cases for piecewise functions." },
+            { label: "Has matrix (pmatrix/bmatrix)", regex: /\\begin\{[pb]matrix\}/, hint: "Use \\begin{pmatrix} for matrices." },
+            { label: "Uses \\frac or \\sqrt", regex: /\\frac\{|\\sqrt\{/, hint: "Include fractions or roots." },
+            { label: "Uses \\sum, \\prod, or \\int", regex: /\\sum|\\prod|\\int/, hint: "Include summation, product, or integral." }
         ],
-        successMessage: "Your multi-line equations are perfectly aligned! Reviewers will appreciate the clarity. 🧮",
-        proTip: "Use align (without *) to get equation numbers. Reference them with \\label{eq:yield} and \\eqref{eq:yield}.",
+        successMessage: "Your advanced math is perfectly typeset! 🧮",
+        proTip: "Use \\left( and \\right) for auto-sizing parentheses around tall expressions like fractions.",
         snippets: [
-            { label: "Align block", code: "\\begin{align*}\n  Y &= \\beta_0 + \\beta_1 X \\\\\n    &= 2.5 + 0.8X\n\\end{align*}", description: "Multi-line aligned equations" },
-            { label: "Fraction", code: "\\frac{a}{b}", description: "Fraction a/b" },
-            { label: "Square root", code: "\\sqrt{x^2 + y^2}", description: "Square root expression" },
-            { label: "Summation", code: "\\sum_{i=1}^{n} x_i", description: "Sum notation" },
-            { label: "Greek letters", code: "\\alpha, \\beta, \\gamma, \\sigma, \\mu", description: "Common Greek letters" },
+            { label: "Align", code: "\\begin{align}\n  Y &= a + bX \\label{eq:1} \\\\\n    &= 2.5 + 0.8X \\label{eq:2}\n\\end{align}", description: "Numbered multi-line" },
+            { label: "Cases", code: "\\begin{cases}\n  Y_1 & \\text{if } X > 0 \\\\\n  Y_2 & \\text{otherwise}\n\\end{cases}", description: "Piecewise function" },
+            { label: "Matrix", code: "\\begin{pmatrix}\n  a & b \\\\\n  c & d\n\\end{pmatrix}", description: "Parenthesized matrix" },
+            { label: "Integral", code: "\\int_{0}^{\\infty} f(x)\\, dx", description: "Definite integral" },
+            { label: "Product", code: "\\prod_{i=1}^{n} x_i", description: "Product notation" },
+            { label: "Auto-size parens", code: "\\left( \\frac{a}{b} \\right)", description: "Auto-sizing brackets" },
         ],
-        guidedSteps: [
-            { instruction: "Start with \\begin{align*} to open a multi-line equation block.", codeToAdd: "\\begin{align*}", checkRegex: /\\begin\{align/ },
-            { instruction: "Write the first line: Y &= \\sum_{i=1}^{n} \\beta_i X_i + \\epsilon \\\\ and a second line with &= \\beta_0 + \\frac{\\beta_1}{\\sqrt{n}} X", codeToAdd: "  Y &= \\sum_{i=1}^{n} \\beta_i X_i + \\epsilon \\\\\n    &= \\beta_0 + \\frac{\\beta_1}{\\sqrt{n}} X", checkRegex: /&\s*=/ },
-            { instruction: "Close with \\end{align*}.", codeToAdd: "\\end{align*}", checkRegex: /\\frac\{|\\sqrt\{|\\sum/ },
-        ]
     },
     {
         id: "harvest-4",
-        title: "Cross-References & Hyperlinks",
+        title: "Beamer Presentation",
         difficulty: "harvester",
-        category: "Advanced",
-        agriContext: "A 50-page thesis needs clickable cross-references — 'See Table 3' should jump to Table 3.",
-        objective: "Use labels, refs, and the hyperref package for clickable cross-references.",
+        category: "Presentations",
+        agriContext: "Conference presentations need professional slides. Beamer is LaTeX for presentations.",
+        objective: "Create a beamer presentation with frames, title frame, itemize, and math.",
         instructions: [
-            "Add \\usepackage{hyperref} in the preamble.",
-            "Create a table with \\label{tab:...}.",
-            "Reference it with \\ref{tab:...} in text.",
-            "Add a URL using \\url{...} or \\href{...}{...}."
+            "Use \\documentclass{beamer}.",
+            "Set a theme with \\usetheme{Madrid} or similar.",
+            "Create a title frame with \\titlepage.",
+            "Create content frames with \\begin{frame}{Title}.",
+            "Add bullet points and an equation in separate frames."
         ],
-        starterCode: `\\documentclass{article}\n\n% Add hyperref package here\n\n\\begin{document}\n\n\\section{Results}\n\nThe irrigation data is shown in Table ??? (add a reference here).\n\n% Add a table with \\label{tab:irrigation}\n\nFor more data, visit the ICAR website: % add URL here\n\n\\end{document}`,
+        starterCode: `\\documentclass{beamer}\n\n% Set a theme here\n\n\\title{Impact of Organic Farming on Soil Health}\n\\author{Research Scholar}\n\\date{March 2026}\n\n\\begin{document}\n\n% Create title frame\n\n% Create content frames with bullets and math\n\n\\end{document}`,
         checks: [
-            { label: "Has \\usepackage{hyperref}", regex: /\\usepackage\{hyperref\}/, hint: "Add \\usepackage{hyperref} for clickable links." },
-            { label: "Has \\label{tab:...}", regex: /\\label\{tab:.+\}/, hint: "Add \\label{tab:irrigation} inside your table." },
-            { label: "Has \\ref{tab:...}", regex: /\\ref\{tab:.+\}/, hint: "Use \\ref{tab:irrigation} to reference the table." },
-            { label: "Has \\url or \\href", regex: /\\url\{|\\href\{/, hint: "Use \\url{https://icar.org.in} or \\href{url}{text}." }
+            { label: "Uses beamer class", regex: /\\documentclass\{beamer\}/, hint: "Use \\documentclass{beamer} for slides." },
+            { label: "Has \\usetheme{}", regex: /\\usetheme\{.+\}/, hint: "Set a theme like \\usetheme{Madrid}." },
+            { label: "Has \\begin{frame}", regex: /\\begin\{frame\}/, hint: "Each slide is a \\begin{frame}...\\end{frame}." },
+            { label: "Has \\titlepage", regex: /\\titlepage/, hint: "Use \\titlepage inside a frame for the title slide." },
+            { label: "Has itemize in frame", regex: /\\begin\{frame\}[\s\S]*?\\begin\{itemize\}/, hint: "Add bullet points inside a frame." },
+            { label: "Has math in frame", regex: /\\begin\{frame\}[\s\S]*?\$|\\\[/, hint: "Add an equation inside a frame." }
         ],
-        successMessage: "Your document now has clickable cross-references and hyperlinks! 🔗",
-        proTip: "Always load hyperref as the LAST package to avoid conflicts. Use \\hypersetup{colorlinks=true} for colored links.",
+        successMessage: "Your conference presentation is ready! 🎤",
+        proTip: "Popular themes: Madrid, Berlin, Copenhagen, Warsaw. Use \\usecolortheme{} for color variants.",
         snippets: [
-            { label: "hyperref package", code: "\\usepackage{hyperref}", description: "Enables clickable links" },
-            { label: "Reference", code: "\\ref{tab:label}", description: "Cross-reference" },
-            { label: "URL", code: "\\url{https://example.com}", description: "Clickable URL" },
-            { label: "Hyperlink", code: "\\href{https://example.com}{Click here}", description: "Named hyperlink" },
-            { label: "Hypersetup", code: "\\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=cyan}", description: "Link styling" },
+            { label: "Theme", code: "\\usetheme{Madrid}", description: "Presentation theme" },
+            { label: "Color theme", code: "\\usecolortheme{whale}", description: "Color variant" },
+            { label: "Title frame", code: "\\begin{frame}\n  \\titlepage\n\\end{frame}", description: "Title slide" },
+            { label: "Content frame", code: "\\begin{frame}{Slide Title}\n  \\begin{itemize}\n    \\item Point 1\n    \\item Point 2\n  \\end{itemize}\n\\end{frame}", description: "Content slide" },
+            { label: "Math frame", code: "\\begin{frame}{Equation}\n  \\[\n    Y = \\beta_0 + \\beta_1 X\n  \\]\n\\end{frame}", description: "Equation slide" },
         ],
-        guidedSteps: [
-            { instruction: "Add \\usepackage{hyperref} in the preamble.", codeToAdd: "\\usepackage{hyperref}", checkRegex: /\\usepackage\{hyperref\}/ },
-            { instruction: "Replace '???' with \\ref{tab:irrigation} and add a table with \\label{tab:irrigation}.", codeToAdd: "\\ref{tab:irrigation}", checkRegex: /\\ref\{tab:.+\}/ },
-            { instruction: "Add \\url{https://icar.org.in} after 'ICAR website:'.", codeToAdd: "\\url{https://icar.org.in}", checkRegex: /\\url\{|\\href\{/ },
-        ]
+    },
+    {
+        id: "harvest-5",
+        title: "Two-Column & Multicol Layout",
+        difficulty: "harvester",
+        category: "Layout",
+        agriContext: "Many journals use two-column layouts. Conference papers often require this format.",
+        objective: "Use twocolumn option, multicol package, and \\begin{center} environment.",
+        instructions: [
+            "Use \\documentclass[twocolumn]{article} for two-column layout.",
+            "OR use \\usepackage{multicol} with \\begin{multicols}{2}.",
+            "Use \\begin{center}...\\end{center} to center content.",
+            "Use \\columnbreak to force a column break."
+        ],
+        starterCode: `\\documentclass{article}\n\\usepackage{multicol}\n\\usepackage{lipsum}\n\n\\begin{document}\n\n\\section{Research Summary}\n\n% Use \\begin{center} to center a title or important text\n\n% Use \\begin{multicols}{2} for two-column text\n% Add some content and try \\columnbreak\n\n\\end{document}`,
+        checks: [
+            { label: "Has multicol or twocolumn", regex: /\\usepackage\{multicol\}|twocolumn/, hint: "Use multicol package or [twocolumn] option." },
+            { label: "Has \\begin{multicols}{2}", regex: /\\begin\{multicols\}\{2\}/, hint: "Use \\begin{multicols}{2} for two columns." },
+            { label: "Has \\begin{center}", regex: /\\begin\{center\}/, hint: "Use \\begin{center}...\\end{center} to center text." },
+            { label: "Has \\columnbreak", regex: /\\columnbreak/, hint: "Use \\columnbreak to force a column break." }
+        ],
+        successMessage: "You can now create journal-style two-column layouts! 📰",
+        proTip: "Use multicols for flexible column control. The twocolumn class option is simpler but less flexible.",
+        snippets: [
+            { label: "Multicols", code: "\\begin{multicols}{2}\nColumn 1 text...\n\\columnbreak\nColumn 2 text...\n\\end{multicols}", description: "Two-column block" },
+            { label: "Center", code: "\\begin{center}\nCentered text\n\\end{center}", description: "Center environment" },
+            { label: "Column break", code: "\\columnbreak", description: "Force column break" },
+        ],
+    },
+    {
+        id: "harvest-6",
+        title: "Document Class Options Mastery",
+        difficulty: "harvester",
+        category: "Configuration",
+        agriContext: "Different publications require different configurations — font size, paper size, columns, orientation.",
+        objective: "Master all \\documentclass options: font size, paper, columns, orientation, and different classes.",
+        instructions: [
+            "Try \\documentclass[12pt, a4paper, twocolumn]{article}.",
+            "Change to \\documentclass{report} and add a \\chapter.",
+            "Try \\documentclass[landscape]{article}.",
+            "Add \\usepackage[utf8]{inputenc} for encoding."
+        ],
+        starterCode: `% Try different document class options:\n% [10pt], [11pt], [12pt] - font sizes\n% [a4paper], [letterpaper] - paper sizes\n% [twocolumn] - two column layout\n% [landscape] - landscape orientation\n% Classes: article, report, book, beamer\n\n\\documentclass[12pt, a4paper]{article}\n\n\\begin{document}\n\n\\section{Configuration Test}\nThis document tests various class options.\n\n% Add a chapter (requires report/book class)\n% Try changing options above\n\n\\end{document}`,
+        checks: [
+            { label: "Has font size option", regex: /\\documentclass\[.*?(10pt|11pt|12pt)/, hint: "Add [12pt] to set font size." },
+            { label: "Has paper size option", regex: /\\documentclass\[.*?(a4paper|letterpaper)/, hint: "Add [a4paper] for A4 paper." },
+            { label: "Has document class", regex: /\\documentclass/, hint: "Every document needs \\documentclass." },
+            { label: "Has content", regex: /\\section\{|\\chapter\{/, hint: "Add sections or chapters." }
+        ],
+        successMessage: "You understand all document configuration options! ⚙️",
+        proTip: "article: papers/short docs. report: theses/long docs with chapters. book: published books. beamer: slides.",
+        snippets: [
+            { label: "Article 12pt A4", code: "\\documentclass[12pt, a4paper]{article}", description: "Standard paper" },
+            { label: "Report", code: "\\documentclass[12pt]{report}", description: "Thesis/long document" },
+            { label: "Book", code: "\\documentclass{book}", description: "Published book" },
+            { label: "Two-column", code: "\\documentclass[twocolumn]{article}", description: "Journal style" },
+            { label: "Landscape", code: "\\documentclass[landscape]{article}", description: "Landscape orientation" },
+        ],
     },
 ];
