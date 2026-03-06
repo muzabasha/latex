@@ -4,8 +4,10 @@ import { useState } from "react";
 import { LatexEditor } from "@/components/LatexEditor";
 import { LatexPreview } from "@/components/LatexPreview";
 import { motion } from "framer-motion";
-import { Beaker, CheckCircle, Circle, ArrowRight, Trophy } from "lucide-react";
+import { Beaker, CheckCircle, Circle, Trophy } from "lucide-react";
 import confetti from "canvas-confetti";
+import { cn } from "@/lib/utils";
+import { LATEX_COMMAND_DATA } from "@/lib/latex-commands";
 
 export function LabView() {
     const [code, setCode] = useState(`\\documentclass{article}
@@ -13,12 +15,59 @@ export function LabView() {
 % Type your lab work here
 \\end{document}`);
     const [isCompiling, setIsCompiling] = useState(false);
-    const [tasks, setTasks] = useState([
-        { id: 1, text: "Create a section titled 'Results'", completed: false, regex: /\\section\{Results\}/ },
-        { id: 2, text: "Insert an inline equation $E=mc^2$", completed: false, regex: /\$E=mc\^2\$/ },
-        { id: 3, text: "Create a bold word using \\textbf", completed: false, regex: /\\textbf\{.*\}/ },
-        { id: 4, text: "Add a numbered list using enumerate", completed: false, regex: /\\begin\{enumerate\}/ }
-    ]);
+
+    // Flatten LATEX_COMMAND_DATA to create tasks for all commands
+    const flattenCommandsIntoTasks = () => {
+        let idCounter = 1;
+        const allTasks: { id: number; text: string; completed: boolean; regex: RegExp; commandName: string; optionName: string }[] = [];
+
+        Object.values(LATEX_COMMAND_DATA).forEach((moduleCommands) => {
+            moduleCommands.forEach((cmd) => {
+                // Task for the base command
+                allTasks.push({
+                    id: idCounter++,
+                    text: `Use ${cmd.name}`,
+                    completed: false,
+                    regex: new RegExp(cmd.name.replace(/\\/g, '\\\\').replace(/\[/g, '\\[').replace(/\]/g, '\\]').replace(/\{/g, '\\{').replace(/\}/g, '\\}')),
+                    commandName: cmd.name,
+                    optionName: 'Base Command'
+                });
+
+                // Tasks for each option
+                cmd.options.forEach((opt) => {
+                    let regexStr = '';
+                    if (opt.impact.startsWith('[')) {
+                        // e.g. [11pt] or [h] - assumes the base command will have this option next to it
+                        const baseCmdRegex = cmd.name.replace(/\\/g, '\\\\').replace(/\[/g, '\\[').replace(/\]/g, '\\]').replace(/\{/g, '\\{').replace(/\}/g, '\\}');
+                        const optRegex = opt.impact.replace(/\[/g, '\\[').replace(/\]/g, '\\]');
+                        regexStr = baseCmdRegex + optRegex;
+                    } else if (opt.impact.startsWith('{')) {
+                        // e.g. {amsmath}
+                        regexStr = opt.impact.replace(/\{/g, '\\{').replace(/\}/g, '\\}');
+                    } else if (opt.impact === '*') {
+                        // e.g. \section*
+                        const baseCmdRegex = cmd.name.replace(/\\/g, '\\\\').replace(/\[/g, '\\[').replace(/\]/g, '\\]').replace(/\{/g, '\\{').replace(/\}/g, '\\}');
+                        regexStr = baseCmdRegex + '\\*';
+                    } else {
+                        // other impacts like \title or \textit
+                        regexStr = (opt.impact.startsWith('\\') ? opt.impact : '\\\\' + opt.impact).replace(/\\/g, '\\\\').replace(/\[/g, '\\[').replace(/\]/g, '\\]').replace(/\{/g, '\\{').replace(/\}/g, '\\}');
+                    }
+
+                    allTasks.push({
+                        id: idCounter++,
+                        text: `Use ${cmd.name} option: ${opt.name}`,
+                        completed: false,
+                        regex: new RegExp(regexStr),
+                        commandName: cmd.name,
+                        optionName: opt.name
+                    });
+                });
+            });
+        });
+        return allTasks;
+    };
+
+    const [tasks, setTasks] = useState(flattenCommandsIntoTasks());
 
     const handleCompile = (newCode: string) => {
         setIsCompiling(true);
@@ -31,7 +80,7 @@ export function LabView() {
                 completed: task.regex.test(newCode)
             }));
 
-            if (updatedTasks.every(t => t.completed) && !tasks.every(t => t.completed)) {
+            if (updatedTasks.every(t => t.completed) && !tasks.every(t => t.completed) && tasks.length > 0) {
                 confetti({
                     particleCount: 150,
                     spread: 70,
@@ -112,4 +161,3 @@ export function LabView() {
         </div>
     );
 }
-import { cn } from "@/lib/utils";
