@@ -36,7 +36,7 @@ export function Navbar() {
     return (
         <nav className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md">
             <div className="container mx-auto flex h-16 items-center justify-between px-4">
-                <div className="flex items-center gap-6">
+                <div className="flex items-center gap-4 md:gap-6">
                     <Link
                         href="/"
                         onClick={() => setCurrentModule('home')}
@@ -49,7 +49,7 @@ export function Navbar() {
                         href="https://scholar-sparkle-web.lovable.app/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="hidden md:flex items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-primary transition-colors border-l pl-6 border-border"
+                        className="flex items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-primary transition-colors md:border-l md:pl-6 border-border"
                     >
                         Resource person
                     </a>
