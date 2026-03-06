@@ -36,7 +36,7 @@ export function Navbar() {
     return (
         <nav className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md">
             <div className="container mx-auto flex h-16 items-center justify-between px-4">
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-6">
                     <Link
                         href="/"
                         onClick={() => setCurrentModule('home')}
@@ -45,6 +45,14 @@ export function Navbar() {
                         <GraduationCap className="w-8 h-8" />
                         <span className="hidden md:inline">LaTeX for Research</span>
                     </Link>
+                    <a
+                        href="https://scholar-sparkle-web.lovable.app/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hidden md:flex items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-primary transition-colors border-l pl-6 border-border"
+                    >
+                        Resource person
+                    </a>
                 </div>
 
                 <div className="hidden lg:flex items-center gap-1">
