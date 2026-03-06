@@ -55,15 +55,16 @@ export function Navbar() {
                     </a>
                 </div>
 
-                <div className="hidden lg:flex items-center gap-1">
+                <div className="hidden lg:flex flex-1 mx-4 items-center gap-1 overflow-x-auto whitespace-nowrap [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden px-2 py-1 relative">
+                    {/* Optional gradient fades can go here if needed, but styling natively handles overflow */}
                     {MODULES.filter(m => m.session > 0 && m.session < 3).map((mod) => (
                         <button
                             key={mod.id}
                             onClick={() => setCurrentModule(mod.id)}
                             className={cn(
-                                "px-3 py-2 text-sm font-medium rounded-md transition-all",
+                                "shrink-0 px-3 py-2 text-sm font-medium rounded-md transition-all",
                                 currentModule === mod.id
-                                    ? "bg-primary text-primary-foreground shadow-lg scale-105"
+                                    ? "bg-primary text-primary-foreground shadow-lg scale-105 z-10"
                                     : "text-muted-foreground hover:bg-muted hover:text-foreground"
                             )}
                         >
