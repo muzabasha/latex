@@ -8,6 +8,8 @@ import { Info, Lightbulb, ChefHat, ArrowRight, CheckCircle2, Target, Rocket, Tro
 import { cn } from "@/lib/utils";
 import { SessionQuiz } from "@/components/SessionQuiz";
 import { SESSION_QUIZZES } from "@/lib/quiz-data";
+import { CompilationDiscovery } from "@/components/CompilationDiscovery";
+import { LATEX_COMMAND_DATA } from "@/lib/latex-commands";
 
 export function SessionOneIntro() {
     const [code, setCode] = useState("Hello Research World!\n\nThis is my first step into the world of LaTeX.");
@@ -73,46 +75,11 @@ export function SessionOneIntro() {
                 </motion.div>
             </div>
 
-            {/* Process Diagram */}
-            <section className="bg-card border rounded-3xl p-8 shadow-sm overflow-hidden relative">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-3xl rounded-full -mr-20 -mt-20" />
-
-                <h2 className="text-2xl font-bold mb-8 text-center">Interactive Compilation Discovery</h2>
-
-                <div className="flex flex-col md:flex-row items-center justify-between gap-12 relative">
-                    {/* Source Code */}
-                    <div className="flex-1 w-full space-y-4">
-                        <div className="flex items-center gap-2 text-sm font-bold text-muted-foreground mb-2">
-                            <div className="w-2 h-2 rounded-full bg-orange-400" /> SOURCE CODE (.tex)
-                        </div>
-                        <div className="bg-slate-900 rounded-xl p-4 font-mono text-sm text-slate-300 shadow-xl border border-white/10">
-                            <pre>{`\\documentclass{article}\n\\begin{document}\n  Hello Agriculture Scholars!\n\\end{document}`}</pre>
-                        </div>
-                    </div>
-
-                    {/* Arrow / Animation */}
-                    <div className="flex flex-col items-center gap-2">
-                        <motion.div
-                            animate={{ x: [0, 10, 0] }}
-                            transition={{ repeat: Infinity, duration: 2 }}
-                        >
-                            <ArrowRight className="w-10 h-10 text-primary" />
-                        </motion.div>
-                        <span className="text-xs font-bold text-primary uppercase tracking-tighter">Compiler</span>
-                    </div>
-
-                    {/* PDF Output */}
-                    <div className="flex-1 w-full space-y-4">
-                        <div className="flex items-center gap-2 text-sm font-bold text-muted-foreground mb-2">
-                            <div className="w-2 h-2 rounded-full bg-blue-400" /> FORMATTED PDF
-                        </div>
-                        <div className="bg-white rounded-xl p-8 shadow-2xl border aspect-3/4 flex flex-col items-center justify-center text-center">
-                            <CheckCircle2 className="w-12 h-12 text-primary mb-4" />
-                            <p className="text-2xl font-serif text-slate-800">Hello Agriculture Scholars!</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            {/* Interactive Compilation Discovery */}
+            <CompilationDiscovery
+                commands={LATEX_COMMAND_DATA["session-1-intro"]}
+                moduleTitle="Module 1"
+            />
 
             {/* Activity Track: The Seedling Phase */}
             <section className="space-y-10 py-10">
@@ -172,7 +139,7 @@ export function SessionOneIntro() {
                         <motion.div
                             key={i}
                             whileHover={{ y: -5 }}
-                            className={cn("p-10 rounded-[3rem] border-2 space-y-8 relative overflow-hidden group transition-all flex flex-col", activity.color)}
+                            className={cn("p-10 rounded-4xl border-2 space-y-8 relative overflow-hidden group transition-all flex flex-col", activity.color)}
                         >
                             <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:rotate-12 transition-transform">
                                 {activity.icon}

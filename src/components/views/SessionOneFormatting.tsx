@@ -8,6 +8,8 @@ import { CaseUpper, Bold, Italic, CheckCircle, LayoutGrid, HelpCircle, CheckCirc
 import { cn } from "@/lib/utils";
 import { SessionQuiz } from "@/components/SessionQuiz";
 import { SESSION_QUIZZES } from "@/lib/quiz-data";
+import { CompilationDiscovery } from "@/components/CompilationDiscovery";
+import { LATEX_COMMAND_DATA } from "@/lib/latex-commands";
 
 export function SessionOneFormatting() {
     const [code, setCode] = useState(`\\documentclass{article}
@@ -83,6 +85,11 @@ Understand the \\textit{impact of pH levels} on growth rates.
                     Architecting your thoughts. No more manual numbering. Just write, and LaTeX handles the hierarchy.
                 </p>
             </div>
+
+            <CompilationDiscovery
+                commands={LATEX_COMMAND_DATA["session-1-formatting"]}
+                moduleTitle="Module 4"
+            />
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {formattingCommands.map((cmd, i) => (

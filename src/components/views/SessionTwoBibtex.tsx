@@ -7,6 +7,8 @@ import { BookMarked, Search, Quote, FileCode, Check, Copy, HelpCircle, CheckCirc
 import { cn } from "@/lib/utils";
 import { SessionQuiz } from "@/components/SessionQuiz";
 import { SESSION_QUIZZES } from "@/lib/quiz-data";
+import { CompilationDiscovery } from "@/components/CompilationDiscovery";
+import { LATEX_COMMAND_DATA } from "@/lib/latex-commands";
 
 export function SessionTwoBibtex() {
     const [doi, setDoi] = useState("");
@@ -49,6 +51,11 @@ climate change significantly affects crop rotation.
                     Never manually number a citation again. Join the .bib revolution and focus on your research, not your brackets.
                 </p>
             </div>
+
+            <CompilationDiscovery
+                commands={LATEX_COMMAND_DATA["session-2-bibtex"]}
+                moduleTitle="Module 7"
+            />
 
             <div className="grid lg:grid-cols-2 gap-8">
                 {/* Step-by-Step Guide */}

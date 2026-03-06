@@ -9,6 +9,8 @@ import { Sigma, FunctionSquare, Binary, Calculator, HelpCircle, CheckCircle2, Ta
 import { cn } from "@/lib/utils";
 import { SessionQuiz } from "@/components/SessionQuiz";
 import { SESSION_QUIZZES } from "@/lib/quiz-data";
+import { CompilationDiscovery } from "@/components/CompilationDiscovery";
+import { LATEX_COMMAND_DATA } from "@/lib/latex-commands";
 
 export function SessionOneMath() {
     const [code, setCode] = useState(`\\documentclass{article}
@@ -58,6 +60,11 @@ The formula for standard deviation is:
                     The language of Agriculture Statistics. Professional, crisp, and publication-ready equations with zero effort.
                 </p>
             </div>
+
+            <CompilationDiscovery
+                commands={LATEX_COMMAND_DATA["session-1-math"]}
+                moduleTitle="Module 5"
+            />
 
             <div className="grid md:grid-cols-2 gap-8">
                 <div className="space-y-6">

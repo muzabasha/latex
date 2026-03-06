@@ -208,7 +208,7 @@ export function SessionZeroIntro() {
             <div className="grid md:grid-cols-2 gap-8">
                 <motion.div
                     whileHover={{ y: -5 }}
-                    className="bg-card border-2 border-primary/10 rounded-[2.5rem] p-10 space-y-6 shadow-sm"
+                    className="bg-card border-2 border-primary/10 rounded-4xl p-10 space-y-6 shadow-sm"
                 >
                     <div className="flex items-center gap-4">
                         <div className="p-4 bg-primary/10 rounded-2xl text-primary font-bold">
@@ -233,7 +233,7 @@ export function SessionZeroIntro() {
 
                 <motion.div
                     whileHover={{ y: -5 }}
-                    className="bg-card border-2 border-blue-500/10 rounded-[2.5rem] p-10 space-y-6 shadow-sm"
+                    className="bg-card border-2 border-blue-500/10 rounded-4xl p-10 space-y-6 shadow-sm"
                 >
                     <div className="flex items-center gap-4">
                         <div className="p-4 bg-blue-500/10 rounded-2xl text-blue-500 font-bold">
@@ -400,7 +400,7 @@ export function SessionZeroIntro() {
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="bg-slate-900 rounded-[2.5rem] p-10 text-center space-y-6 text-white"
+                        className="bg-slate-900 rounded-4xl p-10 text-center space-y-6 text-white"
                     >
                         <Trophy className="w-16 h-16 text-amber-400 mx-auto" />
                         <div className="space-y-2">

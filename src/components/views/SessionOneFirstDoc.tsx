@@ -8,6 +8,8 @@ import { FileText, Type, Layers, Box, Info, HelpCircle, CheckCircle2, Rocket, Tr
 import { cn } from "@/lib/utils";
 import { SessionQuiz } from "@/components/SessionQuiz";
 import { SESSION_QUIZZES } from "@/lib/quiz-data";
+import { CompilationDiscovery } from "@/components/CompilationDiscovery";
+import { LATEX_COMMAND_DATA } from "@/lib/latex-commands";
 
 export function SessionOneFirstDoc() {
     const [code, setCode] = useState(`\\documentclass{article}
@@ -76,6 +78,11 @@ This is my very first LaTeX document.
                     Breaking down the DNA of a LaTeX file. It&apos;s like building with LEGO blocks.
                 </p>
             </div>
+
+            <CompilationDiscovery
+                commands={LATEX_COMMAND_DATA["session-1-first-doc"]}
+                moduleTitle="Module 3"
+            />
 
             <div className="grid lg:grid-cols-4 gap-6">
                 {explainers.map((ex, i) => (

@@ -7,6 +7,8 @@ import { Table, Image as ImageIcon, Layout, Grid, Info, Sparkles, Plus, Trash2, 
 import { cn } from "@/lib/utils";
 import { SessionQuiz } from "@/components/SessionQuiz";
 import { SESSION_QUIZZES } from "@/lib/quiz-data";
+import { CompilationDiscovery } from "@/components/CompilationDiscovery";
+import { LATEX_COMMAND_DATA } from "@/lib/latex-commands";
 
 export function SessionTwoTablesFigures() {
     const [data, setData] = useState([
@@ -62,6 +64,11 @@ N2 & 100kg & 52cm \\\\ \\hline
                     Visualizing research data. Learn how to build precise tables and insert images that stay exactly where you want them.
                 </p>
             </div>
+
+            <CompilationDiscovery
+                commands={LATEX_COMMAND_DATA["session-2-tables-figures"]}
+                moduleTitle="Module 8"
+            />
 
             <div className="grid lg:grid-cols-2 gap-12">
                 {/* Table Builder */}
@@ -180,7 +187,7 @@ N2 & 100kg & 52cm \\\\ \\hline
             </div>
 
             {/* Interactive Q&A Deep Dive */}
-            <section className="bg-slate-900 rounded-[3rem] p-12 text-white space-y-10 shadow-2xl relative overflow-hidden mt-12">
+            <section className="bg-slate-900 rounded-4xl p-12 text-white space-y-10 shadow-2xl relative overflow-hidden mt-12">
                 <div className="absolute top-0 right-0 w-96 h-96 bg-primary/20 blur-[130px] rounded-full -mr-48 -mt-48" />
 
                 <div className="flex items-center gap-6 relative z-10">
@@ -195,7 +202,7 @@ N2 & 100kg & 52cm \\\\ \\hline
 
                 <div className="grid md:grid-cols-2 gap-12 relative z-10">
                     <div className="space-y-8">
-                        <div className="bg-white/5 border border-white/10 p-10 rounded-[2.5rem] space-y-4 hover:bg-white/5 transition-colors">
+                        <div className="bg-white/5 border border-white/10 p-10 rounded-4xl space-y-4 hover:bg-white/5 transition-colors">
                             <h4 className="font-bold text-primary flex items-center gap-3 text-2xl">
                                 <CheckCircle2 className="w-8 h-8" /> Table vs. Tabular?
                             </h4>
@@ -208,7 +215,7 @@ N2 & 100kg & 52cm \\\\ \\hline
                             </div>
                         </div>
 
-                        <div className="bg-white/5 border border-white/10 p-10 rounded-[2.5rem] space-y-4 hover:bg-white/5 transition-colors">
+                        <div className="bg-white/5 border border-white/10 p-10 rounded-4xl space-y-4 hover:bg-white/5 transition-colors">
                             <h4 className="font-bold text-primary flex items-center gap-3 text-2xl">
                                 <CheckCircle2 className="w-8 h-8" /> Labeling Strategy?
                             </h4>
@@ -223,7 +230,7 @@ N2 & 100kg & 52cm \\\\ \\hline
                     </div>
 
                     <div className="space-y-8 flex flex-col justify-center">
-                        <div className="bg-primary/5 border border-primary/20 p-10 rounded-[2.5rem] space-y-6">
+                        <div className="bg-primary/5 border border-primary/20 p-10 rounded-4xl space-y-6">
                             <h5 className="font-extrabold text-primary uppercase text-xs tracking-[0.3em]">The Horizontal Line Rule</h5>
                             <p className="text-lg text-slate-200 italic">
                                 &quot;Academic journals generally dislike vertical lines. Professional tables often use <code>\\hline</code> only at the top, bottom, and to separate headers.&quot;
@@ -237,7 +244,7 @@ N2 & 100kg & 52cm \\\\ \\hline
                             </div>
                         </div>
 
-                        <div className="bg-white/5 border border-white/10 p-10 rounded-[2.5rem] space-y-4">
+                        <div className="bg-white/5 border border-white/10 p-10 rounded-4xl space-y-4">
                             <h4 className="font-bold text-primary flex items-center gap-3 text-2xl">
                                 <CheckCircle2 className="w-8 h-8" /> Figure Scaling?
                             </h4>
@@ -310,7 +317,7 @@ N2 & 100kg & 52cm \\\\ \\hline
                         <motion.div
                             key={i}
                             whileHover={{ y: -5 }}
-                            className={cn("p-10 rounded-[3rem] border-2 space-y-8 relative overflow-hidden group transition-all flex flex-col", activity.color)}
+                            className={cn("p-10 rounded-4xl border-2 space-y-8 relative overflow-hidden group transition-all flex flex-col", activity.color)}
                         >
                             <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:rotate-12 transition-transform">
                                 {activity.icon}

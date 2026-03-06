@@ -5,6 +5,8 @@ import { FolderTree, FileCode, Layers, ShieldCheck, Download, ExternalLink, Targ
 import { cn } from "@/lib/utils";
 import { SessionQuiz } from "@/components/SessionQuiz";
 import { SESSION_QUIZZES } from "@/lib/quiz-data";
+import { CompilationDiscovery } from "@/components/CompilationDiscovery";
+import { LATEX_COMMAND_DATA } from "@/lib/latex-commands";
 
 export function SessionTwoThesis() {
     const structure = [
@@ -22,6 +24,11 @@ export function SessionTwoThesis() {
                     The Blueprint of Your Academic Journey. Learn how to manage 200+ pages without losing your mind.
                 </p>
             </div>
+
+            <CompilationDiscovery
+                commands={LATEX_COMMAND_DATA["session-2-thesis"]}
+                moduleTitle="Module 9"
+            />
 
             <div className="grid lg:grid-cols-2 gap-12">
                 <div className="space-y-8">
@@ -214,6 +221,6 @@ export function SessionTwoThesis() {
                 title="Mastery Check: The Thesis Architect"
                 questions={SESSION_QUIZZES["session-2-thesis"]}
             />
-        </div>
+        </div >
     );
 }
