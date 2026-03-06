@@ -11,6 +11,8 @@ import { SessionQuiz } from "@/components/SessionQuiz";
 import { SESSION_QUIZZES } from "@/lib/quiz-data";
 import { CompilationDiscovery } from "@/components/CompilationDiscovery";
 import { LATEX_COMMAND_DATA } from "@/lib/latex-commands";
+import { FillInBlank } from "@/components/FillInBlank";
+import { DragDropMatch } from "@/components/DragDropMatch";
 
 export function SessionOneMath() {
     const [code, setCode] = useState(`\\documentclass{article}
@@ -314,6 +316,50 @@ The formula for standard deviation is:
                     ))}
                 </div>
             </section>
+
+            {/* NEP 2020: Learn by Doing - Math Command Matching */}
+            <DragDropMatch
+                title="Match the Math Syntax to Its Output"
+                agriContext="Agriculture statistics require precise mathematical notation"
+                pairs={[
+                    { command: "$x^2$", description: "x squared (superscript)" },
+                    { command: "$x_i$", description: "x with subscript i" },
+                    { command: "\\frac{a}{b}", description: "A fraction: a over b" },
+                    { command: "\\sqrt{x}", description: "Square root of x" },
+                    { command: "\\sum_{i=1}^{n}", description: "Summation from i=1 to n" },
+                    { command: "$...$", description: "Inline math mode (within text)" },
+                ]}
+            />
+
+            {/* NEP 2020: Learn by Doing - Write Agriculture Equations */}
+            <FillInBlank
+                title="Write Agriculture Statistics Equations"
+                exercises={[
+                    {
+                        id: 1,
+                        prompt: "Write the formula for crop yield per hectare using a fraction:",
+                        codeTemplate: "The yield per hectare is:\n\\[\nY = ___BLANK1___{Total\\ Harvest}{Total\\ ___BLANK2___}\n\\]",
+                        blanks: [
+                            { placeholder: "___BLANK1___", answer: "\\frac", hint: "The LaTeX command for fractions (\\fr...)" },
+                            { placeholder: "___BLANK2___", answer: "Area", hint: "Yield = Harvest divided by ___" },
+                        ],
+                        explanation: "\\frac{numerator}{denominator} creates a proper fraction. In agriculture, yield is commonly expressed as harvest per unit area.",
+                        agriExample: "Yield (t/ha) = Total Harvest (tonnes) / Total Area (hectares)"
+                    },
+                    {
+                        id: 2,
+                        prompt: "Write the standard deviation formula for soil pH measurements:",
+                        codeTemplate: "\\[\n\\sigma = ___BLANK1___{\\frac{1}{N} ___BLANK2___{i=1}^{N} (x_i - \\mu)___BLANK3___}\n\\]",
+                        blanks: [
+                            { placeholder: "___BLANK1___", answer: "\\sqrt", hint: "The square root command (\\sq...)" },
+                            { placeholder: "___BLANK2___", answer: "\\sum", hint: "The summation symbol (\\su...)" },
+                            { placeholder: "___BLANK3___", answer: "^2", hint: "Squared means to the power of 2 (use ^)" },
+                        ],
+                        explanation: "Standard deviation uses \\sqrt for the root, \\sum for summation, and ^2 for squaring. These are the building blocks of statistical notation.",
+                        agriExample: "Used to measure variation in soil pH across different sampling points in your field"
+                    }
+                ]}
+            />
 
             <SessionQuiz
                 title="Mastery Check: The Formula Lab"

@@ -9,6 +9,8 @@ import { SessionQuiz } from "@/components/SessionQuiz";
 import { SESSION_QUIZZES } from "@/lib/quiz-data";
 import { CompilationDiscovery } from "@/components/CompilationDiscovery";
 import { LATEX_COMMAND_DATA } from "@/lib/latex-commands";
+import { ErrorFixChallenge } from "@/components/ErrorFixChallenge";
+import { FillInBlank } from "@/components/FillInBlank";
 
 export function SessionTwoTablesFigures() {
     const [data, setData] = useState([
@@ -375,6 +377,50 @@ N2 & 100kg & 52cm \\\\ \\hline
                     ))}
                 </div>
             </section>
+
+            {/* NEP 2020: Learn by Doing - Fix Table Errors */}
+            <ErrorFixChallenge
+                title="Fix the Table Bugs"
+                challenges={[
+                    {
+                        id: 1,
+                        title: "Missing Column Separator",
+                        brokenCode: "\\begin{tabular}{|l|c|}\n\\hline\nCrop  Yield \\\\ \\hline\nRice  3.5 \\\\ \\hline\n\\end{tabular}",
+                        fixedCode: "\\begin{tabular}{|l|c|}\n\\hline\nCrop & Yield \\\\ \\hline\nRice & 3.5 \\\\ \\hline\n\\end{tabular}",
+                        errorMessage: "Extra alignment tab has been changed to \\cr.",
+                        hint: "Columns in a table are separated by the & character",
+                        explanation: "In LaTeX tables, & separates columns and \\\\ ends a row. Forgetting & is like forgetting the walls between rooms in a building."
+                    },
+                    {
+                        id: 2,
+                        title: "Label Before Caption",
+                        brokenCode: "\\begin{table}[h]\n\\centering\n\\begin{tabular}{|c|c|}\n\\hline\nN & Yield \\\\ \\hline\n\\end{tabular}\n\\label{tab:data}\n\\caption{Nitrogen Effect}\n\\end{table}",
+                        fixedCode: "\\begin{table}[h]\n\\centering\n\\begin{tabular}{|c|c|}\n\\hline\nN & Yield \\\\ \\hline\n\\end{tabular}\n\\caption{Nitrogen Effect}\n\\label{tab:data}\n\\end{table}",
+                        errorMessage: "Warning: \\label refers to wrong section number.",
+                        hint: "\\label must come AFTER \\caption, not before",
+                        explanation: "\\caption increments the table counter. If \\label comes first, it points to the previous counter value. Always: caption first, then label."
+                    }
+                ]}
+            />
+
+            {/* NEP 2020: Learn by Doing - Build a Table */}
+            <FillInBlank
+                title="Build an Agriculture Data Table"
+                exercises={[
+                    {
+                        id: 1,
+                        prompt: "Complete this table showing fertilizer treatment results:",
+                        codeTemplate: "\\begin{___BLANK1___}[h]\n\\centering\n\\begin{tabular}{|l|c|r|}\n\\hline\nTreatment ___BLANK2___ Dose (kg) ___BLANK2___ Yield (t/ha) \\\\ \\hline\nN1 ___BLANK2___ 50 ___BLANK2___ 3.2 \\\\ \\hline\n\\end{tabular}\n\\___BLANK3___{Fertilizer Trial Results}\n\\end{___BLANK1___}",
+                        blanks: [
+                            { placeholder: "___BLANK1___", answer: "table", hint: "The float environment for tables" },
+                            { placeholder: "___BLANK2___", answer: "&", hint: "The column separator character" },
+                            { placeholder: "___BLANK3___", answer: "caption", hint: "The command to add a table title" },
+                        ],
+                        explanation: "Tables use the 'table' float wrapper, & to separate columns, and \\caption for the title. This is how every agriculture data table should be structured.",
+                        agriExample: "This table format is standard for presenting field trial results in ICAR journals"
+                    }
+                ]}
+            />
 
             <SessionQuiz
                 title="Mastery Check: The Exhibition Hall"

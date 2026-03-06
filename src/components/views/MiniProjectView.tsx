@@ -6,6 +6,7 @@ import { LatexPreview } from "@/components/LatexPreview";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, ShieldAlert, CheckCircle, GraduationCap, Trophy } from "lucide-react";
 import confetti from "canvas-confetti";
+import { cn } from "@/lib/utils";
 
 export function MiniProjectView() {
     const [code, setCode] = useState(`\\documentclass{article}
@@ -126,4 +127,3 @@ Summarize your findings here.
         </div>
     );
 }
-import { cn } from "@/lib/utils";

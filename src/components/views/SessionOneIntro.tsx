@@ -10,6 +10,8 @@ import { SessionQuiz } from "@/components/SessionQuiz";
 import { SESSION_QUIZZES } from "@/lib/quiz-data";
 import { CompilationDiscovery } from "@/components/CompilationDiscovery";
 import { LATEX_COMMAND_DATA } from "@/lib/latex-commands";
+import { DragDropMatch } from "@/components/DragDropMatch";
+import { FillInBlank } from "@/components/FillInBlank";
 
 export function SessionOneIntro() {
     const [code, setCode] = useState("Hello Research World!\n\nThis is my first step into the world of LaTeX.");
@@ -197,6 +199,50 @@ export function SessionOneIntro() {
                     ))}
                 </div>
             </section>
+
+            {/* NEP 2020: Learn by Doing - Match the Concepts */}
+            <DragDropMatch
+                title="Match the LaTeX Concept"
+                agriContext="Think of LaTeX like a seed-to-harvest pipeline for your research papers"
+                pairs={[
+                    { command: ".tex file", description: "The raw ingredients (your code and text)" },
+                    { command: "Compiler (PdfLaTeX)", description: "The oven that bakes your code into a PDF" },
+                    { command: ".pdf output", description: "The final dish served to the journal" },
+                    { command: "\\documentclass", description: "The recipe type (article, report, book)" },
+                    { command: "Preamble", description: "The preparation area before cooking begins" },
+                ]}
+            />
+
+            {/* NEP 2020: Learn by Doing - Fill in the Blanks */}
+            <FillInBlank
+                title="Complete the LaTeX Structure"
+                exercises={[
+                    {
+                        id: 1,
+                        prompt: "Complete this minimal LaTeX document structure:",
+                        codeTemplate: "___BLANK1___{article}\n\n___BLANK2___\nHello Agriculture World!\n___BLANK3___",
+                        blanks: [
+                            { placeholder: "___BLANK1___", answer: "\\documentclass", hint: "This command defines the type of document (starts with \\document...)" },
+                            { placeholder: "___BLANK2___", answer: "\\begin{document}", hint: "This opens the document body (\\begin{...})" },
+                            { placeholder: "___BLANK3___", answer: "\\end{document}", hint: "This closes the document body (\\end{...})" },
+                        ],
+                        explanation: "Every LaTeX document needs: \\documentclass to set the type, \\begin{document} to start content, and \\end{document} to finish.",
+                        agriExample: "Think of it as: Choose your crop type → Plant the seeds → Harvest the yield"
+                    },
+                    {
+                        id: 2,
+                        prompt: "Add a title and author to this research paper:",
+                        codeTemplate: "\\documentclass{article}\n___BLANK1___{Impact of Rainfall on Wheat Yield}\n___BLANK2___{Dr. Agriculture Scholar}\n\\begin{document}\n___BLANK3___\n\\end{document}",
+                        blanks: [
+                            { placeholder: "___BLANK1___", answer: "\\title", hint: "The command to set the paper title (\\ti...)" },
+                            { placeholder: "___BLANK2___", answer: "\\author", hint: "The command to set the author name (\\au...)" },
+                            { placeholder: "___BLANK3___", answer: "\\maketitle", hint: "The command that renders the title block (\\make...)" },
+                        ],
+                        explanation: "\\title, \\author, and \\date go in the preamble. \\maketitle goes inside the document body to render them.",
+                        agriExample: "Like labeling your seed packet (title), noting the farmer (author), and planting it (maketitle)"
+                    }
+                ]}
+            />
 
             <SessionQuiz
                 title="Mastery Check: The Seedling Phase"

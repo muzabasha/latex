@@ -10,6 +10,8 @@ import { SessionQuiz } from "@/components/SessionQuiz";
 import { SESSION_QUIZZES } from "@/lib/quiz-data";
 import { CompilationDiscovery } from "@/components/CompilationDiscovery";
 import { LATEX_COMMAND_DATA } from "@/lib/latex-commands";
+import { DragDropMatch } from "@/components/DragDropMatch";
+import { ErrorFixChallenge } from "@/components/ErrorFixChallenge";
 
 export function SessionOneFormatting() {
     const [code, setCode] = useState(`\\documentclass{article}
@@ -368,6 +370,54 @@ Understand the \\textit{impact of pH levels} on growth rates.
                     ))}
                 </div>
             </section>
+
+            {/* NEP 2020: Learn by Doing - Match Formatting Commands */}
+            <DragDropMatch
+                title="Match the Formatting Command to Its Output"
+                agriContext="Format your crop research paper like a professional"
+                pairs={[
+                    { command: "\\textbf{Wheat}", description: "Makes 'Wheat' appear in bold" },
+                    { command: "\\textit{Oryza sativa}", description: "Makes the scientific name italic" },
+                    { command: "\\section{Results}", description: "Creates a numbered main heading" },
+                    { command: "\\begin{itemize}", description: "Starts a bulleted list" },
+                    { command: "\\begin{enumerate}", description: "Starts a numbered list" },
+                    { command: "\\subsection{Soil Data}", description: "Creates a secondary heading" },
+                ]}
+            />
+
+            {/* NEP 2020: Learn by Doing - Fix Formatting Bugs */}
+            <ErrorFixChallenge
+                title="Fix the Formatting Errors"
+                challenges={[
+                    {
+                        id: 1,
+                        title: "Unclosed List Environment",
+                        brokenCode: "\\begin{itemize}\n\\item Rice\n\\item Wheat\n\\item Maize",
+                        fixedCode: "\\begin{itemize}\n\\item Rice\n\\item Wheat\n\\item Maize\n\\end{itemize}",
+                        errorMessage: "LaTeX Error: \\begin{itemize} ended by \\end{document}.",
+                        hint: "Every \\begin{itemize} needs a matching \\end{itemize}",
+                        explanation: "Lists must be properly closed. Think of it like closing the gate after all the cattle are inside the pen."
+                    },
+                    {
+                        id: 2,
+                        title: "Wrong Bold Syntax",
+                        brokenCode: "The \\bold{nitrogen content} affects growth.",
+                        fixedCode: "The \\textbf{nitrogen content} affects growth.",
+                        errorMessage: "Undefined control sequence \\bold.",
+                        hint: "LaTeX uses \\textbf{} for bold, not \\bold{}",
+                        explanation: "LaTeX commands are specific: \\textbf (text bold face), \\textit (text italic). There is no \\bold command."
+                    },
+                    {
+                        id: 3,
+                        title: "Nested List Error",
+                        brokenCode: "\\begin{itemize}\n\\item Crops\n\\begin{enumerate}\n\\item Plant seeds\n\\item Water daily\n\\end{itemize}\n\\end{enumerate}",
+                        fixedCode: "\\begin{itemize}\n\\item Crops\n\\begin{enumerate}\n\\item Plant seeds\n\\item Water daily\n\\end{enumerate}\n\\end{itemize}",
+                        errorMessage: "LaTeX Error: \\begin{enumerate} ended by \\end{itemize}.",
+                        hint: "Nested environments must close in reverse order (last opened = first closed)",
+                        explanation: "Like Russian nesting dolls: the inner environment (enumerate) must close before the outer one (itemize)."
+                    }
+                ]}
+            />
 
             <SessionQuiz
                 title="Mastery Check: The Formatting Garden"

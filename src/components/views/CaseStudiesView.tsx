@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { CaseUpper, FileWarning, Microscope, CheckCircle, ChevronRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const cases = [
     {
@@ -71,4 +72,3 @@ export function CaseStudiesView() {
         </div>
     );
 }
-import { cn } from "@/lib/utils";

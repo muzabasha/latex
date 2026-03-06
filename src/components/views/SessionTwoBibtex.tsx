@@ -9,6 +9,8 @@ import { SessionQuiz } from "@/components/SessionQuiz";
 import { SESSION_QUIZZES } from "@/lib/quiz-data";
 import { CompilationDiscovery } from "@/components/CompilationDiscovery";
 import { LATEX_COMMAND_DATA } from "@/lib/latex-commands";
+import { FillInBlank } from "@/components/FillInBlank";
+import { DragDropMatch } from "@/components/DragDropMatch";
 
 export function SessionTwoBibtex() {
     const [doi, setDoi] = useState("");
@@ -368,6 +370,38 @@ climate change significantly affects crop rotation.
                     ))}
                 </div>
             </section>
+
+            {/* NEP 2020: Learn by Doing - Citation Matching */}
+            <DragDropMatch
+                title="Match the Citation Command"
+                agriContext="Proper citations are the backbone of agricultural research integrity"
+                pairs={[
+                    { command: "\\cite{key}", description: "Basic citation reference [1]" },
+                    { command: "\\citep{key}", description: "Parenthetical citation (Author, Year)" },
+                    { command: "\\citet{key}", description: "Textual citation Author (Year)" },
+                    { command: "@article{...}", description: "BibTeX entry for a journal paper" },
+                    { command: "\\bibliography{refs}", description: "Loads the .bib file for references" },
+                ]}
+            />
+
+            {/* NEP 2020: Learn by Doing - Build a BibTeX Entry */}
+            <FillInBlank
+                title="Build a BibTeX Reference Entry"
+                exercises={[
+                    {
+                        id: 1,
+                        prompt: "Complete this BibTeX entry for an agriculture journal paper:",
+                        codeTemplate: "___BLANK1___{sharma2024irrigation,\n  title={Impact of Drip Irrigation on Tomato Yield},\n  ___BLANK2___={Sharma, Priya and Kumar, Raj},\n  journal={Indian Journal of Agricultural Sciences},\n  ___BLANK3___={2024}\n}",
+                        blanks: [
+                            { placeholder: "___BLANK1___", answer: "@article", hint: "The entry type for journal papers (starts with @)" },
+                            { placeholder: "___BLANK2___", answer: "author", hint: "The field for the paper's writers" },
+                            { placeholder: "___BLANK3___", answer: "year", hint: "The field for publication date" },
+                        ],
+                        explanation: "@article is for journal papers. Required fields include author, title, journal, and year. The citation key (sharma2024irrigation) is what you use with \\cite{}.",
+                        agriExample: "Every paper you cite in your thesis needs an entry like this in your .bib file"
+                    }
+                ]}
+            />
 
             <SessionQuiz
                 title="Mastery Check: The Research Archive"

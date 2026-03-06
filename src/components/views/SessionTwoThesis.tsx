@@ -7,6 +7,8 @@ import { SessionQuiz } from "@/components/SessionQuiz";
 import { SESSION_QUIZZES } from "@/lib/quiz-data";
 import { CompilationDiscovery } from "@/components/CompilationDiscovery";
 import { LATEX_COMMAND_DATA } from "@/lib/latex-commands";
+import { DragDropMatch } from "@/components/DragDropMatch";
+import { FillInBlank } from "@/components/FillInBlank";
 
 export function SessionTwoThesis() {
     const structure = [
@@ -216,6 +218,38 @@ export function SessionTwoThesis() {
                     ))}
                 </div>
             </section>
+
+            {/* NEP 2020: Learn by Doing - Thesis Structure Matching */}
+            <DragDropMatch
+                title="Match the Thesis Component"
+                agriContext="Organize your agriculture PhD thesis like a professional"
+                pairs={[
+                    { command: "main.tex", description: "The master file that loads all chapters" },
+                    { command: "\\include{chapter1}", description: "Inserts a chapter file (starts new page)" },
+                    { command: "\\input{section}", description: "Inserts content without page break" },
+                    { command: "\\tableofcontents", description: "Auto-generates the table of contents" },
+                    { command: "references.bib", description: "Central database of all citations" },
+                ]}
+            />
+
+            {/* NEP 2020: Learn by Doing - Build Thesis Structure */}
+            <FillInBlank
+                title="Build Your Thesis main.tex"
+                exercises={[
+                    {
+                        id: 1,
+                        prompt: "Complete the main.tex file for an agriculture thesis:",
+                        codeTemplate: "\\documentclass{___BLANK1___}\n\\usepackage{graphicx}\n\\begin{document}\n\\___BLANK2___\n\\___BLANK3___\n\\include{chapters/introduction}\n\\include{chapters/methodology}\n\\include{chapters/results}\n\\bibliographystyle{plain}\n\\bibliography{references}\n\\end{document}",
+                        blanks: [
+                            { placeholder: "___BLANK1___", answer: "report", hint: "The document class for long documents with chapters (not 'article')" },
+                            { placeholder: "___BLANK2___", answer: "maketitle", hint: "Renders the title page" },
+                            { placeholder: "___BLANK3___", answer: "tableofcontents", hint: "Auto-generates the table of contents" },
+                        ],
+                        explanation: "A thesis uses 'report' class (supports chapters), \\maketitle for the title page, and \\tableofcontents for automatic navigation. Each chapter is a separate file loaded with \\include.",
+                        agriExample: "This is the exact structure used for ICAR-approved PhD theses in agricultural sciences"
+                    }
+                ]}
+            />
 
             <SessionQuiz
                 title="Mastery Check: The Thesis Architect"

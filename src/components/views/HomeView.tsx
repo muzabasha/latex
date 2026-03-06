@@ -5,6 +5,7 @@ import { currentModuleAtom } from "@/lib/store";
 import { ArrowRight, BookOpen, GraduationCap, PenTool } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { XPTracker } from "@/components/XPTracker";
 
 export function HomeView() {
     const [, setCurrentModule] = useAtom(currentModuleAtom);
@@ -75,6 +76,9 @@ export function HomeView() {
                     </motion.div>
                 </div>
             </section>
+
+            {/* XP Progress Tracker */}
+            <XPTracker />
 
             {/* Stats Section */}
             <section className="grid grid-cols-2 md:grid-cols-4 gap-6">

@@ -10,6 +10,8 @@ import { SessionQuiz } from "@/components/SessionQuiz";
 import { SESSION_QUIZZES } from "@/lib/quiz-data";
 import { CompilationDiscovery } from "@/components/CompilationDiscovery";
 import { LATEX_COMMAND_DATA } from "@/lib/latex-commands";
+import { ErrorFixChallenge } from "@/components/ErrorFixChallenge";
+import { FillInBlank } from "@/components/FillInBlank";
 
 export function SessionOneFirstDoc() {
     const [code, setCode] = useState(`\\documentclass{article}
@@ -297,6 +299,59 @@ This is my very first LaTeX document.
                     ))}
                 </div>
             </section>
+
+            {/* NEP 2020: Learn by Doing - Debug the Code */}
+            <ErrorFixChallenge
+                title="Fix the Broken LaTeX"
+                challenges={[
+                    {
+                        id: 1,
+                        title: "Missing End Tag",
+                        brokenCode: "\\documentclass{article}\n\\begin{document}\nHello Agriculture World!",
+                        fixedCode: "\\documentclass{article}\n\\begin{document}\nHello Agriculture World!\n\\end{document}",
+                        errorMessage: "Emergency stop. \\end{document} was never found.",
+                        hint: "Every \\begin{...} needs a matching \\end{...}",
+                        explanation: "LaTeX requires \\end{document} to know where the content stops. Without it, the compiler panics like a farmer who forgot to close the barn door."
+                    },
+                    {
+                        id: 2,
+                        title: "Text Before Document",
+                        brokenCode: "\\documentclass{article}\nThis text is in the wrong place!\n\\begin{document}\nHello World!\n\\end{document}",
+                        fixedCode: "\\documentclass{article}\n\\begin{document}\nThis text is in the wrong place!\nHello World!\n\\end{document}",
+                        errorMessage: "LaTeX Error: Missing \\begin{document}. Text found before \\begin{document}.",
+                        hint: "All visible text must be between \\begin{document} and \\end{document}",
+                        explanation: "The preamble (before \\begin{document}) is only for settings and packages. It's like trying to plant seeds before preparing the soil."
+                    },
+                    {
+                        id: 3,
+                        title: "Wrong Document Class Syntax",
+                        brokenCode: "\\documentclass[article]\n\\begin{document}\nMy Research Paper\n\\end{document}",
+                        fixedCode: "\\documentclass{article}\n\\begin{document}\nMy Research Paper\n\\end{document}",
+                        errorMessage: "LaTeX Error: Missing \\begin{document}. Invalid document class.",
+                        hint: "Document class name goes in curly braces {}, not square brackets []",
+                        explanation: "In LaTeX, {} holds mandatory arguments and [] holds optional ones. \\documentclass{article} is correct. [article] would be treated as an option, not the class name."
+                    }
+                ]}
+            />
+
+            {/* NEP 2020: Learn by Doing - Build from Scratch */}
+            <FillInBlank
+                title="Build Your First Research Document"
+                exercises={[
+                    {
+                        id: 1,
+                        prompt: "Create a document with a title about soil analysis:",
+                        codeTemplate: "\\documentclass{___BLANK1___}\n\\title{Soil pH Analysis in ___BLANK2___}\n\\author{Your Name}\n\\begin{document}\n___BLANK3___\n\\section{Introduction}\nThis study examines soil properties.\n\\end{document}",
+                        blanks: [
+                            { placeholder: "___BLANK1___", answer: "article", hint: "The most common class for research papers" },
+                            { placeholder: "___BLANK2___", answer: "Clay Soils", hint: "A type of soil (two words, starts with C)" },
+                            { placeholder: "___BLANK3___", answer: "\\maketitle", hint: "Command to render the title block" },
+                        ],
+                        explanation: "A research article uses the 'article' class, defines metadata in the preamble, and uses \\maketitle to display it.",
+                        agriExample: "Your first research paper structure, just like planning your first field experiment"
+                    }
+                ]}
+            />
 
             <SessionQuiz
                 title="Mastery Check: The Research Journey"
