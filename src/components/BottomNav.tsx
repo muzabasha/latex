@@ -1,12 +1,14 @@
 "use client";
 
 import { useAtom } from "jotai";
-import { currentModuleAtom } from "@/lib/store";
+import { currentModuleAtom, presentationModeAtom } from "@/lib/store";
 import { MODULES } from "@/lib/constants";
 import { ChevronRight, ChevronLeft } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export function BottomNav() {
     const [currentModule, setCurrentModule] = useAtom(currentModuleAtom);
+    const [presentationMode] = useAtom(presentationModeAtom);
     const currentIndex = MODULES.findIndex(m => m.id === currentModule);
 
     if (currentModule === 'home') return null;
@@ -15,7 +17,10 @@ export function BottomNav() {
     const prevModule = MODULES[currentIndex - 1];
 
     return (
-        <div className="fixed bottom-0 left-0 w-full p-4 pointer-events-none z-40">
+        <div className={cn(
+            "fixed bottom-0 left-0 w-full p-4 pointer-events-none z-40 transition-all",
+            !presentationMode && "lg:pl-64"
+        )}>
             <div className="container mx-auto flex justify-between items-center max-w-5xl">
                 <div className="pointer-events-auto">
                     {prevModule && (

@@ -39,20 +39,25 @@ export default function Home() {
 
   return (
     <div className={cn(
-      "min-h-[calc(100-4rem)] transition-all ease-in-out duration-300",
-      presentationMode ? "presentation-mode max-w-none px-12 pb-20 pt-10" : "container mx-auto px-4 py-8"
+      "min-h-[calc(100-4rem)] transition-all ease-in-out duration-300 w-full",
+      presentationMode ? "presentation-mode max-w-none px-12 pb-20 pt-10" : "lg:pl-64"
     )}>
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentModule}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3 }}
-        >
-          {renderView()}
-        </motion.div>
-      </AnimatePresence>
+      <div className={cn(
+        "mx-auto w-full transition-all",
+        presentationMode ? "max-w-none" : "max-w-7xl px-4 py-8 lg:px-12"
+      )}>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentModule}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            {renderView()}
+          </motion.div>
+        </AnimatePresence>
+      </div>
     </div>
   );
 }

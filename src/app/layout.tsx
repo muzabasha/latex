@@ -3,6 +3,7 @@ import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { BottomNav } from "@/components/BottomNav";
+import { Sidebar } from "@/components/Sidebar";
 import { Providers } from "./providers";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -23,9 +24,12 @@ export default function RootLayout({
       <body className={`${inter.variable} ${outfit.variable} font-sans antialiased overflow-x-hidden`}>
         <Providers>
           <Navbar />
-          <main className="min-h-screen">
-            {children}
-          </main>
+          <div className="flex w-full min-h-screen">
+            <Sidebar />
+            <main className="flex-1 w-full min-h-screen">
+              {children}
+            </main>
+          </div>
           <BottomNav />
         </Providers>
       </body>
