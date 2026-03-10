@@ -85,6 +85,11 @@ export const MODULES = [
         session: 6,
     },
     {
+        id: 'command-ref',
+        title: 'Command Reference',
+        session: 6,
+    },
+    {
         id: 'feedback',
         title: 'Feedback',
         session: 7,
