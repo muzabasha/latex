@@ -7,7 +7,8 @@ import {
     BookOpen, Zap, Monitor, ArrowRight, ArrowLeft,
     Lightbulb, Eye, FileText, Type, Sigma, Table,
     Image as ImageIcon, FolderTree, Quote, Settings,
-    Clock, Play, Pause, RotateCcw, AlertTriangle, Timer, Bell
+    Clock, Play, Pause, RotateCcw, AlertTriangle, Timer, Bell,
+    Copy, Check, Code2
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -35,6 +36,7 @@ interface Module {
     bgColor: string;
     borderColor: string;
     commands: Command[];
+    sampleTex: string;
 }
 
 const COMMAND_MODULES: Module[] = [
@@ -46,6 +48,109 @@ const COMMAND_MODULES: Module[] = [
         color: "text-blue-700",
         bgColor: "bg-blue-50",
         borderColor: "border-blue-200",
+        sampleTex: `% ============================================
+% MODULE 1: What is LaTeX? — Sample .tex
+% Covers: \\documentclass, \\usepackage
+% ============================================
+
+% =============================================
+% COMMAND 1: \\documentclass[options]{class}
+% Purpose : Defines the document type. MUST be
+%           the very first line of every .tex file.
+% =============================================
+% CLASS OPTIONS (choose one):
+%   {article}    — short papers, research articles
+%                  PDF: sections start at \\section, no chapters
+%   {report}     — thesis, long reports with chapters
+%                  PDF: \\maketitle creates separate title page
+%   {book}       — published books with parts
+%                  PDF: adds \\part, \\frontmatter, two-sided
+%   {beamer}     — presentation slides
+%                  PDF: each \\frame = one slide, no margins
+%
+% OPTIONAL PARAMETERS (comma-separated in []):
+%   [10pt]       — small base font (default)
+%                  PDF: more text per page, compact layout
+%   [11pt]       — medium base font
+%                  PDF: balanced readability
+%   [12pt]       — large base font (recommended for thesis)
+%                  PDF: all text scales up, ~20% more pages
+%   [a4paper]    — A4 page size (210 x 297 mm)
+%                  PDF: without this, defaults to US Letter
+%   [letterpaper]— US Letter (8.5 x 11 in)
+%                  PDF: standard for US journals
+%   [twocolumn]  — two-column layout
+%                  PDF: entire document splits into two columns
+%   [landscape]  — landscape orientation
+%                  PDF: page rotates to wider-than-tall
+%   [draft]      — draft mode
+%                  PDF: shows overfull boxes, images as frames
+%   [oneside]    — single-sided printing
+%                  PDF: uniform margins on all pages
+%   [twoside]    — double-sided printing (default for book)
+%                  PDF: alternating inner/outer margins
+% =============================================
+\\documentclass[12pt, a4paper]{article}
+
+% =============================================
+% COMMAND 2: \\usepackage[options]{package}
+% Purpose : Imports external packages for extra
+%           features. Place in preamble ONLY
+%           (before \\begin{document}).
+% Rule    : Load hyperref LAST to avoid conflicts.
+% =============================================
+% PACKAGE OPTIONS:
+%   {amsmath}    — advanced math environments
+%                  PDF: enables align, gather, cases, better spacing
+%   {graphicx}   — image support
+%                  PDF: enables \\includegraphics with width/scale/angle
+%   {geometry}   — margin control
+%                  PDF: precise margins via \\geometry{margin=1in}
+%     [margin=1in]   — 1 inch all sides
+%     [top=2cm, bottom=2cm, left=3cm, right=2cm] — custom
+%   {xcolor}     — color support
+%                  PDF: enables \\textcolor{red}{text}, \\colorbox
+%     [dvipsnames]   — extra color names (e.g., ForestGreen)
+%     [table]        — enables \\rowcolor for table rows
+%   {float}      — float placement control
+%                  PDF: enables [H] for exact placement of tables/figures
+%   {hyperref}   — clickable hyperlinks (LOAD LAST!)
+%                  PDF: \\ref, \\cite, TOC entries become clickable
+%     [colorlinks=true]  — colored links instead of boxes
+%     [linkcolor=blue]   — internal link color
+%     [citecolor=green]  — citation link color
+%     [urlcolor=magenta] — URL link color
+%   {natbib}     — author-year citations
+%                  PDF: enables \\citep, \\citet styles
+%   {booktabs}   — professional table lines
+%                  PDF: \\toprule, \\midrule, \\bottomrule
+%   {caption}    — caption customization
+%                  PDF: font, size, label format for captions
+%   {setspace}   — line spacing control
+%                  PDF: \\doublespacing, \\onehalfspacing
+% =============================================
+\\usepackage{amsmath}                        % Math: align, gather
+\\usepackage{graphicx}                       % Images: \\includegraphics
+\\usepackage[margin=1in]{geometry}           % Margins: 1 inch all sides
+\\usepackage[dvipsnames, table]{xcolor}      % Colors + table row colors
+\\usepackage{float}                          % [H] exact placement
+\\usepackage[colorlinks=true,
+            linkcolor=blue,
+            citecolor=green,
+            urlcolor=magenta]{hyperref}      % Clickable links (LAST!)
+
+\\begin{document}
+
+This document demonstrates \\texttt{\\textbackslash documentclass}
+and \\texttt{\\textbackslash usepackage} — the two foundation
+commands of every LaTeX document.
+
+% TIP: Try changing [12pt] to [11pt] and recompile
+%      to see the font size difference in the PDF.
+% TIP: Try adding [twocolumn] to \\documentclass
+%      to see two-column layout.
+
+\\end{document}`,
         commands: [
             {
                 id: 1,
@@ -89,6 +194,137 @@ const COMMAND_MODULES: Module[] = [
         color: "text-green-700",
         bgColor: "bg-green-50",
         borderColor: "border-green-200",
+        sampleTex: `% ============================================
+% MODULE 3: Your First Document — Sample .tex
+% Covers: \\begin{document}, \\title, \\author,
+%         \\date, \\maketitle, \\begin{abstract}
+% ============================================
+
+\\documentclass[12pt, a4paper]{article}
+\\usepackage[margin=1in]{geometry}
+\\usepackage{hyperref}
+
+% =============================================
+% COMMAND 4: \\title{text}
+% Purpose : Sets the document title in preamble.
+%           Title only appears when \\maketitle
+%           is called inside \\begin{document}.
+% =============================================
+% OPTIONS:
+%   \\title{Short Title}
+%     — single-line title
+%     — PDF: centered, bold, large font at top
+%   \\title{Main Title \\\\ Subtitle}
+%     — two-line title using \\\\ for line break
+%     — PDF: creates a subtitle effect
+%   \\title{Very Long Title That Wraps}
+%     — auto-wraps if too long
+%     — PDF: LaTeX handles line breaking
+% =============================================
+\\title{Impact of Organic Manure on Soil Health \\\\
+       A Field Study in Semi-Arid Regions}
+
+% =============================================
+% COMMAND 5: \\author{name(s)}
+% Purpose : Sets author name(s) in preamble.
+% =============================================
+% OPTIONS:
+%   \\author{Name}
+%     — single author
+%     — PDF: centered below title
+%   \\author{A \\and B}
+%     — multiple authors side by side
+%     — PDF: names displayed with spacing between
+%   \\author{Name\\thanks{Affiliation}}
+%     — author with footnote affiliation
+%     — PDF: superscript number links to footnote
+%   \\author{A\\thanks{Dept1} \\and B\\thanks{Dept2}}
+%     — multiple authors with different affiliations
+%     — PDF: each gets own footnote marker
+% =============================================
+\\author{Dr. Priya Sharma\\thanks{Dept. of Soil Science, UAS Dharwad}
+  \\and Dr. Ramesh Kumar\\thanks{ICAR-IARI, New Delhi}}
+
+% =============================================
+% COMMAND 6: \\date{text}
+% Purpose : Sets the date on the title page.
+% =============================================
+% OPTIONS:
+%   \\date{March 2026}
+%     — custom fixed date
+%     — PDF: shows exactly "March 2026"
+%   \\date{\\today}
+%     — automatic compilation date
+%     — PDF: inserts current date (e.g., March 10, 2026)
+%   \\date{}
+%     — empty = no date shown
+%     — PDF: date line completely suppressed
+%   (omit \\date entirely)
+%     — defaults to \\today automatically
+% =============================================
+\\date{\\today}
+
+% =============================================
+% COMMAND 3: \\begin{document} ... \\end{document}
+% Purpose : Opens the document body. Everything
+%           visible in the PDF goes between these.
+% =============================================
+% RULES:
+%   - Everything BEFORE \\begin{document} = preamble
+%     (only \\usepackage, \\title, settings allowed)
+%   - Everything AFTER \\end{document} = ignored
+%   - Text before \\begin{document} → compile error
+%   - Missing \\end{document} → "File ended while
+%     scanning" error
+% =============================================
+\\begin{document}
+
+% =============================================
+% COMMAND 7: \\maketitle
+% Purpose : Renders the title block using \\title,
+%           \\author, and \\date defined above.
+%           Must be INSIDE \\begin{document}.
+% =============================================
+% BEHAVIOR BY CLASS:
+%   In article class:
+%     — PDF: title, author, date at top of page 1
+%     — content continues below on same page
+%   In report class:
+%     — PDF: dedicated title page (page 1)
+%     — content starts on page 2
+%   In book class:
+%     — PDF: separate title page, right-hand side
+% =============================================
+\\maketitle
+
+% =============================================
+% COMMAND 8: \\begin{abstract} ... \\end{abstract}
+% Purpose : Creates the abstract section.
+%           Place immediately after \\maketitle.
+% =============================================
+% BEHAVIOR BY CLASS:
+%   In article class:
+%     — PDF: indented paragraph with bold "Abstract"
+%     — appears on page 1 below title
+%   In report class:
+%     — PDF: abstract on its own separate page
+%   In KOMA-Script (scrartcl):
+%     — PDF: can be customized with options
+% TIP: Keep abstract to 150-300 words for journals.
+% =============================================
+\\begin{abstract}
+This study evaluates the effect of farmyard manure (FYM),
+vermicompost, and green manure on soil organic carbon,
+microbial biomass, and crop yield of rice
+(\\textit{Oryza sativa}) over three consecutive kharif
+seasons (2023--2025). Results indicate a 23\\% increase
+in soil organic carbon with integrated organic amendments.
+\\end{abstract}
+
+\\section{Introduction}
+Soil health is fundamental to sustainable agriculture\\ldots
+
+\\end{document}`,
         commands: [
             {
                 id: 3,
@@ -168,6 +404,231 @@ const COMMAND_MODULES: Module[] = [
         color: "text-purple-700",
         bgColor: "bg-purple-50",
         borderColor: "border-purple-200",
+        sampleTex: `% ============================================
+% MODULE 4: Sections & Formatting — Sample .tex
+% Covers: \\section, \\subsection, \\subsubsection,
+%   \\textbf, \\textit, \\underline, \\texttt,
+%   \\begin{itemize}, \\begin{enumerate}, \\item
+% ============================================
+
+\\documentclass[12pt, a4paper]{article}
+\\usepackage[margin=1in]{geometry}
+\\usepackage[normalem]{ulem}  % For \\uline (better underline)
+
+\\begin{document}
+
+% =============================================
+% COMMAND 9: \\section{title}
+% Purpose : Creates a numbered main heading.
+%           Auto-added to Table of Contents.
+% =============================================
+% OPTIONS:
+%   \\section{Title}
+%     — numbered heading: "1 Introduction"
+%     — PDF: bold, large font, auto-numbered
+%   \\section*{Title}
+%     — unnumbered heading (no number, not in TOC)
+%     — PDF: same style but no "1" prefix
+%   \\section[Short]{Very Long Section Title}
+%     — short title for TOC and page headers
+%     — PDF: full title in body, short in TOC
+% =============================================
+\\section{Introduction}
+This section introduces the research problem.
+
+\\section*{Acknowledgements}
+% Unnumbered — not in Table of Contents
+The authors thank ICAR for funding.
+
+\\section[Study Area]{Detailed Description of the Study Area}
+% "Study Area" appears in TOC; full title in document
+
+% =============================================
+% COMMAND 10: \\subsection{title}
+% Purpose : Secondary heading (e.g., 1.1, 1.2).
+% =============================================
+% OPTIONS:
+%   \\subsection{Title}
+%     — numbered: "1.1 Study Area"
+%     — PDF: slightly smaller bold than \\section
+%   \\subsection*{Title}
+%     — unnumbered, not in TOC
+% =============================================
+\\subsection{Location and Climate}
+
+% =============================================
+% COMMAND 11: \\subsubsection{title}
+% Purpose : Tertiary heading (e.g., 1.1.1).
+%           Deepest commonly numbered level.
+% =============================================
+% OPTIONS:
+%   \\subsubsection{Title}
+%     — numbered: "1.1.1 Soil Sampling"
+%     — PDF: smaller font than \\subsection
+%   \\subsubsection*{Title}
+%     — unnumbered
+% TIP: Use sparingly. Too many levels = confusing.
+% =============================================
+\\subsubsection{Soil Sampling Protocol}
+
+The experiment was conducted at the Agricultural
+Research Station, Raichur, Karnataka.
+
+% =============================================
+% COMMAND 12: \\textbf{text}
+% Purpose : Makes text bold.
+% =============================================
+% OPTIONS:
+%   \\textbf{text}
+%     — bold weight
+%     — PDF: heavier strokes, stands out
+%   \\textbf{\\textit{text}}
+%     — bold + italic combined
+%     — PDF: bold-italic formatting
+%   {\\bfseries paragraph text here}
+%     — declaration form (entire group bold)
+%     — PDF: everything in braces becomes bold
+% TIP: Don't overuse — if everything is bold,
+%      nothing stands out.
+% =============================================
+The \\textbf{key finding} was a \\textbf{\\textit{significant}}
+increase in grain yield.
+
+{\\bfseries This entire paragraph is bold using
+the declaration form.}
+
+% =============================================
+% COMMAND 13: \\textit{text}
+% Purpose : Makes text italic. Standard for
+%           scientific names and emphasis.
+% =============================================
+% OPTIONS:
+%   \\textit{text}
+%     — italic style
+%     — PDF: slanted typeface
+%   \\emph{text}
+%     — smart emphasis (context-aware)
+%     — PDF: italic in normal text;
+%            upright in already-italic context
+%   {\\itshape paragraph}
+%     — declaration form
+% TIP: Required for genus/species names,
+%      book titles, foreign words.
+% =============================================
+The crop \\textit{Oryza sativa} (rice) was transplanted.
+In italic context: \\textit{this is \\emph{toggled} back}.
+
+% =============================================
+% COMMAND 14: \\underline{text}
+% Purpose : Underlines text.
+% =============================================
+% OPTIONS:
+%   \\underline{text}
+%     — simple underline
+%     — PDF: line below text, does NOT wrap across lines
+%   \\uline{text}  (requires ulem package)
+%     — better underline
+%     — PDF: properly wraps across line breaks
+% TIP: Rarely used in academic papers.
+%      Prefer \\textbf or \\textit instead.
+% =============================================
+This is \\underline{underlined} and this is
+\\uline{a longer underlined phrase that can wrap
+across multiple lines properly}.
+
+% =============================================
+% COMMAND 15: \\texttt{text}
+% Purpose : Monospaced (typewriter) font for
+%           code, filenames, and commands.
+% =============================================
+% OPTIONS:
+%   \\texttt{code}
+%     — fixed-width font
+%     — PDF: each character same width,
+%            clearly distinguishes code from text
+%   {\\ttfamily paragraph}
+%     — declaration form
+% TIP: Use for R functions, file paths,
+%      variable names mentioned in text.
+% =============================================
+Analysis was done using \\texttt{lm(yield \\~{} treatment)}
+in \\texttt{R version 4.3.2}.
+
+% =============================================
+% COMMAND 16: \\begin{itemize} (bulleted list)
+% Purpose : Creates an unordered (bulleted) list.
+% =============================================
+% OPTIONS:
+%   \\item Text
+%     — standard bullet: filled circle •
+%     — PDF: indented with bullet marker
+%   \\item[-] Text
+%     — custom bullet: dash –
+%     — PDF: replaces circle with dash
+%   \\item[$\\star$] Text
+%     — custom bullet: star ★
+%   Nested \\begin{itemize}
+%     — sub-bullets auto-change symbol
+%     — PDF: Level 1: •  Level 2: –
+%            Level 3: *  Level 4: ·
+% TIP: Nest up to 4 levels maximum.
+% =============================================
+\\subsection{Materials Used}
+\\begin{itemize}
+  \\item Farmyard manure (FYM) @ 10 t/ha
+  \\item[-] Vermicompost @ 5 t/ha
+  \\item[$\\star$] Neem cake @ 2 t/ha
+  \\begin{itemize}
+    \\item Prepared from crop residues
+    \\item Enriched with \\textit{Trichoderma}
+    \\begin{itemize}
+      \\item Sub-sub-bullet (level 3)
+    \\end{itemize}
+  \\end{itemize}
+  \\item Green manure (\\textit{Sesbania})
+\\end{itemize}
+
+% =============================================
+% COMMAND 17: \\begin{enumerate} (numbered list)
+% Purpose : Creates an ordered (numbered) list.
+% =============================================
+% OPTIONS:
+%   \\item Text
+%     — auto-numbered: 1. 2. 3.
+%     — PDF: sequential numbers with period
+%   Nested \\begin{enumerate}
+%     — sub-numbering auto-changes
+%     — PDF: Level 1: 1.  Level 2: (a)
+%            Level 3: i.  Level 4: A.
+% =============================================
+%
+% COMMAND 18: \\item
+% Purpose : Marks a list entry inside itemize,
+%           enumerate, or description.
+% OPTIONS:
+%   \\item Text
+%     — standard entry (bullet or number)
+%   \\item[Custom] Text
+%     — custom label overrides default
+%     — PDF: "Custom" replaces bullet/number
+% =============================================
+\\subsection{Methodology Steps}
+\\begin{enumerate}
+  \\item Soil sampling at 0--15 cm depth
+  \\item Laboratory analysis:
+  \\begin{enumerate}
+    \\item Organic carbon (Walkley-Black method)
+    \\item Available N, P, K
+    \\begin{enumerate}
+      \\item Nitrogen by Kjeldahl method
+      \\item Phosphorus by Olsen method
+    \\end{enumerate}
+  \\end{enumerate}
+  \\item[Step 3.] Statistical analysis using ANOVA
+  % Custom label "Step 3." overrides auto-number
+\\end{enumerate}
+
+\\end{document}`,
         commands: [
             {
                 id: 9,
@@ -290,6 +751,286 @@ const COMMAND_MODULES: Module[] = [
         color: "text-orange-700",
         bgColor: "bg-orange-50",
         borderColor: "border-orange-200",
+        sampleTex: `% ============================================
+% MODULE 5: Mathematics — Sample .tex
+% Covers: \\begin{equation}, $...$, \\[...\\],
+%   \\frac, \\sqrt, \\sum, ^, _, \\begin{align},
+%   Greek letters, \\label/\\eqref
+% ============================================
+
+\\documentclass[12pt, a4paper]{article}
+\\usepackage{amsmath}   % Required for align, gather, cases
+\\usepackage[margin=1in]{geometry}
+\\usepackage{hyperref}
+
+\\begin{document}
+
+\\section{Mathematical Expressions in Agriculture}
+
+% =============================================
+% COMMAND 20: $...$ (inline math)
+% Purpose : Inline math mode — equation flows
+%           within the text line.
+% =============================================
+% OPTIONS:
+%   $E = mc^2$
+%     — inline equation using dollar signs
+%     — PDF: math renders within text line,
+%            fractions are compressed to fit
+%   \\(E = mc^2\\)
+%     — modern LaTeX syntax (recommended)
+%     — PDF: identical output, better error messages
+% TIP: Use \\(...\\) for new documents.
+%      $...$ is shorter but hides errors.
+% =============================================
+The soil moisture was $\\theta = 0.35$ cm$^3$/cm$^3$.
+Modern syntax: \\(\\theta = 0.35\\) gives same result.
+
+% =============================================
+% COMMAND 21: \\[...\\] (display math)
+% Purpose : Display math — centered equation on
+%           its own line, unnumbered.
+% =============================================
+% OPTIONS:
+%   \\[ equation \\]
+%     — centered, unnumbered display equation
+%     — PDF: full-size equation on its own line,
+%            no equation number on the right
+% NOTE: Do NOT use $$...$$ (old plain TeX).
+%       \\[...\\] is the correct LaTeX syntax.
+% =============================================
+\\[ Y = a + bX \\]
+
+% =============================================
+% COMMAND 19: \\begin{equation}
+% Purpose : Creates a numbered display equation.
+%           Use \\label inside for cross-referencing.
+% =============================================
+% OPTIONS:
+%   \\begin{equation} ... \\end{equation}
+%     — numbered equation
+%     — PDF: centered with (1) on right margin
+%   \\begin{equation*} ... \\end{equation*}
+%     — unnumbered (same as \\[...\\])
+%     — PDF: centered, no number
+% TIP: Always add \\label{eq:name} inside for
+%      cross-referencing with \\eqref.
+% =============================================
+\\begin{equation}
+  Y = \\beta_0 + \\beta_1 X_1 + \\beta_2 X_2 + \\epsilon
+  \\label{eq:yield}
+\\end{equation}
+
+\\begin{equation*}
+  \\text{This equation has no number}
+\\end{equation*}
+
+% =============================================
+% COMMAND 29: \\label{eq:...} / \\eqref{eq:...}
+% Purpose : Label and reference equations.
+%           \\eqref adds parentheses automatically.
+% =============================================
+% OPTIONS:
+%   \\label{eq:yield}
+%     — place INSIDE the equation environment
+%     — creates a reference anchor
+%   \\eqref{eq:yield}
+%     — renders as "(1)" with auto-update
+%     — PDF: clickable link to equation
+%   \\ref{eq:yield}
+%     — renders as "1" without parentheses
+%     — PDF: just the number
+% TIP: Compile TWICE to resolve references.
+%      Use prefix eq: for equations.
+% =============================================
+The regression model in Equation~\\eqref{eq:yield}
+explains crop yield. See also Eq.~\\ref{eq:yield}.
+
+% =============================================
+% COMMAND 22: \\frac{numerator}{denominator}
+% Purpose : Creates a fraction.
+% =============================================
+% OPTIONS:
+%   \\frac{a}{b}
+%     — standard fraction
+%     — PDF: a over b with horizontal line
+%     — compact in inline, full-size in display
+%   \\dfrac{a}{b}
+%     — display-size fraction in inline mode
+%     — PDF: larger fraction even within text
+%   \\tfrac{a}{b}
+%     — text-size fraction in display mode
+%     — PDF: compact fraction even in display
+% TIP: Use \\dfrac when inline fractions look
+%      too small to read.
+% =============================================
+Harvest index: $HI = \\frac{\\text{Grain yield}}{\\text{Biological yield}}$
+
+Display-size inline: $\\dfrac{a}{b}$ vs text-size: $\\tfrac{a}{b}$
+
+In display mode:
+\\[ \\frac{a}{b} \\quad \\dfrac{a}{b} \\quad \\tfrac{a}{b} \\]
+
+% =============================================
+% COMMAND 23: \\sqrt{expression}
+% Purpose : Square root. Bar auto-extends over
+%           the entire content.
+% =============================================
+% OPTIONS:
+%   \\sqrt{x}
+%     — square root
+%     — PDF: radical sign with bar over x
+%   \\sqrt[n]{x}
+%     — nth root (cube root, 4th root, etc.)
+%     — PDF: small n in the root symbol crook
+% TIP: Nest fractions inside freely:
+%      \\sqrt{\\frac{a}{b}} works perfectly.
+% =============================================
+Standard error: $SE = \\sqrt{\\frac{\\sum(x_i - \\bar{x})^2}{n-1}}$
+
+Cube root: $\\sqrt[3]{27} = 3$ \\quad
+Fourth root: $\\sqrt[4]{16} = 2$
+
+% =============================================
+% COMMAND 25: ^ (superscript / exponent)
+% Purpose : Raises text as superscript.
+%           Only works in math mode.
+% =============================================
+% OPTIONS:
+%   x^2
+%     — single character exponent
+%     — PDF: x with small raised 2
+%   x^{10}
+%     — multi-character exponent (braces required!)
+%     — PDF: x with raised "10"
+%   x_i^2
+%     — combined with subscript
+%     — PDF: subscript i and superscript 2
+% WARNING: x^10 without braces = x with raised 1
+%          followed by normal 0!
+% =============================================
+%
+% COMMAND 26: _ (subscript)
+% Purpose : Lowers text as subscript.
+%           Only works in math mode.
+% =============================================
+% OPTIONS:
+%   x_i
+%     — single character subscript
+%     — PDF: x with small lowered i
+%   x_{ij}
+%     — multi-character subscript (braces required!)
+%     — PDF: x with lowered "ij"
+% WARNING: x_ij without braces = x with lowered i
+%          followed by normal j!
+% =============================================
+$R^2 = 0.89$ \\quad $R^{2}_{adj} = 0.87$ \\quad
+$x_{ij}$ = $j^{\\text{th}}$ observation in $i^{\\text{th}}$ group
+
+% =============================================
+% COMMAND 24: \\sum, \\prod, \\int
+% Purpose : Summation, product, and integral.
+% =============================================
+% OPTIONS:
+%   \\sum_{i=1}^{n}
+%     — summation symbol Σ
+%     — PDF display: limits above/below
+%     — PDF inline: limits beside symbol
+%   \\prod_{i=1}^{n}
+%     — product symbol Π
+%     — PDF: same placement rules as \\sum
+%   \\int_{a}^{b}
+%     — integral symbol ∫
+%     — PDF: limits as sub/superscript
+%     — TIP: add \\, before dx for proper spacing
+%   \\limits
+%     — force limits above/below in inline
+%   \\nolimits
+%     — force limits beside in display
+% =============================================
+\\begin{equation}
+  \\bar{x} = \\frac{1}{n} \\sum_{i=1}^{n} x_i
+  \\label{eq:mean}
+\\end{equation}
+
+Product: $\\prod_{i=1}^{k} p_i$ \\quad
+Integral: $\\int_{0}^{\\infty} e^{-x} \\, dx = 1$ \\quad
+Forced limits inline: $\\sum\\limits_{i=1}^{n} x_i$
+
+% =============================================
+% COMMAND 27: \\begin{align}
+% Purpose : Multi-line aligned equations.
+%           Use & for alignment point.
+% =============================================
+% OPTIONS:
+%   \\begin{align} ... \\end{align}
+%     — each line numbered: (1), (2), (3)
+%     — PDF: equations aligned at & symbol
+%   \\begin{align*} ... \\end{align*}
+%     — all lines unnumbered
+%     — PDF: aligned but no numbers
+%   \\nonumber
+%     — skip number for ONE specific line
+%     — PDF: that line has no number
+%   &
+%     — alignment point (place before =)
+%   \\\\
+%     — line break between equations
+% TIP: Use & before = to align all equals signs.
+% =============================================
+\\begin{align}
+  SS_{\\text{total}} &= \\sum_{i=1}^{n}(Y_i - \\bar{Y})^2
+    \\label{eq:sst} \\\\
+  SS_{\\text{reg}} &= \\sum_{i=1}^{n}(\\hat{Y}_i - \\bar{Y})^2
+    \\nonumber \\\\
+  SS_{\\text{res}} &= \\sum_{i=1}^{n}(Y_i - \\hat{Y}_i)^2
+    \\label{eq:sse}
+\\end{align}
+
+% =============================================
+% COMMAND 28: Greek letters
+% Purpose : Greek symbols for statistics and
+%           scientific notation.
+% =============================================
+% OPTIONS (lowercase):
+%   \\alpha   → α   (significance level)
+%   \\beta    → β   (regression coefficient)
+%   \\gamma   → γ   (gamma distribution)
+%   \\delta   → δ   (small change)
+%   \\epsilon → ϵ   (error term)
+%   \\sigma   → σ   (standard deviation)
+%   \\mu      → μ   (population mean)
+%   \\pi      → π   (3.14159...)
+%   \\theta   → θ   (parameter)
+%   \\lambda  → λ   (rate parameter)
+%   \\chi     → χ   (chi-squared test)
+%
+% OPTIONS (uppercase):
+%   \\Sigma   → Σ   (summation)
+%   \\Delta   → Δ   (change/difference)
+%   \\Omega   → Ω   (sample space)
+%   \\Gamma   → Γ   (gamma function)
+%   \\Pi      → Π   (product)
+%
+% VARIANTS:
+%   \\varepsilon → ε  (curly epsilon)
+%   \\epsilon    → ϵ  (lunate epsilon)
+%   \\varphi     → φ  (curly phi)
+%   \\phi        → ϕ  (straight phi)
+% TIP: Only work in math mode ($...$).
+%      Check journal convention for variants.
+% =============================================
+Parameters: $\\alpha = 0.05$, $\\beta_1 = 2.3$,
+$\\sigma^2 = 4.5$, $\\mu = 12.8$
+
+Change: $\\Delta Y = Y_2 - Y_1$ was significant.
+
+Variants: $\\varepsilon$ vs $\\epsilon$,
+$\\varphi$ vs $\\phi$
+
+Chi-squared: $\\chi^2 = 15.3$, $p < 0.01$
+
+\\end{document}`,
         commands: [
             {
                 id: 19,
@@ -425,6 +1166,233 @@ const COMMAND_MODULES: Module[] = [
         color: "text-teal-700",
         bgColor: "bg-teal-50",
         borderColor: "border-teal-200",
+        sampleTex: `% ============================================
+% MODULE 7: References & Citations — Sample .tex
+% Covers: \\cite, \\citep/\\citet, \\bibliography,
+%   \\bibliographystyle, \\nocite, BibTeX entries
+% ============================================
+
+\\documentclass[12pt, a4paper]{article}
+\\usepackage[margin=1in]{geometry}
+\\usepackage{natbib}   % For \\citep and \\citet
+\\usepackage{hyperref}
+
+\\begin{document}
+
+\\section{Literature Review}
+
+% =============================================
+% COMMAND 30: \\cite{key}
+% Purpose : Inserts a citation reference.
+%           Key must match .bib entry exactly.
+% =============================================
+% OPTIONS:
+%   \\cite{key}
+%     — single citation
+%     — PDF: [1] (plain) or [Sha24] (alpha)
+%   \\cite{key1, key2}
+%     — multiple citations in one command
+%     — PDF: [1, 3] — auto-sorted in some styles
+%   \\cite[p.~42]{key}
+%     — citation with page note
+%     — PDF: [1, p. 42] — page-specific reference
+%   \\cite[see][p.~42]{key}
+%     — with pre-note and post-note (natbib)
+%     — PDF: [see 1, p. 42]
+% COMPILE CYCLE: pdflatex → bibtex → pdflatex → pdflatex
+% If you see [?] → incomplete compile cycle!
+% =============================================
+Organic farming improves soil health \\cite{sharma2024}.
+Multiple studies confirm this \\cite{sharma2024, kumar2023}.
+Specifically noted on \\cite[p.~42]{sharma2024}.
+
+% =============================================
+% COMMAND 31: \\citep{key} / \\citet{key}
+% Purpose : Parenthetical vs textual citation.
+%           Requires natbib or biblatex package.
+% =============================================
+% OPTIONS:
+%   \\citep{key}
+%     — parenthetical citation
+%     — PDF: (Sharma, 2024)
+%     — USE: at end of sentence
+%   \\citet{key}
+%     — textual citation (author as subject)
+%     — PDF: Sharma (2024)
+%     — USE: when author is the subject
+%   \\citep[p.~42]{key}
+%     — parenthetical with page
+%     — PDF: (Sharma, 2024, p. 42)
+%   \\citep*{key}
+%     — full author list (no "et al.")
+%     — PDF: (Sharma, Kumar, and Patel, 2024)
+%   \\citeauthor{key}
+%     — author name only
+%     — PDF: Sharma
+%   \\citeyear{key}
+%     — year only
+%     — PDF: 2024
+% =============================================
+\\citet{sharma2024} reported a 23\\% increase in SOC.
+This aligns with earlier findings \\citep{kumar2023}.
+As noted by \\citeauthor{sharma2024} in \\citeyear{sharma2024}.
+
+% =============================================
+% COMMAND 34: \\nocite{*}
+% Purpose : Includes entries in bibliography
+%           without in-text citation.
+% =============================================
+% OPTIONS:
+%   \\nocite{*}
+%     — include ALL .bib entries
+%     — PDF: every entry appears in bibliography
+%     — USE: annotated bibliographies
+%   \\nocite{key}
+%     — include one specific uncited entry
+%     — PDF: that entry appears without in-text cite
+% TIP: Avoid \\nocite{*} in journal submissions.
+% =============================================
+\\nocite{patel2022}  % Include without in-text citation
+
+% =============================================
+% COMMAND 33: \\bibliographystyle{style}
+% Purpose : Sets how references are formatted.
+%           Place BEFORE \\bibliography command.
+% =============================================
+% OPTIONS:
+%   {plain}
+%     — numbered, sorted alphabetically
+%     — PDF: [1] Author. Title. Journal. Year.
+%   {unsrt}
+%     — numbered, in order of first citation
+%     — PDF: [1] in citation order
+%   {alpha}
+%     — letter-based keys
+%     — PDF: [Sha24] based on author+year
+%   {apalike}
+%     — author-year format
+%     — PDF: (Sharma, 2024) — social science style
+%   {abbrvnat}
+%     — abbreviated author-year (natbib)
+%     — PDF: abbreviated journal names
+%   {plainnat}
+%     — full author-year (natbib)
+%     — PDF: full journal names
+%   {ieeetr}
+%     — IEEE transaction style
+%     — PDF: [1] numbered, IEEE format
+% =============================================
+\\bibliographystyle{apalike}
+
+% =============================================
+% COMMAND 32: \\bibliography{file}
+% Purpose : Loads the .bib file containing all
+%           reference entries.
+% =============================================
+% OPTIONS:
+%   \\bibliography{references}
+%     — loads references.bib (no .bib extension!)
+%     — PDF: bibliography section auto-generates
+%   \\bibliography{refs1, refs2}
+%     — loads multiple .bib files
+%     — PDF: entries merged from all files
+% TIP: Place at the END of the document.
+% =============================================
+\\bibliography{references}
+
+\\end{document}
+
+% =============================================
+% COMMAND 35: BibTeX Entry Types
+% Purpose : Define references in .bib files.
+% =============================================
+% FILE: references.bib (save as separate file)
+%
+% ENTRY TYPE OPTIONS:
+%   @article{key, ...}
+%     — journal paper
+%     — Required: author, title, journal, year
+%     — Optional: volume, number, pages, doi
+%     — PDF: Author. Title. Journal, Vol(No):Pages, Year.
+%
+%   @book{key, ...}
+%     — book
+%     — Required: author/editor, title, publisher, year
+%     — Optional: edition, address, isbn
+%     — PDF: Author. Title. Publisher, Year.
+%
+%   @inproceedings{key, ...}
+%     — conference paper
+%     — Required: author, title, booktitle, year
+%     — Optional: editor, pages, organization
+%     — PDF: Author. Title. In Booktitle, Year.
+%
+%   @phdthesis{key, ...}
+%     — PhD dissertation
+%     — Required: author, title, school, year
+%     — PDF: Author. Title. PhD thesis, School, Year.
+%
+%   @mastersthesis{key, ...}
+%     — Master's thesis
+%     — Required: author, title, school, year
+%
+%   @techreport{key, ...}
+%     — technical report
+%     — Required: author, title, institution, year
+%
+%   @misc{key, ...}
+%     — anything that doesn't fit above
+%     — Optional: author, title, howpublished, year
+%     — USE: websites, software, datasets
+%
+% TIP: Use descriptive keys like sharma2024irrigation.
+%      Fields are comma-separated.
+%      Enclose titles in {Title} to preserve case.
+% =============================================
+%
+% @article{sharma2024,
+%   author  = {Sharma, Priya and Reddy, K.},
+%   title   = {{Organic Manure Effects on Soil Carbon}},
+%   journal = {Journal of Soil Science},
+%   volume  = {89},
+%   number  = {3},
+%   pages   = {234--248},
+%   year    = {2024},
+%   doi     = {10.1234/jss.2024.0042}
+% }
+%
+% @book{kumar2023,
+%   author    = {Kumar, Ramesh},
+%   title     = {{Sustainable Agriculture Practices}},
+%   publisher = {ICAR Publications},
+%   address   = {New Delhi},
+%   edition   = {2nd},
+%   year      = {2023}
+% }
+%
+% @inproceedings{patel2022,
+%   author    = {Patel, Anita and Singh, B.},
+%   title     = {{Vermicompost in Dryland Farming}},
+%   booktitle = {National Seminar on Organic Farming},
+%   year      = {2022},
+%   pages     = {45--52},
+%   organization = {ICAR}
+% }
+%
+% @phdthesis{reddy2021,
+%   author = {Reddy, Suresh},
+%   title  = {{Nutrient Dynamics in Paddy Soils}},
+%   school = {UAS Dharwad},
+%   year   = {2021}
+% }
+%
+% @misc{fao2023,
+%   author       = {{FAO}},
+%   title        = {{World Food and Agriculture Report}},
+%   howpublished = {\\url{https://www.fao.org/report}},
+%   year         = {2023},
+%   note         = {Accessed: 2026-03-10}
+% }`,
         commands: [
             {
                 id: 30,
@@ -505,6 +1473,282 @@ const COMMAND_MODULES: Module[] = [
         color: "text-rose-700",
         bgColor: "bg-rose-50",
         borderColor: "border-rose-200",
+        sampleTex: `% ============================================
+% MODULE 8: Tables & Figures — Sample .tex
+% Covers: \\begin{table}, \\begin{tabular}, \\hline,
+%   \\caption, \\label/\\ref, \\centering,
+%   \\includegraphics, \\begin{figure},
+%   \\listoftables, \\listoffigures
+% ============================================
+
+\\documentclass[12pt, a4paper]{article}
+\\usepackage[margin=1in]{geometry}
+\\usepackage{graphicx}    % For \\includegraphics
+\\usepackage{float}       % For [H] exact placement
+\\usepackage{booktabs}    % For \\toprule, \\midrule, \\bottomrule
+\\usepackage{hyperref}
+
+\\begin{document}
+
+% =============================================
+% COMMAND 44: \\listoftables / \\listoffigures
+% Purpose : Auto-generates list of all tables
+%           or figures with page numbers.
+% =============================================
+% OPTIONS:
+%   \\listoftables
+%     — generates list of tables
+%     — PDF: page with table numbers, captions, pages
+%   \\listoffigures
+%     — generates list of figures
+%     — PDF: page with figure numbers, captions, pages
+% TIP: Place after \\tableofcontents.
+%      Compile TWICE to populate.
+%      Uses short caption from \\caption[Short]{Long}.
+% =============================================
+\\listoftables
+\\listoffigures
+
+\\section{Results}
+
+% =============================================
+% COMMAND 36: \\begin{table}[placement]
+% Purpose : Float wrapper for tables. Controls
+%           placement and adds caption support.
+% =============================================
+% PLACEMENT OPTIONS (in square brackets):
+%   [h]    — here (approximate)
+%           — PDF: tries to place near source position
+%           — may move if not enough space
+%   [t]    — top of page
+%           — PDF: floats to top of current/next page
+%   [b]    — bottom of page
+%           — PDF: sinks to bottom of page
+%   [p]    — special float page
+%           — PDF: placed on a page with only floats
+%   [H]    — exactly here (requires float package!)
+%           — PDF: no floating at all, stays put
+%           — WARNING: may cause ugly page breaks
+%   [htbp] — maximum flexibility (recommended)
+%           — PDF: tries h, then t, then b, then p
+%   [!h]   — override LaTeX restrictions
+%           — PDF: forces placement even if "ugly"
+% TIP: Always use \\centering inside table.
+%      \\caption BEFORE \\label (label needs caption).
+% =============================================
+\\begin{table}[htbp]
+
+  % =============================================
+  % COMMAND 41: \\centering
+  % Purpose : Centers content within the current
+  %           environment (table, figure, etc.).
+  % =============================================
+  % OPTIONS:
+  %   \\centering
+  %     — no extra vertical space (preferred in floats)
+  %     — PDF: content centered horizontally
+  %   \\begin{center} ... \\end{center}
+  %     — adds extra vertical space above and below
+  %     — PDF: centered but with padding
+  %     — AVOID inside floats (table/figure)!
+  % =============================================
+  \\centering
+
+  % =============================================
+  % COMMAND 39: \\caption{text}
+  % Purpose : Adds a numbered caption to a table
+  %           or figure float.
+  % =============================================
+  % OPTIONS:
+  %   \\caption{Full caption text}
+  %     — auto-numbered caption
+  %     — PDF: "Table 1: Full caption text"
+  %   \\caption[Short]{Very long detailed caption}
+  %     — short version for \\listoftables
+  %     — PDF: full text in document,
+  %            "Short" in list of tables
+  % CONVENTION:
+  %   Tables: \\caption ABOVE the tabular
+  %   Figures: \\caption BELOW the image
+  % =============================================
+  \\caption[Fertilizer trial]{Effect of organic amendments
+    on rice yield (t/ha) during kharif 2024}
+
+  % =============================================
+  % COMMAND 40: \\label{prefix:key} / \\ref{prefix:key}
+  % Purpose : Label and reference any numbered
+  %           element. Compile TWICE to resolve.
+  % =============================================
+  % OPTIONS:
+  %   \\label{tab:yield}
+  %     — creates reference anchor
+  %     — MUST come AFTER \\caption
+  %   \\ref{tab:yield}
+  %     — inserts number: "1"
+  %     — PDF: auto-updates if order changes
+  %   \\pageref{tab:yield}
+  %     — inserts page number
+  %     — PDF: "3" (the page it appears on)
+  % PREFIX CONVENTION:
+  %   sec:  — sections
+  %   fig:  — figures
+  %   tab:  — tables
+  %   eq:   — equations
+  %   ch:   — chapters
+  % =============================================
+  \\label{tab:yield}
+
+  % =============================================
+  % COMMAND 37: \\begin{tabular}{column spec}
+  % Purpose : Creates the actual table grid.
+  % =============================================
+  % COLUMN SPECIFIERS:
+  %   l     — left-aligned column
+  %   c     — center-aligned column
+  %   r     — right-aligned column
+  %   |     — vertical border line
+  %   ||    — double vertical line
+  %   p{3cm} — fixed-width column (text wraps)
+  %   m{3cm} — fixed-width, vertically centered
+  %   @{}   — suppress inter-column space
+  %   *{3}{c} — repeat: 3 centered columns
+  %
+  % COLUMN SPEC OPTIONS:
+  %   {|l|c|r|}
+  %     — bordered columns: left, center, right
+  %     — PDF: vertical lines between columns
+  %   {lcr}
+  %     — no borders (clean, journal-preferred)
+  %     — PDF: professional look
+  %   {p{3cm}p{4cm}}
+  %     — fixed-width columns with text wrapping
+  %     — PDF: text wraps within specified width
+  %   {l*{3}{c}r}
+  %     — left + 3 centered + right
+  %     — PDF: shorthand for repeated columns
+  %
+  % CELL SEPARATORS:
+  %   &     — column separator
+  %   \\\\  — row break (end of row)
+  % =============================================
+  \\begin{tabular}{lccc}
+
+    % =============================================
+    % COMMAND 38: \\hline and booktabs rules
+    % Purpose : Draws horizontal lines in tables.
+    % =============================================
+    % OPTIONS:
+    %   \\hline
+    %     — full horizontal line across all columns
+    %     — PDF: thin line spanning entire width
+    %   \\hline\\hline
+    %     — double horizontal line
+    %     — PDF: two thin lines (old-style)
+    %   \\cline{2-4}
+    %     — partial line spanning columns 2 to 4
+    %     — PDF: line under specific columns only
+    %   \\toprule  (booktabs package)
+    %     — thick top line with proper spacing
+    %     — PDF: professional thick line at top
+    %   \\midrule  (booktabs package)
+    %     — medium separator line
+    %     — PDF: thinner line between header and data
+    %   \\bottomrule (booktabs package)
+    %     — thick bottom line
+    %     — PDF: professional thick line at bottom
+    %   \\cmidrule{2-4} (booktabs package)
+    %     — partial midrule for columns 2-4
+    %     — PDF: partial line with trimming
+    %   \\cmidrule(lr){2-4}
+    %     — trimmed partial rule (l=left, r=right)
+    %     — PDF: line with small gaps at edges
+    % TIP: Professional journals prefer booktabs
+    %      (no vertical lines, only horizontal rules).
+    % =============================================
+    \\toprule
+    Treatment & Grain Yield & Straw Yield & HI \\\\
+    \\midrule
+    Control        & 3.2 & 4.8 & 0.40 \\\\
+    FYM 10 t/ha    & 4.1 & 5.9 & 0.41 \\\\
+    Vermicompost   & 4.5 & 6.2 & 0.42 \\\\
+    Green Manure   & 3.8 & 5.5 & 0.41 \\\\
+    \\cmidrule(lr){2-4}
+    \\textbf{Mean}  & \\textbf{3.9} & \\textbf{5.6} & \\textbf{0.41} \\\\
+    \\bottomrule
+  \\end{tabular}
+\\end{table}
+
+% Using \\ref and \\pageref
+Table~\\ref{tab:yield} on page~\\pageref{tab:yield}
+shows the treatment effects on rice yield.
+
+% =============================================
+% COMMAND 43: \\begin{figure}[placement]
+% Purpose : Float wrapper for figures. Same
+%           placement options as \\begin{table}.
+% =============================================
+% OPTIONS:
+%   [h], [t], [b], [p], [H], [htbp]
+%     — same placement rules as table (see above)
+%   \\begin{figure*}
+%     — spans BOTH columns in twocolumn mode
+%     — PDF: full-width figure across page
+% TIP: Use \\begin{figure*} in two-column papers
+%      for wide graphs or images.
+% =============================================
+\\begin{figure}[htbp]
+  \\centering
+
+  % =============================================
+  % COMMAND 42: \\includegraphics[options]{file}
+  % Purpose : Inserts an image file.
+  %           Requires \\usepackage{graphicx}.
+  % =============================================
+  % OPTIONS:
+  %   [width=0.8\\textwidth]
+  %     — scale to 80% of text width
+  %     — PDF: aspect ratio preserved automatically
+  %   [width=\\linewidth]
+  %     — full column width (useful in multicol)
+  %     — PDF: fills entire column
+  %   [scale=0.5]
+  %     — 50% of original image size
+  %     — PDF: half the native dimensions
+  %   [height=5cm]
+  %     — fixed height, width auto-adjusts
+  %     — PDF: maintains aspect ratio
+  %   [width=6cm, height=4cm]
+  %     — fixed both (may distort!)
+  %     — PDF: stretches to fit both dimensions
+  %   [angle=90]
+  %     — rotate 90° counter-clockwise
+  %     — PDF: image rotated
+  %   [angle=-90]
+  %     — rotate 90° clockwise
+  %   [trim=1cm 2cm 1cm 0cm, clip]
+  %     — crop edges: left bottom right top
+  %     — PDF: trims specified amounts from edges
+  %     — MUST include "clip" or trim is ignored!
+  %   [draft]
+  %     — show placeholder frame only
+  %     — PDF: empty box with filename (fast compile)
+  %
+  % SUPPORTED FORMATS: PNG, JPG, PDF, EPS
+  % TIP: Use relative widths (\\textwidth) not
+  %      absolute (cm) for responsive layouts.
+  % TIP: PDF images give best quality for diagrams.
+  % =============================================
+  \\includegraphics[width=0.8\\textwidth]{yield_graph.png}
+
+  % Caption BELOW image (convention for figures)
+  \\caption{Grain yield across treatments during kharif 2024}
+  \\label{fig:yield}
+\\end{figure}
+
+Figure~\\ref{fig:yield} illustrates the yield differences
+across all four treatments.
+
+\\end{document}`,
         commands: [
             {
                 id: 36,
@@ -624,6 +1868,228 @@ const COMMAND_MODULES: Module[] = [
         color: "text-indigo-700",
         bgColor: "bg-indigo-50",
         borderColor: "border-indigo-200",
+        sampleTex: `% ============================================
+% MODULE 9: Thesis Structure — Sample .tex
+% Covers: \\input, \\include, \\includeonly,
+%   \\tableofcontents, \\appendix, \\chapter
+% ============================================
+% NOTE: This module uses {report} class because
+%       \\chapter is only available in report/book.
+% ============================================
+
+\\documentclass[12pt, a4paper]{report}
+\\usepackage[margin=1in]{geometry}
+\\usepackage{hyperref}
+
+% =============================================
+% COMMAND 47: \\includeonly{file1, file2}
+% Purpose : Compile only specific chapters.
+%           Cross-references still work!
+%           Place in PREAMBLE only.
+% =============================================
+% OPTIONS:
+%   \\includeonly{chapters/results, chapters/discussion}
+%     — only these two chapters compile
+%     — PDF: only results + discussion appear
+%     — cross-refs from other chapters still resolve
+%     — 10x faster for large theses!
+%   (comment out for final compilation)
+%     — all chapters compile normally
+% RULES:
+%   - Only works with \\include (not \\input)
+%   - File names must match \\include exactly
+%   - No spaces after commas in file list
+% TIP: Huge time saver during writing.
+%      Comment out for final submission.
+% =============================================
+% \\includeonly{chapters/results,chapters/discussion}
+
+\\title{Effect of Integrated Nutrient Management on
+  Soil Health and Rice Productivity}
+\\author{Priya Sharma \\\\
+  Department of Soil Science \\\\
+  University of Agricultural Sciences, Dharwad}
+\\date{March 2026}
+
+\\begin{document}
+
+\\maketitle
+
+% =============================================
+% COMMAND 48: \\tableofcontents
+% Purpose : Auto-generates Table of Contents
+%           from \\chapter/\\section headings.
+% =============================================
+% OPTIONS:
+%   \\tableofcontents
+%     — full TOC with all heading levels
+%     — PDF: page with headings, numbers, page numbers
+%   \\setcounter{tocdepth}{1}
+%     — control depth: 0=chapters, 1=sections,
+%       2=subsections, 3=subsubsections
+%     — PDF: TOC shows only up to that level
+%   \\addcontentsline{toc}{chapter}{Title}
+%     — manually add unnumbered entry to TOC
+%     — PDF: "Title" appears in TOC
+% TIP: Compile TWICE to populate TOC.
+%      First pass collects headings,
+%      second pass writes the TOC page.
+% =============================================
+\\tableofcontents
+\\listoftables
+\\listoffigures
+
+% =============================================
+% COMMAND 50: \\chapter{title}
+% Purpose : Top-level heading. Only available
+%           in report and book classes.
+% =============================================
+% OPTIONS:
+%   \\chapter{Title}
+%     — numbered chapter
+%     — PDF: "Chapter 1" + "Introduction" on new page
+%     — starts on new page automatically
+%   \\chapter*{Title}
+%     — unnumbered chapter
+%     — PDF: no "Chapter N" prefix, not in TOC
+%     — USE: for Acknowledgements, Abbreviations
+%   \\chapter[Short]{Very Long Chapter Title}
+%     — short title for TOC and page headers
+%     — PDF: full title in body, short in TOC
+% TIP: In book class, chapters start on right-hand
+%      (odd) pages by default.
+% =============================================
+
+\\chapter*{Acknowledgements}
+% Unnumbered — add to TOC manually:
+\\addcontentsline{toc}{chapter}{Acknowledgements}
+The author thanks ICAR for funding this research.
+
+% =============================================
+% COMMAND 45: \\input{file}
+% Purpose : Inserts content of another .tex file
+%           inline. No page break added.
+% =============================================
+% OPTIONS:
+%   \\input{chapters/intro_background}
+%     — inline paste of file content
+%     — PDF: content flows continuously, no page break
+%   \\input{sections/methods_part1}
+%     — can be nested (input inside input)
+%     — PDF: seamless content insertion
+% RULES:
+%   - Don't add .tex extension
+%   - Included file should NOT have
+%     \\documentclass or \\begin{document}
+%   - Can be nested (\\input inside \\input)
+%   - Does NOT work with \\includeonly
+% USE: For sections within a chapter.
+% =============================================
+
+\\chapter{Introduction}
+% \\input for sections within a chapter (no page break)
+\\input{chapters/intro_background}
+\\input{chapters/intro_objectives}
+
+% =============================================
+% COMMAND 46: \\include{file}
+% Purpose : Includes a file with \\clearpage
+%           before and after. Use for chapters.
+% =============================================
+% OPTIONS:
+%   \\include{chapters/review}
+%     — chapter-level include
+%     — PDF: starts on new page (\\clearpage added)
+%     — gets its own .aux file for cross-refs
+%     — works with \\includeonly for selective compile
+%   \\include{chapters/results}
+%     — each \\include = separate compilation unit
+% RULES:
+%   - Don't add .tex extension
+%   - CANNOT be nested (no \\include inside \\include)
+%   - Included file should NOT have
+%     \\documentclass or \\begin{document}
+%   - Always adds \\clearpage before and after
+% USE: For full chapters in a thesis.
+%
+% \\input vs \\include COMPARISON:
+%   \\input:   inline, no page break, nestable,
+%              no \\includeonly support
+%   \\include: page break, own .aux file,
+%              \\includeonly support, not nestable
+% =============================================
+
+% \\include for full chapters (page break before/after)
+\\include{chapters/review}
+\\include{chapters/materials}
+\\include{chapters/results}
+\\include{chapters/discussion}
+
+\\chapter{Summary and Conclusions}
+The integrated application of FYM and vermicompost
+significantly improved soil organic carbon and
+rice grain yield over three seasons.
+
+% =============================================
+% COMMAND 49: \\appendix
+% Purpose : Switches numbering from numbers to
+%           letters. All subsequent \\chapter or
+%           \\section become A, B, C, etc.
+% =============================================
+% OPTIONS:
+%   \\appendix + \\chapter{Data}
+%     — in report/book class
+%     — PDF: "Appendix A: Data" — auto-lettered
+%   \\appendix + \\section{Tables}
+%     — in article class
+%     — PDF: "A Tables" — sections become A, B, C
+% RULES:
+%   - Place ONCE before the first appendix
+%   - All subsequent headings use letters
+%   - Figures/tables restart numbering: A.1, A.2
+% USE: Raw data, questionnaires, code listings,
+%      supplementary material.
+% =============================================
+\\appendix
+
+\\chapter{Raw Data Tables}
+% This becomes "Appendix A: Raw Data Tables"
+Complete plot-wise yield data for all three seasons.
+
+\\chapter{Questionnaire}
+% This becomes "Appendix B: Questionnaire"
+Farmer survey instrument used in the study.
+
+\\chapter{R Code}
+% This becomes "Appendix C: R Code"
+Statistical analysis scripts.
+
+\\end{document}
+
+% ============================================
+% PROJECT FOLDER STRUCTURE:
+% ============================================
+% thesis/
+%   main.tex                (this file — compile this)
+%   chapters/
+%     intro_background.tex  (\\input — no preamble needed)
+%     intro_objectives.tex  (\\input — no preamble needed)
+%     review.tex            (\\include — no preamble needed)
+%     materials.tex         (\\include)
+%     results.tex           (\\include)
+%     discussion.tex        (\\include)
+%   references.bib          (BibTeX database)
+%   figures/
+%     yield_graph.png       (images go here)
+%     soil_map.pdf
+%
+% IMPORTANT: Files used with \\input and \\include
+% should contain ONLY content (sections, text, etc.)
+% They should NOT contain:
+%   - \\documentclass
+%   - \\begin{document} / \\end{document}
+%   - \\usepackage (put all packages in main.tex)
+% ============================================`,
         commands: [
             {
                 id: 45,
@@ -716,6 +2182,8 @@ export function CommandReferenceView() {
     const [coveredCommands, setCoveredCommands] = useState<Set<number>>(new Set());
     const [activeModule, setActiveModule] = useState<string | null>(null);
     const [viewMode, setViewMode] = useState<"all" | "module">("all");
+    const [expandedSample, setExpandedSample] = useState<Set<string>>(new Set());
+    const [copiedModule, setCopiedModule] = useState<string | null>(null);
 
     // Timer state
     const [systemTime, setSystemTime] = useState(new Date());
@@ -759,6 +2227,21 @@ export function CommandReferenceView() {
         setElapsedSeconds(0);
         setPausedElapsed(0);
     }, []);
+
+    const toggleSample = (modId: string) => {
+        setExpandedSample(prev => {
+            const next = new Set(prev);
+            if (next.has(modId)) next.delete(modId);
+            else next.add(modId);
+            return next;
+        });
+    };
+
+    const copyTexCode = async (modId: string, code: string) => {
+        await navigator.clipboard.writeText(code);
+        setCopiedModule(modId);
+        setTimeout(() => setCopiedModule(null), 2000);
+    };
 
     // Time calculations
     const remainingCommands = TOTAL_COMMANDS - coveredCount;
@@ -1099,6 +2582,53 @@ export function CommandReferenceView() {
                                         {allModCovered ? "Unmark All" : "Mark All"}
                                     </button>
                                 </div>
+                            </div>
+
+                            {/* Sample .tex Environment */}
+                            <div className={cn("rounded-2xl border-2 overflow-hidden transition-all", mod.borderColor)}>
+                                <button
+                                    onClick={() => toggleSample(mod.id)}
+                                    className={cn(
+                                        "w-full flex items-center justify-between p-4 transition-colors",
+                                        expandedSample.has(mod.id) ? `${mod.bgColor}` : "bg-white hover:bg-slate-50"
+                                    )}
+                                >
+                                    <div className="flex items-center gap-3">
+                                        <Code2 className={cn("w-5 h-5", mod.color)} />
+                                        <span className="font-bold text-sm">Sample .tex — All M{mod.number} Commands with Options</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-xs text-muted-foreground">{mod.commands.length} commands covered</span>
+                                        {expandedSample.has(mod.id) ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
+                                    </div>
+                                </button>
+                                <AnimatePresence>
+                                    {expandedSample.has(mod.id) && (
+                                        <motion.div
+                                            initial={{ height: 0, opacity: 0 }}
+                                            animate={{ height: "auto", opacity: 1 }}
+                                            exit={{ height: 0, opacity: 0 }}
+                                            className="overflow-hidden"
+                                        >
+                                            <div className="relative">
+                                                <button
+                                                    onClick={() => copyTexCode(mod.id, mod.sampleTex)}
+                                                    className={cn(
+                                                        "absolute top-3 right-3 z-10 flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all shadow-lg",
+                                                        copiedModule === mod.id
+                                                            ? "bg-green-500 text-white"
+                                                            : "bg-white text-slate-700 hover:bg-slate-100 border border-slate-200"
+                                                    )}
+                                                >
+                                                    {copiedModule === mod.id ? <><Check className="w-4 h-4" /> Copied!</> : <><Copy className="w-4 h-4" /> Copy .tex</>}
+                                                </button>
+                                                <pre className="bg-slate-900 text-green-400 p-5 pt-14 text-xs leading-relaxed font-mono overflow-x-auto max-h-[500px] overflow-y-auto">
+                                                    <code>{mod.sampleTex}</code>
+                                                </pre>
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
                             </div>
 
                             {/* Commands Grid */}
