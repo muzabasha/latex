@@ -66,6 +66,7 @@ export function LabView() {
     const [guidedStepIdx, setGuidedStepIdx] = useState<Record<string, number>>({});
     const [livePreview, setLivePreview] = useState(true);
     const [showSnippets, setShowSnippets] = useState(false);
+    const [showTips, setShowTips] = useState(false);
     const [copiedSnippet, setCopiedSnippet] = useState<string | null>(null);
     const [expandedTask, setExpandedTask] = useState(true);
     const editorRef = useRef<string>("");
@@ -158,6 +159,7 @@ export function LabView() {
         setShowHints(false);
         setShowInstructions(true);
         setShowSnippets(false);
+        setShowTips(false);
     };
 
     const goToNext = () => {
@@ -378,6 +380,13 @@ export function LabView() {
                                             <Code2 className="w-4 h-4" />
                                         </button>
                                         <button
+                                            onClick={(e) => { e.stopPropagation(); setShowTips(!showTips); }}
+                                            className={cn("p-2 rounded-lg transition-colors text-sm", showTips ? "bg-teal-200 shadow-sm" : "hover:bg-white/50")}
+                                            title="Tips & Options"
+                                        >
+                                            <BookOpen className="w-4 h-4" />
+                                        </button>
+                                        <button
                                             onClick={(e) => { e.stopPropagation(); setShowHints(!showHints); }}
                                             className={cn("p-2 rounded-lg transition-colors text-sm", showHints ? "bg-amber-200 shadow-sm" : "hover:bg-white/50")}
                                             title="Toggle hints"
@@ -518,6 +527,46 @@ export function LabView() {
                                                         <p className="text-[10px] text-slate-400 leading-tight">{snippet.description}</p>
                                                         <pre className="text-[9px] text-green-400/70 mt-1 truncate font-mono">{snippet.code.split("\n")[0]}</pre>
                                                     </button>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+
+                            {/* Tips & Options Panel */}
+                            <AnimatePresence>
+                                {showTips && selected.tips && selected.tips.length > 0 && (
+                                    <motion.div
+                                        initial={{ opacity: 0, height: 0 }}
+                                        animate={{ opacity: 1, height: "auto" }}
+                                        exit={{ opacity: 0, height: 0 }}
+                                        className="overflow-hidden"
+                                    >
+                                        <div className="bg-teal-50 border-2 border-teal-200 rounded-2xl p-4 space-y-4">
+                                            <div className="flex items-center gap-2">
+                                                <BookOpen className="w-4 h-4 text-teal-600" />
+                                                <p className="text-xs font-bold text-teal-800 uppercase tracking-widest">Tips, Options & PDF Impact</p>
+                                            </div>
+                                            <div className="space-y-3">
+                                                {selected.tips.map((tip, tIdx) => (
+                                                    <div key={tIdx} className="bg-white rounded-xl border border-teal-100 overflow-hidden">
+                                                        <div className="px-4 py-3 bg-teal-100/50 border-b border-teal-100">
+                                                            <code className="text-sm font-bold font-mono text-teal-900">{tip.command}</code>
+                                                            <p className="text-xs text-teal-700 mt-1 flex items-start gap-1.5">
+                                                                <Lightbulb className="w-3 h-3 text-amber-500 shrink-0 mt-0.5" />
+                                                                {tip.userTip}
+                                                            </p>
+                                                        </div>
+                                                        <div className="divide-y divide-teal-50">
+                                                            {tip.options.map((opt, oIdx) => (
+                                                                <div key={oIdx} className="px-4 py-2.5 flex items-start gap-3 hover:bg-teal-50/50 transition-colors">
+                                                                    <code className="text-[11px] font-mono bg-slate-100 text-slate-700 px-2 py-0.5 rounded shrink-0 mt-0.5 max-w-[220px] break-all">{opt.option}</code>
+                                                                    <p className="text-xs text-slate-600 leading-relaxed flex-1">{opt.impact}</p>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
                                                 ))}
                                             </div>
                                         </div>

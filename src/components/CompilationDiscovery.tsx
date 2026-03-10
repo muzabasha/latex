@@ -1,21 +1,23 @@
-
 "use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, CheckCircle2, Info, Settings2, Code2, Eye } from "lucide-react";
+import { CheckCircle2, Settings2, Code2, Eye, Lightbulb, FileText } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface CommandOption {
     name: string;
     description: string;
     impact: string;
+    pdfImpact?: string;
+    whenToUse?: string;
 }
 
 interface LatexCommand {
     name: string;
     syntax: string;
     description: string;
+    guidelines?: string[];
     options: CommandOption[];
     example: string;
     preview: string;
@@ -38,7 +40,7 @@ export function CompilationDiscovery({ commands, moduleTitle }: CompilationDisco
                 <div className="text-center space-y-4">
                     <h2 className="text-3xl font-bold outfit-font italic">Interactive Compilation Discovery</h2>
                     <p className="text-muted-foreground max-w-2xl mx-auto">
-                        Explore the "Molecules" of {moduleTitle}. Select a command to see how its options change the "Recipe" and the final "Dish".
+                        Explore the &quot;Molecules&quot; of {moduleTitle}. Select a command to see guidelines, options, and how each choice impacts your final PDF.
                     </p>
                 </div>
 
@@ -90,7 +92,6 @@ export function CompilationDiscovery({ commands, moduleTitle }: CompilationDisco
                                         {"\n"}
                                         {selectedCommand.example}
                                     </pre>
-
                                     <div className="absolute bottom-6 right-6 opacity-30">
                                         <Code2 className="w-12 h-12 text-slate-500" />
                                     </div>
@@ -109,7 +110,6 @@ export function CompilationDiscovery({ commands, moduleTitle }: CompilationDisco
                                     <div className="absolute top-4 right-4 opacity-10 group-hover/preview:opacity-30 transition-opacity">
                                         <Eye className="w-12 h-12 text-slate-900" />
                                     </div>
-
                                     <AnimatePresence mode="wait">
                                         <motion.div
                                             key={selectedCommand.name + (selectedOption?.name || '')}
@@ -139,6 +139,29 @@ export function CompilationDiscovery({ commands, moduleTitle }: CompilationDisco
                                 </div>
                             </div>
                         </div>
+
+                        {/* User Guidelines & Tips */}
+                        {selectedCommand.guidelines && selectedCommand.guidelines.length > 0 && (
+                            <div className="bg-amber-50/80 border border-amber-200/60 rounded-3xl p-6 space-y-4">
+                                <div className="flex items-center gap-3">
+                                    <div className="p-2 bg-amber-100 rounded-xl">
+                                        <Lightbulb className="w-5 h-5 text-amber-600" />
+                                    </div>
+                                    <h3 className="font-bold text-base text-amber-900">Guidelines &amp; Tips</h3>
+                                </div>
+                                <div className="grid md:grid-cols-2 gap-3">
+                                    {selectedCommand.guidelines.map((tip, idx) => (
+                                        <div
+                                            key={idx}
+                                            className="flex gap-3 p-3 bg-white/70 rounded-xl border border-amber-100 text-left"
+                                        >
+                                            <span className="text-amber-500 font-bold text-xs mt-0.5 shrink-0">{idx + 1}.</span>
+                                            <p className="text-[12px] text-amber-900 leading-relaxed">{tip}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
 
                         {/* Options Discovery */}
                         <div className="bg-slate-50/50 rounded-4xl p-8 border border-slate-100 space-y-6">
@@ -170,6 +193,49 @@ export function CompilationDiscovery({ commands, moduleTitle }: CompilationDisco
                                 ))}
                             </div>
                         </div>
+
+                        {/* PDF Impact & When to Use Panel */}
+                        <AnimatePresence mode="wait">
+                            {selectedOption && (selectedOption.pdfImpact || selectedOption.whenToUse) && (
+                                <motion.div
+                                    key={selectedOption.name + "-details"}
+                                    initial={{ opacity: 0, y: 15, height: 0 }}
+                                    animate={{ opacity: 1, y: 0, height: "auto" }}
+                                    exit={{ opacity: 0, y: -10, height: 0 }}
+                                    transition={{ duration: 0.3, ease: "easeOut" }}
+                                    className="overflow-hidden"
+                                >
+                                    <div className="grid md:grid-cols-2 gap-6">
+                                        {selectedOption.pdfImpact && (
+                                            <div className="bg-blue-50/80 border border-blue-200/50 rounded-3xl p-6 space-y-3">
+                                                <div className="flex items-center gap-2">
+                                                    <div className="p-1.5 bg-blue-100 rounded-lg">
+                                                        <FileText className="w-4 h-4 text-blue-600" />
+                                                    </div>
+                                                    <h4 className="font-bold text-sm text-blue-900 uppercase tracking-wider">PDF Appearance Impact</h4>
+                                                </div>
+                                                <p className="text-[13px] text-blue-800 leading-relaxed">
+                                                    {selectedOption.pdfImpact}
+                                                </p>
+                                            </div>
+                                        )}
+                                        {selectedOption.whenToUse && (
+                                            <div className="bg-emerald-50/80 border border-emerald-200/50 rounded-3xl p-6 space-y-3">
+                                                <div className="flex items-center gap-2">
+                                                    <div className="p-1.5 bg-emerald-100 rounded-lg">
+                                                        <Lightbulb className="w-4 h-4 text-emerald-600" />
+                                                    </div>
+                                                    <h4 className="font-bold text-sm text-emerald-900 uppercase tracking-wider">When to Use This</h4>
+                                                </div>
+                                                <p className="text-[13px] text-emerald-800 leading-relaxed">
+                                                    {selectedOption.whenToUse}
+                                                </p>
+                                            </div>
+                                        )}
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
                 </div>
             </div>
