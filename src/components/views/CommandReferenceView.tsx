@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     Hash, ChevronDown, ChevronUp, CheckCircle, Circle,
     BookOpen, Zap, Monitor, ArrowRight, ArrowLeft,
     Lightbulb, Eye, FileText, Type, Sigma, Table,
-    Image as ImageIcon, FolderTree, Quote, Settings
+    Image as ImageIcon, FolderTree, Quote, Settings,
+    Clock, Play, Pause, RotateCcw, AlertTriangle, Timer, Bell
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -692,6 +693,23 @@ const COMMAND_MODULES: Module[] = [
 ];
 
 const TOTAL_COMMANDS = COMMAND_MODULES.reduce((sum, m) => sum + m.commands.length, 0);
+const MINUTES_PER_COMMAND = 5;
+const TOTAL_ESTIMATED_MINUTES = TOTAL_COMMANDS * MINUTES_PER_COMMAND;
+
+function formatTime(seconds: number): string {
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = seconds % 60;
+    if (h > 0) return `${h}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+    return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+}
+
+function formatMinutes(mins: number): string {
+    const h = Math.floor(mins / 60);
+    const m = Math.round(mins % 60);
+    if (h > 0) return `${h}h ${m}m`;
+    return `${m}m`;
+}
 
 export function CommandReferenceView() {
     const [expandedCmd, setExpandedCmd] = useState<number | null>(null);
@@ -699,8 +717,61 @@ export function CommandReferenceView() {
     const [activeModule, setActiveModule] = useState<string | null>(null);
     const [viewMode, setViewMode] = useState<"all" | "module">("all");
 
+    // Timer state
+    const [systemTime, setSystemTime] = useState(new Date());
+    const [sessionRunning, setSessionRunning] = useState(false);
+    const [sessionStartTime, setSessionStartTime] = useState<number | null>(null);
+    const [elapsedSeconds, setElapsedSeconds] = useState(0);
+    const [pausedElapsed, setPausedElapsed] = useState(0);
+
     const coveredCount = coveredCommands.size;
     const progress = (coveredCount / TOTAL_COMMANDS) * 100;
+
+    // System clock — ticks every second
+    useEffect(() => {
+        const interval = setInterval(() => setSystemTime(new Date()), 1000);
+        return () => clearInterval(interval);
+    }, []);
+
+    // Session timer — ticks every second when running
+    useEffect(() => {
+        if (!sessionRunning || !sessionStartTime) return;
+        const interval = setInterval(() => {
+            setElapsedSeconds(pausedElapsed + Math.floor((Date.now() - sessionStartTime) / 1000));
+        }, 1000);
+        return () => clearInterval(interval);
+    }, [sessionRunning, sessionStartTime, pausedElapsed]);
+
+    const startSession = useCallback(() => {
+        setSessionStartTime(Date.now());
+        setSessionRunning(true);
+    }, []);
+
+    const pauseSession = useCallback(() => {
+        setPausedElapsed(elapsedSeconds);
+        setSessionRunning(false);
+        setSessionStartTime(null);
+    }, [elapsedSeconds]);
+
+    const resetSession = useCallback(() => {
+        setSessionRunning(false);
+        setSessionStartTime(null);
+        setElapsedSeconds(0);
+        setPausedElapsed(0);
+    }, []);
+
+    // Time calculations
+    const remainingCommands = TOTAL_COMMANDS - coveredCount;
+    const estimatedRemainingMins = remainingCommands * MINUTES_PER_COMMAND;
+    const elapsedMinutes = elapsedSeconds / 60;
+    const expectedCoveredByNow = Math.floor(elapsedMinutes / MINUTES_PER_COMMAND);
+    const avgMinutesPerCommand = coveredCount > 0 ? elapsedMinutes / coveredCount : 0;
+    const projectedTotalMins = coveredCount > 0 ? avgMinutesPerCommand * TOTAL_COMMANDS : TOTAL_ESTIMATED_MINUTES;
+    const isRunningBehind = sessionRunning && coveredCount > 0 && avgMinutesPerCommand > MINUTES_PER_COMMAND * 1.2;
+    const isRunningCritical = sessionRunning && coveredCount > 0 && avgMinutesPerCommand > MINUTES_PER_COMMAND * 1.5;
+    const estimatedEndTime = sessionRunning && sessionStartTime
+        ? new Date(Date.now() + estimatedRemainingMins * 60 * 1000)
+        : null;
 
     const toggleCovered = (id: number) => {
         setCoveredCommands(prev => {
@@ -731,6 +802,117 @@ export function CommandReferenceView() {
 
     return (
         <div className="space-y-8 pb-20">
+            {/* Sticky Timer Bar — Always visible on projector */}
+            <div className={cn(
+                "sticky top-16 z-30 rounded-2xl p-4 shadow-xl border-2 transition-all",
+                isRunningCritical ? "bg-red-50 border-red-300 animate-pulse" :
+                    isRunningBehind ? "bg-amber-50 border-amber-300" :
+                        "bg-white border-slate-200"
+            )}>
+                <div className="flex items-center justify-between gap-4 flex-wrap">
+                    {/* System Clock */}
+                    <div className="flex items-center gap-3">
+                        <Clock className="w-5 h-5 text-slate-400" />
+                        <div>
+                            <p className="text-2xl font-extrabold tabular-nums tracking-tight">
+                                {systemTime.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: true })}
+                            </p>
+                            <p className="text-[10px] text-muted-foreground uppercase tracking-widest">System Time</p>
+                        </div>
+                    </div>
+
+                    {/* Session Timer Controls */}
+                    <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-1.5">
+                            {!sessionRunning ? (
+                                <button
+                                    onClick={startSession}
+                                    className="flex items-center gap-2 px-4 py-2.5 bg-green-500 hover:bg-green-600 text-white rounded-xl font-bold text-sm transition-colors shadow-md"
+                                >
+                                    <Play className="w-4 h-4" /> {elapsedSeconds > 0 ? "Resume" : "Start Session"}
+                                </button>
+                            ) : (
+                                <button
+                                    onClick={pauseSession}
+                                    className="flex items-center gap-2 px-4 py-2.5 bg-amber-500 hover:bg-amber-600 text-white rounded-xl font-bold text-sm transition-colors shadow-md"
+                                >
+                                    <Pause className="w-4 h-4" /> Pause
+                                </button>
+                            )}
+                            {elapsedSeconds > 0 && (
+                                <button
+                                    onClick={resetSession}
+                                    className="p-2.5 hover:bg-slate-100 rounded-xl transition-colors"
+                                    title="Reset timer"
+                                >
+                                    <RotateCcw className="w-4 h-4 text-slate-400" />
+                                </button>
+                            )}
+                        </div>
+                        <div className="h-8 w-px bg-slate-200" />
+                        <div className="text-center">
+                            <p className={cn("text-2xl font-extrabold tabular-nums", sessionRunning ? "text-slate-900" : "text-slate-400")}>
+                                {formatTime(elapsedSeconds)}
+                            </p>
+                            <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Elapsed</p>
+                        </div>
+                    </div>
+
+                    {/* Pace Indicator */}
+                    <div className="flex items-center gap-4">
+                        {sessionRunning && coveredCount > 0 && (
+                            <div className={cn(
+                                "text-center px-4 py-2 rounded-xl border-2",
+                                isRunningCritical ? "bg-red-100 border-red-300" :
+                                    isRunningBehind ? "bg-amber-100 border-amber-300" :
+                                        "bg-green-100 border-green-300"
+                            )}>
+                                <p className={cn(
+                                    "text-lg font-extrabold tabular-nums",
+                                    isRunningCritical ? "text-red-700" :
+                                        isRunningBehind ? "text-amber-700" :
+                                            "text-green-700"
+                                )}>
+                                    {avgMinutesPerCommand.toFixed(1)}m
+                                </p>
+                                <p className="text-[9px] uppercase tracking-widest text-muted-foreground">Avg/Cmd</p>
+                            </div>
+                        )}
+                        <div className="text-center">
+                            <p className="text-lg font-extrabold tabular-nums text-slate-700">
+                                {formatMinutes(estimatedRemainingMins)}
+                            </p>
+                            <p className="text-[9px] uppercase tracking-widest text-muted-foreground">Est. Remaining</p>
+                        </div>
+                        {estimatedEndTime && (
+                            <div className="text-center">
+                                <p className="text-lg font-extrabold tabular-nums text-slate-700">
+                                    {estimatedEndTime.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", hour12: true })}
+                                </p>
+                                <p className="text-[9px] uppercase tracking-widest text-muted-foreground">Est. End</p>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Behind Schedule Alert */}
+                    {isRunningBehind && (
+                        <motion.div
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            className={cn(
+                                "flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-sm",
+                                isRunningCritical
+                                    ? "bg-red-500 text-white shadow-lg animate-pulse"
+                                    : "bg-amber-500 text-white shadow-md"
+                            )}
+                        >
+                            {isRunningCritical ? <Bell className="w-4 h-4" /> : <AlertTriangle className="w-4 h-4" />}
+                            {isRunningCritical ? "BEHIND SCHEDULE" : "Pace Slowing"}
+                        </motion.div>
+                    )}
+                </div>
+            </div>
+
             {/* Header — Large for projector */}
             <div className="space-y-4">
                 <div className="flex items-center gap-3">
@@ -740,7 +922,7 @@ export function CommandReferenceView() {
                     <div>
                         <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight outfit-font">LaTeX Command Reference</h1>
                         <p className="text-lg text-muted-foreground mt-1">
-                            All {TOTAL_COMMANDS} commands across {COMMAND_MODULES.length} modules — sequentially numbered for workshop tracking
+                            All {TOTAL_COMMANDS} commands across {COMMAND_MODULES.length} modules — {MINUTES_PER_COMMAND} min/command — Total: {formatMinutes(TOTAL_ESTIMATED_MINUTES)}
                         </p>
                     </div>
                 </div>
@@ -781,6 +963,40 @@ export function CommandReferenceView() {
                         <span>0%</span>
                         <span className="text-lg font-bold text-white">{Math.round(progress)}%</span>
                         <span>100%</span>
+                    </div>
+                </div>
+
+                {/* Per-module mini progress */}
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 pt-2 border-t border-slate-700">
+                    <div className="bg-slate-800/50 rounded-xl p-3 text-center">
+                        <Timer className="w-5 h-5 text-blue-400 mx-auto mb-1" />
+                        <p className="text-xl font-extrabold tabular-nums">{MINUTES_PER_COMMAND} min</p>
+                        <p className="text-[9px] text-slate-400 uppercase tracking-widest">Per Command</p>
+                    </div>
+                    <div className="bg-slate-800/50 rounded-xl p-3 text-center">
+                        <Clock className="w-5 h-5 text-purple-400 mx-auto mb-1" />
+                        <p className="text-xl font-extrabold tabular-nums">{formatMinutes(TOTAL_ESTIMATED_MINUTES)}</p>
+                        <p className="text-[9px] text-slate-400 uppercase tracking-widest">Total Estimated</p>
+                    </div>
+                    <div className="bg-slate-800/50 rounded-xl p-3 text-center">
+                        <p className="text-xl font-extrabold tabular-nums">{formatMinutes(estimatedRemainingMins)}</p>
+                        <p className="text-[9px] text-slate-400 uppercase tracking-widest">Time Remaining</p>
+                    </div>
+                    <div className={cn(
+                        "rounded-xl p-3 text-center",
+                        isRunningCritical ? "bg-red-500/20 ring-1 ring-red-400" :
+                            isRunningBehind ? "bg-amber-500/20 ring-1 ring-amber-400" :
+                                "bg-slate-800/50"
+                    )}>
+                        <p className={cn(
+                            "text-xl font-extrabold tabular-nums",
+                            isRunningCritical ? "text-red-400" :
+                                isRunningBehind ? "text-amber-400" :
+                                    "text-white"
+                        )}>
+                            {coveredCount > 0 ? `${avgMinutesPerCommand.toFixed(1)}m` : "—"}
+                        </p>
+                        <p className="text-[9px] text-slate-400 uppercase tracking-widest">Actual Avg/Cmd</p>
                     </div>
                 </div>
 
@@ -871,6 +1087,10 @@ export function CommandReferenceView() {
                                         allModCovered ? "bg-green-100 text-green-700" : "bg-slate-100 text-slate-600"
                                     )}>
                                         {modCovered}/{mod.commands.length} covered
+                                    </span>
+                                    <span className="text-xs font-bold px-3 py-2 rounded-full bg-blue-50 text-blue-700 flex items-center gap-1">
+                                        <Timer className="w-3 h-3" />
+                                        {formatMinutes(mod.commands.length * MINUTES_PER_COMMAND)}
                                     </span>
                                     <button
                                         onClick={() => markAllInModule(mod.id)}
