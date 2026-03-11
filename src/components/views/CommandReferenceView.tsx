@@ -751,15 +751,22 @@ in \\texttt{R version 4.3.2}.
         color: "text-orange-700",
         bgColor: "bg-orange-50",
         borderColor: "border-orange-200",
-        sampleTex: `% ============================================
-% MODULE 5: Mathematics — Sample .tex
-% Covers: \\begin{equation}, $...$, \\[...\\],
-%   \\frac, \\sqrt, \\sum, ^, _, \\begin{align},
-%   Greek letters, \\label/\\eqref
-% ============================================
+        sampleTex: `% ==================================================
+% MODULE 5: Mathematics — Comprehensive Sample .tex
+%
+% Covers: $...$, \\[...\\], equation, equation*,
+%   align, align*, gather, gather*, multline,
+%   flalign, cases, split, text in equations,
+%   centering, \\frac, \\sqrt, \\sum, ^, _,
+%   Greek letters, \\label/\\eqref,
+%   ALL mathematical notations in table format
+% ==================================================
 
 \\documentclass[12pt, a4paper]{article}
-\\usepackage{amsmath}   % Required for align, gather, cases
+\\usepackage{amsmath}     % align, gather, cases, text
+\\usepackage{amssymb}     % extra math symbols
+\\usepackage{mathtools}   % dcases, \\coloneqq
+\\usepackage{booktabs}    % professional tables
 \\usepackage[margin=1in]{geometry}
 \\usepackage{hyperref}
 
@@ -767,268 +774,649 @@ in \\texttt{R version 4.3.2}.
 
 \\section{Mathematical Expressions in Agriculture}
 
-% =============================================
-% COMMAND 20: $...$ (inline math)
-% Purpose : Inline math mode — equation flows
-%           within the text line.
-% =============================================
-% OPTIONS:
-%   $E = mc^2$
-%     — inline equation using dollar signs
-%     — PDF: math renders within text line,
-%            fractions are compressed to fit
-%   \\(E = mc^2\\)
-%     — modern LaTeX syntax (recommended)
-%     — PDF: identical output, better error messages
-% TIP: Use \\(...\\) for new documents.
-%      $...$ is shorter but hides errors.
-% =============================================
-The soil moisture was $\\theta = 0.35$ cm$^3$/cm$^3$.
-Modern syntax: \\(\\theta = 0.35\\) gives same result.
+% ==================================================
+% PART A: COMPLETE MATHEMATICAL NOTATIONS TABLE
+% ==================================================
+% This table lists EVERY mathematical notation
+% a research scholar needs, with LaTeX command,
+% output description, and usage context.
+% ==================================================
 
-% =============================================
-% COMMAND 21: \\[...\\] (display math)
-% Purpose : Display math — centered equation on
-%           its own line, unnumbered.
-% =============================================
-% OPTIONS:
-%   \\[ equation \\]
-%     — centered, unnumbered display equation
-%     — PDF: full-size equation on its own line,
-%            no equation number on the right
+\\subsection{Mathematical Notations Reference}
+
+% --- TABLE 1: Arithmetic & Relational Operators ---
+\\begin{table}[htbp]
+\\centering
+\\caption{Arithmetic and Relational Operators}
+\\label{tab:arith}
+\\begin{tabular}{lll}
+  \\toprule
+  \\textbf{LaTeX Command} & \\textbf{Symbol} & \\textbf{Usage / Meaning} \\\\
+  \\midrule
+  \\verb|+|             & $+$             & Addition \\\\
+  \\verb|-|             & $-$             & Subtraction \\\\
+  \\verb|\\times|        & $\\times$        & Multiplication (cross) \\\\
+  \\verb|\\cdot|         & $\\cdot$         & Multiplication (dot) \\\\
+  \\verb|\\div|          & $\\div$          & Division \\\\
+  \\verb|\\frac{a}{b}|   & $\\frac{a}{b}$   & Fraction \\\\
+  \\verb|\\pm|           & $\\pm$           & Plus or minus \\\\
+  \\verb|\\mp|           & $\\mp$           & Minus or plus \\\\
+  \\verb|=|             & $=$             & Equal to \\\\
+  \\verb|\\neq|          & $\\neq$          & Not equal to \\\\
+  \\verb|<|             & $<$             & Less than \\\\
+  \\verb|>|             & $>$             & Greater than \\\\
+  \\verb|\\leq|          & $\\leq$          & Less than or equal \\\\
+  \\verb|\\geq|          & $\\geq$          & Greater than or equal \\\\
+  \\verb|\\approx|       & $\\approx$       & Approximately equal \\\\
+  \\verb|\\equiv|        & $\\equiv$        & Identical / congruent \\\\
+  \\verb|\\sim|          & $\\sim$          & Distributed as / similar \\\\
+  \\verb|\\propto|       & $\\propto$       & Proportional to \\\\
+  \\bottomrule
+\\end{tabular}
+\\end{table}
+
+% --- TABLE 2: Greek Letters ---
+\\begin{table}[htbp]
+\\centering
+\\caption{Greek Letters for Statistics and Science}
+\\label{tab:greek}
+\\begin{tabular}{llll}
+  \\toprule
+  \\textbf{Lowercase} & \\textbf{Symbol} &
+  \\textbf{Uppercase} & \\textbf{Symbol} \\\\
+  \\midrule
+  \\verb|\\alpha|      & $\\alpha$      &
+  \\verb|\\Alpha| (use A) & $A$       \\\\
+  \\verb|\\beta|       & $\\beta$       &
+  \\verb|\\Beta| (use B)  & $B$       \\\\
+  \\verb|\\gamma|      & $\\gamma$      &
+  \\verb|\\Gamma|      & $\\Gamma$      \\\\
+  \\verb|\\delta|      & $\\delta$      &
+  \\verb|\\Delta|      & $\\Delta$      \\\\
+  \\verb|\\epsilon|    & $\\epsilon$    &
+  \\verb|\\varepsilon| & $\\varepsilon$ \\\\
+  \\verb|\\zeta|       & $\\zeta$       &
+                     &               \\\\
+  \\verb|\\eta|        & $\\eta$        &
+                     &               \\\\
+  \\verb|\\theta|      & $\\theta$      &
+  \\verb|\\Theta|      & $\\Theta$      \\\\
+  \\verb|\\lambda|     & $\\lambda$     &
+  \\verb|\\Lambda|     & $\\Lambda$     \\\\
+  \\verb|\\mu|         & $\\mu$         &
+                     &               \\\\
+  \\verb|\\nu|         & $\\nu$         &
+                     &               \\\\
+  \\verb|\\pi|         & $\\pi$         &
+  \\verb|\\Pi|         & $\\Pi$         \\\\
+  \\verb|\\rho|        & $\\rho$        &
+                     &               \\\\
+  \\verb|\\sigma|      & $\\sigma$      &
+  \\verb|\\Sigma|      & $\\Sigma$      \\\\
+  \\verb|\\tau|        & $\\tau$        &
+                     &               \\\\
+  \\verb|\\phi|        & $\\phi$        &
+  \\verb|\\Phi|        & $\\Phi$        \\\\
+  \\verb|\\varphi|     & $\\varphi$     &
+                     &               \\\\
+  \\verb|\\chi|        & $\\chi$        &
+                     &               \\\\
+  \\verb|\\psi|        & $\\psi$        &
+  \\verb|\\Psi|        & $\\Psi$        \\\\
+  \\verb|\\omega|      & $\\omega$      &
+  \\verb|\\Omega|      & $\\Omega$      \\\\
+  \\bottomrule
+\\end{tabular}
+\\end{table}
+
+% --- TABLE 3: Set Theory & Logic ---
+\\begin{table}[htbp]
+\\centering
+\\caption{Set Theory, Logic, and Miscellaneous Symbols}
+\\label{tab:sets}
+\\begin{tabular}{lll}
+  \\toprule
+  \\textbf{LaTeX Command} & \\textbf{Symbol} & \\textbf{Meaning} \\\\
+  \\midrule
+  \\verb|\\in|           & $\\in$           & Element of \\\\
+  \\verb|\\notin|        & $\\notin$        & Not element of \\\\
+  \\verb|\\subset|       & $\\subset$       & Proper subset \\\\
+  \\verb|\\subseteq|     & $\\subseteq$     & Subset or equal \\\\
+  \\verb|\\cup|          & $\\cup$          & Union \\\\
+  \\verb|\\cap|          & $\\cap$          & Intersection \\\\
+  \\verb|\\emptyset|     & $\\emptyset$     & Empty set \\\\
+  \\verb|\\forall|       & $\\forall$       & For all \\\\
+  \\verb|\\exists|       & $\\exists$       & There exists \\\\
+  \\verb|\\neg|          & $\\neg$          & Logical NOT \\\\
+  \\verb|\\land|         & $\\land$         & Logical AND \\\\
+  \\verb|\\lor|          & $\\lor$          & Logical OR \\\\
+  \\verb|\\Rightarrow|   & $\\Rightarrow$   & Implies \\\\
+  \\verb|\\Leftrightarrow| & $\\Leftrightarrow$ & If and only if \\\\
+  \\verb|\\infty|        & $\\infty$        & Infinity \\\\
+  \\verb|\\partial|      & $\\partial$      & Partial derivative \\\\
+  \\verb|\\nabla|        & $\\nabla$        & Gradient / del \\\\
+  \\verb|\\therefore|    & $\\therefore$    & Therefore \\\\
+  \\verb|\\because|      & $\\because$      & Because \\\\
+  \\bottomrule
+\\end{tabular}
+\\end{table}
+
+% --- TABLE 4: Accents, Decorations & Big Operators ---
+\\begin{table}[htbp]
+\\centering
+\\caption{Accents, Decorations, and Big Operators}
+\\label{tab:accents}
+\\begin{tabular}{lll}
+  \\toprule
+  \\textbf{LaTeX Command} & \\textbf{Output} & \\textbf{Usage} \\\\
+  \\midrule
+  \\verb|\\hat{x}|       & $\\hat{x}$       & Estimator \\\\
+  \\verb|\\bar{x}|       & $\\bar{x}$       & Sample mean \\\\
+  \\verb|\\tilde{x}|     & $\\tilde{x}$     & Approximation \\\\
+  \\verb|\\vec{x}|       & $\\vec{x}$       & Vector \\\\
+  \\verb|\\dot{x}|       & $\\dot{x}$       & Time derivative \\\\
+  \\verb|\\ddot{x}|      & $\\ddot{x}$      & Second derivative \\\\
+  \\verb|\\overline{AB}|  & $\\overline{AB}$ & Line segment / mean \\\\
+  \\verb|\\underline{x}|  & $\\underline{x}$ & Underline \\\\
+  \\verb|\\overbrace{x+y}| & $\\overbrace{x+y}$ & Group above \\\\
+  \\verb|\\underbrace{x+y}| & $\\underbrace{x+y}$ & Group below \\\\
+  \\midrule
+  \\verb|\\sum|          & $\\sum$          & Summation \\\\
+  \\verb|\\prod|         & $\\prod$         & Product \\\\
+  \\verb|\\int|          & $\\int$          & Integral \\\\
+  \\verb|\\iint|         & $\\iint$         & Double integral \\\\
+  \\verb|\\oint|         & $\\oint$         & Contour integral \\\\
+  \\verb|\\lim|          & $\\lim$          & Limit \\\\
+  \\verb|\\max| / \\verb|\\min| & $\\max / \\min$ & Maximum / Minimum \\\\
+  \\verb|\\log| / \\verb|\\ln|  & $\\log / \\ln$  & Logarithm / Natural log \\\\
+  \\verb|\\sin| / \\verb|\\cos| & $\\sin / \\cos$ & Trigonometric \\\\
+  \\verb|\\exp|          & $\\exp$          & Exponential \\\\
+  \\bottomrule
+\\end{tabular}
+\\end{table}
+
+% --- TABLE 5: Brackets, Delimiters & Arrows ---
+\\begin{table}[htbp]
+\\centering
+\\caption{Brackets, Delimiters, and Arrows}
+\\label{tab:brackets}
+\\begin{tabular}{lll}
+  \\toprule
+  \\textbf{LaTeX Command} & \\textbf{Output} & \\textbf{Usage} \\\\
+  \\midrule
+  \\verb|(  )|            & $(\\ )$          & Parentheses \\\\
+  \\verb|[  ]|            & $[\\ ]$          & Square brackets \\\\
+  \\verb|\\{  \\}|          & $\\{\\ \\}$        & Curly braces (set) \\\\
+  \\verb|\\langle \\rangle| & $\\langle\\rangle$ & Angle brackets \\\\
+  \\verb+|  |+            & $|\\ |$          & Absolute value \\\\
+  \\verb+\\|  \\|+          & $\\|\\ \\|$        & Norm \\\\
+  \\verb|\\left( \\right)|  & auto-sized       & Auto-scaling parens \\\\
+  \\verb|\\left[ \\right]|  & auto-sized       & Auto-scaling brackets \\\\
+  \\verb|\\lceil \\rceil|   & $\\lceil\\rceil$   & Ceiling function \\\\
+  \\verb|\\lfloor \\rfloor| & $\\lfloor\\rfloor$ & Floor function \\\\
+  \\midrule
+  \\verb|\\rightarrow|     & $\\rightarrow$    & Maps to / tends to \\\\
+  \\verb|\\leftarrow|      & $\\leftarrow$     & Left arrow \\\\
+  \\verb|\\leftrightarrow| & $\\leftrightarrow$ & Bidirectional \\\\
+  \\verb|\\uparrow|        & $\\uparrow$       & Increase \\\\
+  \\verb|\\downarrow|      & $\\downarrow$     & Decrease \\\\
+  \\verb|\\mapsto|         & $\\mapsto$        & Function mapping \\\\
+  \\verb|\\to|             & $\\to$            & Tends to (limit) \\\\
+  \\bottomrule
+\\end{tabular}
+\\end{table}
+
+% --- TABLE 6: Spacing Commands in Math Mode ---
+\\begin{table}[htbp]
+\\centering
+\\caption{Spacing Commands in Math Mode}
+\\label{tab:spacing}
+\\begin{tabular}{lll}
+  \\toprule
+  \\textbf{Command} & \\textbf{Space} & \\textbf{Example Use} \\\\
+  \\midrule
+  \\verb|\\,|     & thin space     & $\\int f(x)\\, dx$ \\\\
+  \\verb|\\:|     & medium space   & $a \\: b$ \\\\
+  \\verb|\\;|     & thick space    & $a \\; b$ \\\\
+  \\verb|\\!|     & negative thin  & tighten: $\\sqrt{\\,x}$ \\\\
+  \\verb|\\quad|  & 1 em space     & $a \\quad b$ \\\\
+  \\verb|\\qquad| & 2 em space     & $a \\qquad b$ \\\\
+  \\verb|\\text{ }| & normal space & $x \\text{ and } y$ \\\\
+  \\bottomrule
+\\end{tabular}
+\\end{table}
+
+
+% ==================================================
+% PART B: EQUATION TYPES AND ALIGNMENT OPTIONS
+% ==================================================
+% Every equation environment with numbered,
+% unnumbered, centered, left-aligned, and
+% text-based combinations.
+% ==================================================
+
+\\subsection{Equation Types and Alignment}
+
+% --------------------------------------------------
+% TYPE 1: INLINE MATH (within text)
+% --------------------------------------------------
+% $...$       : traditional syntax
+% \\(...\\)     : modern LaTeX syntax (recommended)
+% Both produce identical output.
+% PDF: math renders within the text line,
+%      fractions and limits are compressed.
+% --------------------------------------------------
+The yield was $Y = 4.5$ t/ha with $R^2 = 0.89$.
+Modern: \\(Y = \\beta_0 + \\beta_1 X\\) is preferred.
+
+% --------------------------------------------------
+% TYPE 2: DISPLAY MATH - UNNUMBERED, CENTERED
+% --------------------------------------------------
+% \\[...\\]     : centered, unnumbered, display size
+% PDF: full-size equation on its own line,
+%      no equation number.
 % NOTE: Do NOT use $$...$$ (old plain TeX).
-%       \\[...\\] is the correct LaTeX syntax.
-% =============================================
-\\[ Y = a + bX \\]
+% --------------------------------------------------
+\\[ Y = \\beta_0 + \\beta_1 X_1 + \\beta_2 X_2 + \\epsilon \\]
 
-% =============================================
-% COMMAND 19: \\begin{equation}
-% Purpose : Creates a numbered display equation.
-%           Use \\label inside for cross-referencing.
-% =============================================
-% OPTIONS:
-%   \\begin{equation} ... \\end{equation}
-%     — numbered equation
-%     — PDF: centered with (1) on right margin
-%   \\begin{equation*} ... \\end{equation*}
-%     — unnumbered (same as \\[...\\])
-%     — PDF: centered, no number
-% TIP: Always add \\label{eq:name} inside for
-%      cross-referencing with \\eqref.
-% =============================================
+% --------------------------------------------------
+% TYPE 3: DISPLAY MATH - NUMBERED, CENTERED
+% --------------------------------------------------
+% \\begin{equation} ... \\end{equation}
+% PDF: centered with (1) on right margin.
+% Always add \\label{eq:name} for cross-referencing.
+% --------------------------------------------------
 \\begin{equation}
   Y = \\beta_0 + \\beta_1 X_1 + \\beta_2 X_2 + \\epsilon
-  \\label{eq:yield}
+  \\label{eq:regression}
 \\end{equation}
 
+% --------------------------------------------------
+% TYPE 4: DISPLAY MATH - UNNUMBERED (equation*)
+% --------------------------------------------------
+% \\begin{equation*} ... \\end{equation*}
+% PDF: same as \\[...\\] but explicit environment.
+% Requires amsmath package.
+% --------------------------------------------------
 \\begin{equation*}
-  \\text{This equation has no number}
+  \\bar{x} = \\frac{1}{n} \\sum_{i=1}^{n} x_i
 \\end{equation*}
 
-% =============================================
-% COMMAND 29: \\label{eq:...} / \\eqref{eq:...}
-% Purpose : Label and reference equations.
-%           \\eqref adds parentheses automatically.
-% =============================================
-% OPTIONS:
-%   \\label{eq:yield}
-%     — place INSIDE the equation environment
-%     — creates a reference anchor
-%   \\eqref{eq:yield}
-%     — renders as "(1)" with auto-update
-%     — PDF: clickable link to equation
-%   \\ref{eq:yield}
-%     — renders as "1" without parentheses
-%     — PDF: just the number
-% TIP: Compile TWICE to resolve references.
-%      Use prefix eq: for equations.
-% =============================================
-The regression model in Equation~\\eqref{eq:yield}
-explains crop yield. See also Eq.~\\ref{eq:yield}.
-
-% =============================================
-% COMMAND 22: \\frac{numerator}{denominator}
-% Purpose : Creates a fraction.
-% =============================================
-% OPTIONS:
-%   \\frac{a}{b}
-%     — standard fraction
-%     — PDF: a over b with horizontal line
-%     — compact in inline, full-size in display
-%   \\dfrac{a}{b}
-%     — display-size fraction in inline mode
-%     — PDF: larger fraction even within text
-%   \\tfrac{a}{b}
-%     — text-size fraction in display mode
-%     — PDF: compact fraction even in display
-% TIP: Use \\dfrac when inline fractions look
-%      too small to read.
-% =============================================
-Harvest index: $HI = \\frac{\\text{Grain yield}}{\\text{Biological yield}}$
-
-Display-size inline: $\\dfrac{a}{b}$ vs text-size: $\\tfrac{a}{b}$
-
-In display mode:
-\\[ \\frac{a}{b} \\quad \\dfrac{a}{b} \\quad \\tfrac{a}{b} \\]
-
-% =============================================
-% COMMAND 23: \\sqrt{expression}
-% Purpose : Square root. Bar auto-extends over
-%           the entire content.
-% =============================================
-% OPTIONS:
-%   \\sqrt{x}
-%     — square root
-%     — PDF: radical sign with bar over x
-%   \\sqrt[n]{x}
-%     — nth root (cube root, 4th root, etc.)
-%     — PDF: small n in the root symbol crook
-% TIP: Nest fractions inside freely:
-%      \\sqrt{\\frac{a}{b}} works perfectly.
-% =============================================
-Standard error: $SE = \\sqrt{\\frac{\\sum(x_i - \\bar{x})^2}{n-1}}$
-
-Cube root: $\\sqrt[3]{27} = 3$ \\quad
-Fourth root: $\\sqrt[4]{16} = 2$
-
-% =============================================
-% COMMAND 25: ^ (superscript / exponent)
-% Purpose : Raises text as superscript.
-%           Only works in math mode.
-% =============================================
-% OPTIONS:
-%   x^2
-%     — single character exponent
-%     — PDF: x with small raised 2
-%   x^{10}
-%     — multi-character exponent (braces required!)
-%     — PDF: x with raised "10"
-%   x_i^2
-%     — combined with subscript
-%     — PDF: subscript i and superscript 2
-% WARNING: x^10 without braces = x with raised 1
-%          followed by normal 0!
-% =============================================
-%
-% COMMAND 26: _ (subscript)
-% Purpose : Lowers text as subscript.
-%           Only works in math mode.
-% =============================================
-% OPTIONS:
-%   x_i
-%     — single character subscript
-%     — PDF: x with small lowered i
-%   x_{ij}
-%     — multi-character subscript (braces required!)
-%     — PDF: x with lowered "ij"
-% WARNING: x_ij without braces = x with lowered i
-%          followed by normal j!
-% =============================================
-$R^2 = 0.89$ \\quad $R^{2}_{adj} = 0.87$ \\quad
-$x_{ij}$ = $j^{\\text{th}}$ observation in $i^{\\text{th}}$ group
-
-% =============================================
-% COMMAND 24: \\sum, \\prod, \\int
-% Purpose : Summation, product, and integral.
-% =============================================
-% OPTIONS:
-%   \\sum_{i=1}^{n}
-%     — summation symbol Σ
-%     — PDF display: limits above/below
-%     — PDF inline: limits beside symbol
-%   \\prod_{i=1}^{n}
-%     — product symbol Π
-%     — PDF: same placement rules as \\sum
-%   \\int_{a}^{b}
-%     — integral symbol ∫
-%     — PDF: limits as sub/superscript
-%     — TIP: add \\, before dx for proper spacing
-%   \\limits
-%     — force limits above/below in inline
-%   \\nolimits
-%     — force limits beside in display
-% =============================================
-\\begin{equation}
-  \\bar{x} = \\frac{1}{n} \\sum_{i=1}^{n} x_i
-  \\label{eq:mean}
-\\end{equation}
-
-Product: $\\prod_{i=1}^{k} p_i$ \\quad
-Integral: $\\int_{0}^{\\infty} e^{-x} \\, dx = 1$ \\quad
-Forced limits inline: $\\sum\\limits_{i=1}^{n} x_i$
-
-% =============================================
-% COMMAND 27: \\begin{align}
-% Purpose : Multi-line aligned equations.
-%           Use & for alignment point.
-% =============================================
-% OPTIONS:
-%   \\begin{align} ... \\end{align}
-%     — each line numbered: (1), (2), (3)
-%     — PDF: equations aligned at & symbol
-%   \\begin{align*} ... \\end{align*}
-%     — all lines unnumbered
-%     — PDF: aligned but no numbers
-%   \\nonumber
-%     — skip number for ONE specific line
-%     — PDF: that line has no number
-%   &
-%     — alignment point (place before =)
-%   \\\\
-%     — line break between equations
-% TIP: Use & before = to align all equals signs.
-% =============================================
+% --------------------------------------------------
+% TYPE 5: MULTI-LINE ALIGNED - NUMBERED (align)
+% --------------------------------------------------
+% \\begin{align} ... \\end{align}
+% & = alignment point (place before =)
+% \\\\ = line break
+% Each line gets a number: (1), (2), (3)
+% \\nonumber skips number for one line
+% \\label{} on each line for cross-ref
+% PDF: equations aligned at & symbol, each numbered.
+% --------------------------------------------------
 \\begin{align}
   SS_{\\text{total}} &= \\sum_{i=1}^{n}(Y_i - \\bar{Y})^2
     \\label{eq:sst} \\\\
-  SS_{\\text{reg}} &= \\sum_{i=1}^{n}(\\hat{Y}_i - \\bar{Y})^2
+  SS_{\\text{reg}}   &= \\sum_{i=1}^{n}(\\hat{Y}_i - \\bar{Y})^2
     \\nonumber \\\\
-  SS_{\\text{res}} &= \\sum_{i=1}^{n}(Y_i - \\hat{Y}_i)^2
+  SS_{\\text{res}}   &= \\sum_{i=1}^{n}(Y_i - \\hat{Y}_i)^2
     \\label{eq:sse}
 \\end{align}
 
-% =============================================
-% COMMAND 28: Greek letters
-% Purpose : Greek symbols for statistics and
-%           scientific notation.
-% =============================================
-% OPTIONS (lowercase):
-%   \\alpha   → α   (significance level)
-%   \\beta    → β   (regression coefficient)
-%   \\gamma   → γ   (gamma distribution)
-%   \\delta   → δ   (small change)
-%   \\epsilon → ϵ   (error term)
-%   \\sigma   → σ   (standard deviation)
-%   \\mu      → μ   (population mean)
-%   \\pi      → π   (3.14159...)
-%   \\theta   → θ   (parameter)
-%   \\lambda  → λ   (rate parameter)
-%   \\chi     → χ   (chi-squared test)
+% --------------------------------------------------
+% TYPE 6: MULTI-LINE ALIGNED - UNNUMBERED (align*)
+% --------------------------------------------------
+% \\begin{align*} ... \\end{align*}
+% Same as align but NO equation numbers at all.
+% PDF: aligned equations, no numbers on right.
+% --------------------------------------------------
+\\begin{align*}
+  R^2 &= 1 - \\frac{SS_{\\text{res}}}{SS_{\\text{total}}} \\\\
+  R^2_{\\text{adj}} &= 1 - \\frac{(1 - R^2)(n - 1)}{n - p - 1}
+\\end{align*}
+
+% --------------------------------------------------
+% TYPE 7: GATHER - CENTERED, NO ALIGNMENT
+% --------------------------------------------------
+% \\begin{gather} ... \\end{gather}     : numbered
+% \\begin{gather*} ... \\end{gather*}   : unnumbered
+% Each equation is centered independently.
+% No alignment point (&) needed.
+% PDF: each equation centered, stacked vertically.
+% Use when equations are unrelated.
+% --------------------------------------------------
+
+% gather - numbered
+\\begin{gather}
+  E = mc^2 \\label{eq:energy} \\\\
+  F = ma   \\label{eq:force} \\\\
+  PV = nRT \\label{eq:gas}
+\\end{gather}
+
+% gather* - unnumbered
+\\begin{gather*}
+  \\text{Soil pH} = -\\log[\\text{H}^+] \\\\
+  \\text{EC (dS/m)} = \\frac{\\text{TDS (mg/L)}}{640} \\\\
+  \\text{CEC (cmol/kg)} = \\frac{\\text{meq}}{100\\text{g}}
+\\end{gather*}
+
+% --------------------------------------------------
+% TYPE 8: MULTLINE - LONG EQUATION SPLIT
+% --------------------------------------------------
+% \\begin{multline} ... \\end{multline}   : numbered
+% \\begin{multline*} ... \\end{multline*} : unnumbered
+% First line: left-aligned
+% Middle lines: centered
+% Last line: right-aligned
+% Use \\\\ to break the equation.
+% PDF: single equation number for entire expression.
+% Use when ONE equation is too long for one line.
+% --------------------------------------------------
+
+% multline - numbered (one number for whole equation)
+\\begin{multline}
+  Y = \\beta_0 + \\beta_1 X_1 + \\beta_2 X_2
+    + \\beta_3 X_3 + \\beta_4 X_4 \\\\
+    + \\beta_5 X_5 + \\beta_6 X_1 X_2
+    + \\beta_7 X_1 X_3 + \\epsilon
+  \\label{eq:longmodel}
+\\end{multline}
+
+% multline* - unnumbered
+\\begin{multline*}
+  \\text{Total Nutrient Uptake} =
+    \\text{N uptake} + \\text{P uptake} \\\\
+    + \\text{K uptake} + \\text{S uptake}
+    + \\text{Micronutrients}
+\\end{multline*}
+
+% --------------------------------------------------
+% TYPE 9: FLALIGN - FULL-WIDTH ALIGNMENT
+% --------------------------------------------------
+% \\begin{flalign} ... \\end{flalign}     : numbered
+% \\begin{flalign*} ... \\end{flalign*}   : unnumbered
+% Like align but pushes equations to margins.
+% Left column: left-aligned
+% Right column: right-aligned
+% PDF: equations spread across full text width.
+% --------------------------------------------------
+
+% flalign - numbered, full-width
+\\begin{flalign}
+  \\text{Grain yield} &= 4.5 \\text{ t/ha} &
+  \\label{eq:grain} \\\\
+  \\text{Straw yield} &= 6.2 \\text{ t/ha} &
+  \\label{eq:straw}
+\\end{flalign}
+
+% flalign* - unnumbered, full-width
+\\begin{flalign*}
+  \\text{Treatment A:} && Y_A &= 3.2 \\text{ t/ha} \\\\
+  \\text{Treatment B:} && Y_B &= 4.5 \\text{ t/ha} \\\\
+  \\text{Treatment C:} && Y_C &= 4.1 \\text{ t/ha}
+\\end{flalign*}
+
+% --------------------------------------------------
+% TYPE 10: SPLIT - SUB-EQUATION ALIGNMENT
+% --------------------------------------------------
+% \\begin{equation}\\begin{split}...\\end{split}\\end{equation}
+% Used INSIDE equation for multi-line with ONE number.
+% & for alignment, \\\\ for line break.
+% PDF: single equation number for all lines.
+% --------------------------------------------------
+\\begin{equation}
+\\begin{split}
+  \\text{Total SS} &= \\text{Treatment SS}
+    + \\text{Block SS} \\\\
+  &\\quad + \\text{Error SS}
+\\end{split}
+\\label{eq:anova}
+\\end{equation}
+
+% --------------------------------------------------
+% TYPE 11: CASES - PIECEWISE / CONDITIONAL
+% --------------------------------------------------
+% \\begin{cases} ... \\end{cases}
+% Used inside equation or align.
+% Each case: expression & condition \\\\
+% PDF: left brace with conditions listed.
 %
-% OPTIONS (uppercase):
-%   \\Sigma   → Σ   (summation)
-%   \\Delta   → Δ   (change/difference)
-%   \\Omega   → Ω   (sample space)
-%   \\Gamma   → Γ   (gamma function)
-%   \\Pi      → Π   (product)
+% \\begin{dcases} (mathtools) for display-size
+% --------------------------------------------------
+\\begin{equation}
+  \\text{Irrigation} =
+  \\begin{cases}
+    \\text{Full}    & \\text{if } \\theta < 0.20 \\\\
+    \\text{Partial} & \\text{if } 0.20 \\leq \\theta < 0.35 \\\\
+    \\text{None}    & \\text{if } \\theta \\geq 0.35
+  \\end{cases}
+  \\label{eq:irrigation}
+\\end{equation}
+
+% Unnumbered cases
+\\[
+  |x| =
+  \\begin{cases}
+    x  & \\text{if } x \\geq 0 \\\\
+    -x & \\text{if } x < 0
+  \\end{cases}
+\\]
+
+% ==================================================
+% PART C: TEXT-BASED EQUATIONS WITH CENTERING
+% ==================================================
+% Mixing text and math in equations using \\text{},
+% \\intertext{}, \\shortintertext{}, and centering.
+% ==================================================
+
+\\subsection{Text in Equations and Centering}
+
+% --------------------------------------------------
+% TEXT IN MATH: \\text{} command (amsmath)
+% --------------------------------------------------
+% \\text{words} inside math mode renders normal text.
+% Spaces, punctuation, and formatting preserved.
+% Without \\text{}, letters are treated as variables.
+% --------------------------------------------------
+
+% \\text{} in inline math
+The formula $\\text{Yield} = \\text{Biomass} \\times \\text{HI}$
+uses descriptive variable names.
+
+% \\text{} in display equation - numbered
+\\begin{equation}
+  \\text{Harvest Index (HI)} =
+  \\frac{\\text{Economic yield (kg/ha)}}
+       {\\text{Biological yield (kg/ha)}}
+  \\label{eq:hi}
+\\end{equation}
+
+% \\text{} in display equation - unnumbered
+\\[
+  \\text{Nutrient Use Efficiency} =
+  \\frac{\\text{Yield increase (kg/ha)}}
+       {\\text{Nutrient applied (kg/ha)}}
+\\]
+
+% --------------------------------------------------
+% TEXT BETWEEN ALIGNED EQUATIONS: \\intertext{}
+% --------------------------------------------------
+% \\intertext{paragraph} inserts full-width text
+% between lines of align without breaking alignment.
+% \\shortintertext{} for less vertical space.
+% --------------------------------------------------
+\\begin{align}
+  Y &= \\beta_0 + \\beta_1 X_1 + \\epsilon
+    \\label{eq:simple} \\\\
+  \\intertext{Adding a second predictor gives:}
+  Y &= \\beta_0 + \\beta_1 X_1 + \\beta_2 X_2 + \\epsilon
+    \\label{eq:multiple} \\\\
+  \\shortintertext{With interaction term:}
+  Y &= \\beta_0 + \\beta_1 X_1 + \\beta_2 X_2
+    + \\beta_3 X_1 X_2 + \\epsilon
+    \\label{eq:interaction}
+\\end{align}
+
+% --------------------------------------------------
+% CENTERED TEXT-BASED EQUATIONS
+% --------------------------------------------------
+% Method 1: \\[ \\text{...} = \\text{...} \\]
+%   Centered, unnumbered, display mode
 %
-% VARIANTS:
-%   \\varepsilon → ε  (curly epsilon)
-%   \\epsilon    → ϵ  (lunate epsilon)
-%   \\varphi     → φ  (curly phi)
-%   \\phi        → ϕ  (straight phi)
-% TIP: Only work in math mode ($...$).
-%      Check journal convention for variants.
-% =============================================
-Parameters: $\\alpha = 0.05$, $\\beta_1 = 2.3$,
-$\\sigma^2 = 4.5$, $\\mu = 12.8$
+% Method 2: \\begin{equation} with \\text{}
+%   Centered, numbered, display mode
+%
+% Method 3: \\begin{center} with $...$
+%   Centered text with inline math
+%   (adds extra vertical space)
+%
+% Method 4: \\begin{gather} with \\text{}
+%   Multiple centered text equations
+% --------------------------------------------------
 
-Change: $\\Delta Y = Y_2 - Y_1$ was significant.
+% Method 1: Display math with text - unnumbered centered
+\\[
+  \\text{Soil Organic Carbon (\\%)} =
+  \\frac{\\text{Organic Matter (\\%)}}{1.724}
+\\]
 
-Variants: $\\varepsilon$ vs $\\epsilon$,
-$\\varphi$ vs $\\phi$
+% Method 2: equation with text - numbered centered
+\\begin{equation}
+  \\text{Water Use Efficiency (kg/ha-mm)} =
+  \\frac{\\text{Grain yield (kg/ha)}}
+       {\\text{Total water used (mm)}}
+  \\label{eq:wue}
+\\end{equation}
 
-Chi-squared: $\\chi^2 = 15.3$, $p < 0.01$
+% Method 3: center environment with inline math
+\\begin{center}
+  $\\text{Benefit-Cost Ratio} =
+  \\dfrac{\\text{Gross Returns (Rs/ha)}}
+        {\\text{Total Cost (Rs/ha)}}$
+\\end{center}
+
+% Method 4: gather with text - multiple centered
+\\begin{gather}
+  \\text{Nitrogen Use Efficiency} =
+  \\frac{\\Delta \\text{Yield}}{\\text{N applied}}
+  \\label{eq:nue} \\\\
+  \\text{Phosphorus Use Efficiency} =
+  \\frac{\\Delta \\text{Yield}}{\\text{P applied}}
+  \\label{eq:pue} \\\\
+  \\text{Potassium Use Efficiency} =
+  \\frac{\\Delta \\text{Yield}}{\\text{K applied}}
+  \\label{eq:kue}
+\\end{gather}
+
+% gather* - unnumbered centered text equations
+\\begin{gather*}
+  \\text{Gross Returns} =
+    \\text{Yield} \\times \\text{Market Price} \\\\
+  \\text{Net Returns} =
+    \\text{Gross Returns} - \\text{Total Cost} \\\\
+  \\text{B:C Ratio} =
+    \\frac{\\text{Net Returns}}{\\text{Total Cost}}
+\\end{gather*}
+
+% --------------------------------------------------
+% MIXED TEXT + MATH ALIGNMENT COMBINATIONS
+% --------------------------------------------------
+
+% align with text descriptions on left
+\\begin{align*}
+  \\text{Mean:}     \\quad & \\bar{x}
+    = \\frac{1}{n}\\sum_{i=1}^{n} x_i \\\\
+  \\text{Variance:} \\quad & s^2
+    = \\frac{1}{n-1}\\sum_{i=1}^{n}(x_i - \\bar{x})^2 \\\\
+  \\text{Std Dev:}  \\quad & s = \\sqrt{s^2} \\\\
+  \\text{CV (\\%):}  \\quad & \\text{CV}
+    = \\frac{s}{\\bar{x}} \\times 100
+\\end{align*}
+
+% align with text and numbering
+\\begin{align}
+  \\text{SEm} &= \\frac{s}{\\sqrt{n}}
+    \\label{eq:sem} \\\\
+  \\text{CD at 5\\%} &= \\text{SEm} \\times \\sqrt{2}
+    \\times t_{0.05, \\text{df}}
+    \\label{eq:cd}
+\\end{align}
+
+% --------------------------------------------------
+% BOXED EQUATIONS
+% --------------------------------------------------
+% \\boxed{equation} draws a box around the equation.
+% Use inside any math environment.
+% PDF: equation enclosed in a rectangular border.
+% --------------------------------------------------
+\\begin{equation}
+  \\boxed{
+    R^2 = 1 -
+    \\frac{\\sum_{i=1}^{n}(Y_i - \\hat{Y}_i)^2}
+         {\\sum_{i=1}^{n}(Y_i - \\bar{Y})^2}
+  }
+  \\label{eq:rsquared}
+\\end{equation}
+
+
+% ==================================================
+% PART D: EQUATION NUMBERING SUMMARY TABLE
+% ==================================================
+
+\\subsection{Equation Environment Quick Reference}
+
+\\begin{table}[htbp]
+\\centering
+\\caption{Equation Environments: Numbering and Alignment}
+\\label{tab:eqtypes}
+\\begin{tabular}{lccl}
+  \\toprule
+  \\textbf{Environment} & \\textbf{Numbered} &
+  \\textbf{Aligned} & \\textbf{Best For} \\\\
+  \\midrule
+  \\verb|$...$|         & No  & Inline
+    & Math within text \\\\
+  \\verb|\\[...\\]|       & No  & Center
+    & Single display equation \\\\
+  \\verb|equation|      & Yes & Center
+    & Single numbered equation \\\\
+  \\verb|equation*|     & No  & Center
+    & Single unnumbered display \\\\
+  \\verb|align|         & Yes & At \\verb|&|
+    & Multi-line, aligned \\\\
+  \\verb|align*|        & No  & At \\verb|&|
+    & Multi-line, no numbers \\\\
+  \\verb|gather|        & Yes & Center
+    & Multi-line, each centered \\\\
+  \\verb|gather*|       & No  & Center
+    & Multi-line centered, no num \\\\
+  \\verb|multline|      & Yes & L/C/R
+    & One long equation split \\\\
+  \\verb|multline*|     & No  & L/C/R
+    & Long equation, no number \\\\
+  \\verb|flalign|       & Yes & Full-width
+    & Margin-to-margin alignment \\\\
+  \\verb|flalign*|      & No  & Full-width
+    & Full-width, no numbers \\\\
+  \\verb|split|         & (parent) & At \\verb|&|
+    & Multi-line, one number \\\\
+  \\verb|cases|         & (parent) & Left brace
+    & Piecewise / conditional \\\\
+  \\bottomrule
+\\end{tabular}
+\\end{table}
+
+% ==================================================
+% CROSS-REFERENCING EQUATIONS
+% ==================================================
+% \\label{eq:name}  : place INSIDE equation
+% \\eqref{eq:name}  : renders as (1) with parens
+% \\ref{eq:name}    : renders as 1 without parens
+% Compile TWICE to resolve references.
+% ==================================================
+See Equation~\\eqref{eq:regression} for the model,
+Equations~\\eqref{eq:sst}--\\eqref{eq:sse} for ANOVA,
+and Equation~\\eqref{eq:rsquared} for $R^2$.
+
 
 \\end{document}`,
         commands: [
