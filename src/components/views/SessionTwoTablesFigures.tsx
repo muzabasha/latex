@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { LatexEditor } from "@/components/LatexEditor";
 import { motion, AnimatePresence } from "framer-motion";
-import { Table, Image as ImageIcon, Layout, Grid, Info, Sparkles, Plus, Trash2, HelpCircle, CheckCircle2, Target, Rocket, Trophy, Star, Check, X, ClipboardList, ArrowRight } from "lucide-react";
+import { Table, Image as ImageIcon, Layout, Grid, Info, Sparkles, Plus, Trash2, HelpCircle, CheckCircle2, Target, Rocket, Trophy, Star, Check, X, ClipboardList, ArrowRight, Copy } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { SessionQuiz } from "@/components/SessionQuiz";
 import { SESSION_QUIZZES } from "@/lib/quiz-data";

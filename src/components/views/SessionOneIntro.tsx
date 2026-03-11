@@ -4,7 +4,7 @@ import { useState } from "react";
 import { LatexEditor } from "@/components/LatexEditor";
 import { LatexPreview } from "@/components/LatexPreview";
 import { motion } from "framer-motion";
-import { Info, Lightbulb, ChefHat, ArrowRight, CheckCircle2, Target, Rocket, Trophy, Star, Check, X, ClipboardList } from "lucide-react";
+import { Info, Lightbulb, ChefHat, ArrowRight, CheckCircle2, Target, Rocket, Trophy, Star, Check, X, ClipboardList, Copy } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { SessionQuiz } from "@/components/SessionQuiz";
 import { SESSION_QUIZZES } from "@/lib/quiz-data";

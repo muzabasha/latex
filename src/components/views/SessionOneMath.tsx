@@ -14,6 +14,54 @@ import { LATEX_COMMAND_DATA } from "@/lib/latex-commands";
 import { FillInBlank } from "@/components/FillInBlank";
 import { DragDropMatch } from "@/components/DragDropMatch";
 
+const MATH_TERMS = [
+    {
+        category: "Greek Letters (Lowercase)", terms: [
+            { command: "\\alpha", output: "α", usage: "Significance level, coefficients" },
+            { command: "\\beta", output: "β", usage: "Regression coefficients" },
+            { command: "\\gamma", output: "γ", usage: "Growth rate parameters" },
+            { command: "\\delta", output: "δ", usage: "Small change / difference" },
+            { command: "\\epsilon", output: "ε", usage: "Error term" },
+            { command: "\\sigma", output: "σ", usage: "Standard deviation" },
+            { command: "\\mu", output: "μ", usage: "Population mean" },
+            { command: "\\lambda", output: "λ", usage: "Rate parameter" },
+            { command: "\\theta", output: "θ", usage: "Angle / parameter" },
+            { command: "\\pi", output: "π", usage: "Pi constant (3.14...)" },
+        ]
+    },
+    {
+        category: "Greek Letters (Uppercase)", terms: [
+            { command: "\\Sigma", output: "Σ", usage: "Summation" },
+            { command: "\\Delta", output: "Δ", usage: "Change / difference" },
+            { command: "\\Omega", output: "Ω", usage: "Sample space" },
+            { command: "\\Pi", output: "Π", usage: "Product notation" },
+            { command: "\\Phi", output: "Φ", usage: "Normal distribution CDF" },
+        ]
+    },
+    {
+        category: "Operators & Functions", terms: [
+            { command: "\\frac{a}{b}", output: "a/b", usage: "Fractions" },
+            { command: "\\sqrt{x}", output: "√x", usage: "Square root" },
+            { command: "\\sum_{i=1}^{n}", output: "Σ (i=1 to n)", usage: "Summation" },
+            { command: "\\int_{a}^{b}", output: "∫ (a to b)", usage: "Integration" },
+            { command: "\\prod_{i=1}^{n}", output: "∏ (i=1 to n)", usage: "Product" },
+            { command: "\\log", output: "log", usage: "Logarithm" },
+            { command: "\\lim_{x \\to 0}", output: "lim (x→0)", usage: "Limit" },
+        ]
+    },
+    {
+        category: "Relations & Comparisons", terms: [
+            { command: "\\leq", output: "≤", usage: "Less than or equal" },
+            { command: "\\geq", output: "≥", usage: "Greater than or equal" },
+            { command: "\\neq", output: "≠", usage: "Not equal" },
+            { command: "\\approx", output: "≈", usage: "Approximately equal" },
+            { command: "\\pm", output: "±", usage: "Plus or minus" },
+            { command: "\\times", output: "×", usage: "Multiplication" },
+            { command: "\\infty", output: "∞", usage: "Infinity" },
+        ]
+    },
+];
+
 export function SessionOneMath() {
     const [code, setCode] = useState(`\\documentclass{article}
 
@@ -110,6 +158,46 @@ The formula for standard deviation is:
                     />
                 </div>
             </div>
+
+            {/* Mathematical Terms Reference Table */}
+            <section className="space-y-6">
+                <div className="flex items-center gap-3">
+                    <div className="p-2 bg-primary/10 rounded-xl">
+                        <FunctionSquare className="w-6 h-6 text-primary" />
+                    </div>
+                    <div>
+                        <h2 className="text-2xl font-bold">Mathematical Terms Reference</h2>
+                        <p className="text-sm text-muted-foreground">Essential LaTeX commands for agriculture statistics and research</p>
+                    </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                    {MATH_TERMS.map((group) => (
+                        <div key={group.category} className="bg-card border rounded-3xl overflow-hidden shadow-sm">
+                            <div className="bg-slate-900 px-6 py-3">
+                                <h3 className="text-sm font-bold text-white tracking-wide">{group.category}</h3>
+                            </div>
+                            <div className="divide-y divide-slate-100">
+                                <div className="grid grid-cols-[1fr_60px_1fr] gap-2 px-6 py-2 bg-slate-50 text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+                                    <span>Command</span>
+                                    <span className="text-center">Output</span>
+                                    <span>Usage in Agriculture</span>
+                                </div>
+                                {group.terms.map((term) => (
+                                    <div
+                                        key={term.command}
+                                        className="grid grid-cols-[1fr_60px_1fr] gap-2 px-6 py-2.5 hover:bg-primary/5 transition-colors items-center group/row"
+                                    >
+                                        <code className="text-xs font-mono text-slate-700 font-semibold">{term.command}</code>
+                                        <span className="text-center text-lg">{term.output}</span>
+                                        <span className="text-xs text-muted-foreground">{term.usage}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
 
             <div className="space-y-6">
                 <h2 className="text-2xl font-bold flex items-center gap-2">
