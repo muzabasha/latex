@@ -261,6 +261,140 @@ N2 & 100kg & 52cm \\\\ \\hline
                     </div>
                 </div>
             </section>
+
+            {/* Overleaf Image Insertion Guide */}
+            <section className="space-y-8">
+                <div className="flex items-center gap-4">
+                    <div className="p-3 bg-emerald-100 rounded-2xl">
+                        <ImageIcon className="w-8 h-8 text-emerald-600" />
+                    </div>
+                    <div>
+                        <h2 className="text-3xl font-bold outfit-font">Inserting Images via Overleaf</h2>
+                        <p className="text-muted-foreground">Step-by-step guide to upload and include figures in your Overleaf project</p>
+                    </div>
+                </div>
+
+                {/* Step-by-step Instructions */}
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {[
+                        {
+                            step: 1,
+                            title: "Upload Your Image",
+                            instruction: "Click the upload icon (↑) in the Overleaf file tree panel (top-left). Select your image file from your computer. It will appear in the project root.",
+                            tip: "Drag and drop also works — just drop the file onto the file tree."
+                        },
+                        {
+                            step: 2,
+                            title: "Organize into a Folder",
+                            instruction: "Create a folder called 'images' or 'figures' using the folder icon. Move your uploaded image into it for a clean project structure.",
+                            tip: "Right-click the file tree to create folders or rename files."
+                        },
+                        {
+                            step: 3,
+                            title: "Add graphicx Package",
+                            instruction: "In your preamble (before \\begin{document}), add: \\usepackage{graphicx}. This enables the \\includegraphics command.",
+                            tip: "Only add this once — duplicate \\usepackage lines cause warnings."
+                        },
+                        {
+                            step: 4,
+                            title: "Write the Figure Code",
+                            instruction: "Use the figure environment with \\includegraphics to insert your image. Add \\caption and \\label for referencing.",
+                            tip: "Use \\centering inside the figure to center-align the image."
+                        }
+                    ].map((item) => (
+                        <div key={item.step} className="bg-card border rounded-3xl p-6 space-y-3 relative overflow-hidden group hover:shadow-lg transition-all">
+                            <div className="absolute top-4 right-4 text-6xl font-black text-slate-100 group-hover:text-primary/10 transition-colors">
+                                {item.step}
+                            </div>
+                            <div className="relative z-10 space-y-3">
+                                <span className="text-[10px] font-bold uppercase tracking-widest text-primary">Step {item.step}</span>
+                                <h4 className="text-lg font-bold">{item.title}</h4>
+                                <p className="text-sm text-muted-foreground leading-relaxed">{item.instruction}</p>
+                                <div className="flex items-start gap-2 bg-amber-50 border border-amber-100 rounded-xl p-3">
+                                    <Info className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+                                    <p className="text-[11px] text-amber-800 italic">{item.tip}</p>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Sample Code Block */}
+                <div className="bg-slate-900 rounded-3xl p-8 space-y-4 shadow-xl">
+                    <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Complete Overleaf Figure Code</span>
+                        <button
+                            onClick={() => navigator.clipboard.writeText(`\\begin{figure}[h]\n    \\centering\n    \\includegraphics[width=0.8\\textwidth]{images/crop-yield-graph.png}\n    \\caption{Annual crop yield comparison across treatment groups}\n    \\label{fig:yield}\n\\end{figure}`)}
+                            className="text-xs flex items-center gap-1.5 text-slate-400 hover:text-primary transition-colors font-bold"
+                        >
+                            <Copy className="w-3 h-3" /> Copy
+                        </button>
+                    </div>
+                    <pre className="bg-black/40 p-6 rounded-2xl text-sm font-mono text-primary/90 leading-relaxed overflow-x-auto">{`\\begin{figure}[h]
+    \\centering
+    \\includegraphics[width=0.8\\textwidth]{images/crop-yield-graph.png}
+    \\caption{Annual crop yield comparison across treatment groups}
+    \\label{fig:yield}
+\\end{figure}`}</pre>
+                    <p className="text-xs text-slate-500 italic">Reference this figure anywhere using: <code className="text-primary">As shown in Figure \ref{`{fig:yield}`}</code></p>
+                </div>
+
+                {/* Do's and Don'ts */}
+                <div className="grid md:grid-cols-2 gap-6">
+                    <div className="bg-emerald-50 border-2 border-emerald-200 rounded-3xl p-8 space-y-5">
+                        <div className="flex items-center gap-3">
+                            <div className="p-2 bg-emerald-100 rounded-xl">
+                                <Check className="w-6 h-6 text-emerald-600" />
+                            </div>
+                            <h3 className="text-xl font-bold text-emerald-900">Do&apos;s</h3>
+                        </div>
+                        <div className="space-y-3">
+                            {[
+                                "Use PNG for screenshots and diagrams, JPG for photographs, PDF for vector graphics (charts, plots).",
+                                "Always use relative widths like width=0.8\\textwidth instead of fixed pixel values.",
+                                "Keep images in a dedicated folder (e.g., /images or /figures) for a clean project.",
+                                "Add a descriptive \\caption that explains what the figure shows — reviewers read captions first.",
+                                "Always place \\label after \\caption so cross-references point to the correct figure number.",
+                                "Use \\centering inside the figure environment to center-align your image.",
+                                "Compress large images before uploading — Overleaf has a file size limit per project.",
+                                "Use meaningful file names like crop-yield-2024.png instead of IMG_4523.jpg."
+                            ].map((item, i) => (
+                                <div key={i} className="flex items-start gap-3 bg-white/70 p-3 rounded-xl border border-emerald-100">
+                                    <span className="text-emerald-500 font-bold text-sm mt-0.5 shrink-0">✓</span>
+                                    <p className="text-sm text-emerald-900 leading-relaxed">{item}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="bg-rose-50 border-2 border-rose-200 rounded-3xl p-8 space-y-5">
+                        <div className="flex items-center gap-3">
+                            <div className="p-2 bg-rose-100 rounded-xl">
+                                <X className="w-6 h-6 text-rose-600" />
+                            </div>
+                            <h3 className="text-xl font-bold text-rose-900">Don&apos;ts</h3>
+                        </div>
+                        <div className="space-y-3">
+                            {[
+                                "Don't use BMP or TIFF formats — they are unsupported or bloated. Convert to PNG/JPG first.",
+                                "Don't use absolute dimensions like width=500px — your image will break on different page layouts.",
+                                "Don't place \\includegraphics without wrapping it in a \\begin{figure} environment (you lose captions and labels).",
+                                "Don't include the file extension if it causes errors — try {images/graph} instead of {images/graph.png}.",
+                                "Don't upload images with spaces in the filename (e.g., 'my graph.png'). Use hyphens or underscores.",
+                                "Don't forget \\usepackage{graphicx} in the preamble — without it, \\includegraphics is undefined.",
+                                "Don't scale images above 1.0\\textwidth — they will overflow into the margins.",
+                                "Don't place the figure code inside a table environment or vice versa — keep them separate."
+                            ].map((item, i) => (
+                                <div key={i} className="flex items-start gap-3 bg-white/70 p-3 rounded-xl border border-rose-100">
+                                    <span className="text-rose-500 font-bold text-sm mt-0.5 shrink-0">✗</span>
+                                    <p className="text-sm text-rose-900 leading-relaxed">{item}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* Activity Track: The Exhibition Hall */}
             <section className="space-y-10 py-10">
                 <div className="text-center space-y-2">
