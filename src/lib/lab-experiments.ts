@@ -62,7 +62,7 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
             "Add a % comment line to annotate your code.",
             "Click Compile and watch your first PDF appear on the right."
         ],
-        starterCode: `\\documentclass{article}\n\\begin{document}\n\n% Replace this comment with your greeting!\n\n\\end{document}`,
+        starterCode: `% ============================================\n% research.tex — Hello Agriculture World\n% ============================================\n\\documentclass[12pt, a4paper]{article}\n\\title{My First Agriculture Research Document}\n\\author{Research Scholar \\\\\\\\ Department of Agriculture}\n\\date{\\today}\n\n\\begin{document}\n\\maketitle\n\n% Replace this comment with your greeting!\n% Write a sentence about your research interest in agriculture.\n\n\\end{document}`,
         checks: [
             { label: "Has \\documentclass", regex: /\\documentclass\{/, hint: "The very first line must declare the document type." },
             { label: "Has \\begin{document}", regex: /\\begin\{document\}/, hint: "This opens the content area of your paper." },
@@ -124,7 +124,7 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
             "Add \\date{...} with a custom date, or use \\today for today's date.",
             "Place \\maketitle right after \\begin{document}."
         ],
-        starterCode: `\\documentclass{article}\n\n% Add title, author, and date here\n\n\\begin{document}\n\n% Render the title block here\n\nThis paper studies the effect of organic fertilizers on wheat yield.\n\n\\end{document}`,
+        starterCode: `% ============================================\n% research.tex — Title Your Research\n% ============================================\n\\documentclass[12pt, a4paper]{article}\n\n% Add \\title, \\author, and \\date here\n\n\\begin{document}\n\n% Render the title block here with \\maketitle\n\n\\section{Introduction}\nThis paper studies the effect of organic fertilizers on wheat yield\nin semi-arid regions of India.\n\n\\section{Objective}\nTo evaluate the impact of vermicompost on crop productivity.\n\n\\end{document}`,
         checks: [
             { label: "Has \\title{...}", regex: /\\title\{.+\}/, hint: "Use \\title{Your Research Title} before \\begin{document}." },
             { label: "Has \\author{...}", regex: /\\author\{.+\}/, hint: "Use \\author{Your Name} in the preamble." },
@@ -198,7 +198,7 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
             "Use \\emph{...} for semantic emphasis.",
             "Use \\underline{...} to underline a word."
         ],
-        starterCode: `\\documentclass{article}\n\\begin{document}\n\n\\section{Crop Analysis}\n\nThe rice variety known as Oryza sativa showed significant yield improvement.\nThe nitrogen content was the primary factor.\nThis finding is important for future research.\n\n% Apply formatting: italic for scientific name, bold for key word,\n% emph for emphasis, underline for important term\n\n\\end{document}`,
+        starterCode: `% ============================================\n% research.tex — Bold, Italic & Emphasis\n% ============================================\n\\documentclass[12pt, a4paper]{article}\n\\title{Crop Variety Analysis Report}\n\\author{Research Scholar \\\\\\\\ Department of Agriculture}\n\\date{\\today}\n\n\\begin{document}\n\\maketitle\n\n\\section{Crop Analysis}\n\nThe rice variety known as Oryza sativa showed significant yield improvement.\nThe nitrogen content was the primary factor.\nThis finding is important for future research.\n\n% Apply formatting:\n% - Italic for scientific name (Oryza sativa) using \\textit{...}\n% - Bold for key word (significant) using \\textbf{...}\n% - Emphasis for (important) using \\emph{...}\n% - Underline for (nitrogen) using \\underline{...}\n\n\\section{Conclusion}\nFurther trials are recommended across multiple agro-climatic zones.\n\n\\end{document}`,
         checks: [
             { label: "Uses \\textbf{...}", regex: /\\textbf\{.+\}/, hint: "Wrap important words in \\textbf{bold text}." },
             { label: "Uses \\textit{...}", regex: /\\textit\{.+\}/, hint: "Wrap scientific names in \\textit{italic text}." },
@@ -265,7 +265,7 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
             "Use {\\Large ...} for even larger text.",
             "Use {\\footnotesize ...} for small text."
         ],
-        starterCode: `\\documentclass{article}\n\\begin{document}\n\n\\section{Software Tools}\n\nThe data was processed using the R function lm() for linear regression.\n\nImportant Notice: Always calibrate instruments before field work.\n\nDetailed methodology is available in the supplementary materials.\n\nNote: Sample size was n=30.\n\n% Make 'lm()' monospace with \\texttt\n% Make 'Important Notice' large\n% Make 'Detailed methodology' Large\n% Make 'Note' footnotesize\n\n\\end{document}`,
+        starterCode: `% ============================================\n% research.tex — Monospace & Font Sizes\n% ============================================\n\\documentclass[12pt, a4paper]{article}\n\\title{Software Tools in Agriculture Research}\n\\author{Research Scholar \\\\\\\\ Department of Agriculture}\n\\date{\\today}\n\n\\begin{document}\n\\maketitle\n\n\\section{Software Tools}\n\nThe data was processed using the R function lm() for linear regression.\n\nImportant Notice: Always calibrate instruments before field work.\n\nDetailed methodology is available in the supplementary materials.\n\nNote: Sample size was n=30.\n\n% Make 'lm()' monospace with \\texttt{...}\n% Make 'Important Notice' paragraph larger with {\\large ...}\n% Make 'Detailed methodology' even larger with {\\Large ...}\n% Make 'Note' smaller with {\\footnotesize ...}\n\n\\end{document}`,
         checks: [
             { label: "Uses \\texttt{...}", regex: /\\texttt\{.+\}/, hint: "Use \\texttt{lm()} for code-like text." },
             { label: "Uses {\\large ...}", regex: /\{\\large\s/, hint: "Wrap text in {\\large your text} for larger font." },
@@ -322,7 +322,7 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
             "Create a numbered list using \\begin{enumerate} with 3+ steps.",
             "Create a description list using \\begin{description} with labeled items."
         ],
-        starterCode: `\\documentclass{article}\n\\begin{document}\n\n\\section{Materials}\nThe following soil types were collected:\n\n% Create a bulleted list of soil types\n\n\\section{Methodology}\nThe experiment followed these steps:\n\n% Create a numbered list of steps\n\n\\section{Key Terms}\n\n% Create a description list with definitions\n\n\\end{document}`,
+        starterCode: `% ============================================\n% research.tex — Lists: Bullets, Numbers & Descriptions\n% ============================================\n\\documentclass[12pt, a4paper]{article}\n\\title{Soil Survey Methodology}\n\\author{Research Scholar \\\\\\\\ Department of Agriculture}\n\\date{\\today}\n\n\\begin{document}\n\\maketitle\n\n\\section{Materials}\nThe following soil types were collected:\n\n% Create a bulleted list of soil types using \\begin{itemize}\n\n\\section{Methodology}\nThe experiment followed these steps:\n\n% Create a numbered list of steps using \\begin{enumerate}\n\n\\section{Key Terms}\n\n% Create a description list with definitions using \\begin{description}\n\n\\end{document}`,
         checks: [
             { label: "Has \\begin{itemize}", regex: /\\begin\{itemize\}/, hint: "Start a bulleted list with \\begin{itemize}." },
             { label: "Has \\begin{enumerate}", regex: /\\begin\{enumerate\}/, hint: "Start a numbered list with \\begin{enumerate}." },
@@ -381,7 +381,7 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
             "Use \\textcolor{red}{...} to color a warning text.",
             "Use \\colorbox{yellow}{...} to highlight a key finding."
         ],
-        starterCode: `\\documentclass{article}\n\n% Add the xcolor package here\n\n\\begin{document}\n\n\\section{Soil pH Warning}\n\nThe soil pH dropped below 4.5, which is critically acidic.\n\nKey finding: Lime application restored pH to 6.8 within 3 months.\n\n\\end{document}`,
+        starterCode: `% ============================================\n% research.tex — Packages & Colors\n% ============================================\n\\documentclass[12pt, a4paper]{article}\n\\title{Soil pH Analysis Report}\n\\author{Research Scholar \\\\\\\\ Department of Agriculture}\n\\date{\\today}\n\n% Add the xcolor package here\n\n\\begin{document}\n\\maketitle\n\n\\section{Soil pH Warning}\n\nThe soil pH dropped below 4.5, which is critically acidic.\n\nKey finding: Lime application restored pH to 6.8 within 3 months.\n\n% Use \\textcolor{red}{...} to color the warning text\n% Use \\colorbox{yellow}{...} to highlight the key finding\n\n\\section{Conclusion}\nImmediate remediation is recommended for acidic plots.\n\n\\end{document}`,
         checks: [
             { label: "Has \\usepackage{xcolor}", regex: /\\usepackage\{xcolor\}/, hint: "Add \\usepackage{xcolor} before \\begin{document}." },
             { label: "Uses \\textcolor", regex: /\\textcolor\{.+\}\{.+\}/, hint: "Use \\textcolor{red}{warning text} to color text." },
@@ -439,7 +439,7 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
             "Use \\newpage to force a page break.",
             "Add a \\footnote{...} to a sentence."
         ],
-        starterCode: `\\documentclass[12pt, a4paper]{article}\n\n% Add geometry package and set margins\n\n\\begin{document}\n\n\\section{Introduction}\nThis study examines soil moisture retention in semi-arid regions.\nThe research was conducted at the university farm.\n\n% Add a footnote to 'university farm'\n% Add a \\newpage here\n\n\\section{Results}\nThe results show significant improvement.\n\n\\end{document}`,
+        starterCode: `% ============================================\n% research.tex — Page Layout & Geometry\n% ============================================\n\\documentclass[12pt, a4paper]{article}\n\\title{Soil Moisture Retention in Semi-Arid Regions}\n\\author{Research Scholar \\\\\\\\ Department of Agriculture}\n\\date{\\today}\n\n% Add geometry package and set margins here\n\n\\begin{document}\n\\maketitle\n\n\\section{Introduction}\nThis study examines soil moisture retention in semi-arid regions.\nThe research was conducted at the university farm.\n\n% Add a \\footnote{...} to 'university farm'\n% Add a \\newpage here\n\n\\section{Results}\nThe results show significant improvement in water retention\nwith mulching treatments applied during the kharif season.\n\n\\end{document}`,
         checks: [
             { label: "Has \\usepackage{geometry}", regex: /\\usepackage\{geometry\}|\\usepackage\[.*\]\{geometry\}/, hint: "Add \\usepackage{geometry} in the preamble." },
             { label: "Has margin setting", regex: /\\geometry\{|margin=|top=|bottom=|left=|right=/, hint: "Set margins with \\geometry{margin=1in} or individual values." },
@@ -499,7 +499,7 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
             "Use \\begin{verbatim} for a block of code.",
             "Escape special characters: \\%, \\$, \\&, \\#, \\_."
         ],
-        starterCode: `\\documentclass{article}\n\\begin{document}\n\n\\section{Data Processing}\n\nThe R command used was: % add inline verbatim here\n\nThe full script:\n% Add a verbatim block here\n\nThe yield increased by 40% and the cost was $500 per hectare.\nThe soil samples were labeled A&B with code #12.\n\n% Fix the special characters above!\n\n\\end{document}`,
+        starterCode: `% ============================================\n% research.tex — Verbatim & Special Characters\n% ============================================\n\\documentclass[12pt, a4paper]{article}\n\\title{Data Processing Methods in Agriculture}\n\\author{Research Scholar \\\\\\\\ Department of Agriculture}\n\\date{\\today}\n\n\\begin{document}\n\\maketitle\n\n\\section{Data Processing}\n\nThe R command used was: % add inline verbatim here using \\verb|...|\n\nThe full script:\n% Add a verbatim block here using \\begin{verbatim}...\\end{verbatim}\n\nThe yield increased by 40% and the cost was $500 per hectare.\nThe soil samples were labeled A&B with code #12.\n\n% Fix the special characters above! (\\%, \\$, \\&, \\#)\n\n\\section{Conclusion}\nProper data documentation ensures reproducibility of results.\n\n\\end{document}`,
         checks: [
             { label: "Has \\verb|...|", regex: /\\verb[|!+]/, hint: "Use \\verb|your code| for inline code display." },
             { label: "Has \\begin{verbatim}", regex: /\\begin\{verbatim\}/, hint: "Use \\begin{verbatim}...\\end{verbatim} for code blocks." },
@@ -568,7 +568,7 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
             "Use \\section*{...} for an unnumbered Abstract.",
             "Use \\paragraph{...} for a named paragraph."
         ],
-        starterCode: `\\documentclass{article}\n\\title{Effect of Mulching on Soil Moisture}\n\\author{Agriculture Scholar}\n\\begin{document}\n\\maketitle\n\n% Add unnumbered Abstract, then numbered sections with subsections\n\n\\end{document}`,
+        starterCode: `% ============================================\n% research.tex — Sections & Document Hierarchy\n% ============================================\n\\documentclass[12pt, a4paper]{article}\n\\title{Effect of Mulching on Soil Moisture}\n\\author{Agriculture Scholar \\\\\\\\ Department of Soil Science}\n\\date{\\today}\n\n\\begin{document}\n\\maketitle\n\n% Add an unnumbered Abstract using \\begin{abstract}...\\end{abstract}\n\n% Then add numbered sections:\n% \\section{Introduction}\n% \\subsection{Background}\n% \\section{Methodology}\n% \\subsection{Study Area}\n% \\subsubsection{Soil Sampling}\n% \\section{Results}\n% \\paragraph{Key Observation}\n\n\\end{document}`,
         checks: [
             { label: "Has 3+ \\section{}", regex: /(\\section\*?\{[^}]+\}[\s\S]*?){3,}/, hint: "Create at least 3 sections." },
             { label: "Has \\subsection{}", regex: /\\subsection\{.+\}/, hint: "Add a subsection inside a section." },
@@ -628,7 +628,7 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
             "Write a display equation using \\[...\\] with \\frac.",
             "Use ^ for superscript and _ for subscript."
         ],
-        starterCode: `\\documentclass{article}\n\\begin{document}\n\n\\section{Statistical Model}\n\nThe crop yield model is expressed as: % add inline $...$ equation\n\nAlternatively written as: % add inline \\(...\\) equation\n\nThe standard deviation formula:\n% Add display equation with \\frac, ^, and _\n\n\\end{document}`,
+        starterCode: `% ============================================\n% research.tex — Inline & Display Math\n% ============================================\n\\documentclass[12pt, a4paper]{article}\n\\usepackage{amsmath}\n\\title{Statistical Modeling of Crop Yield}\n\\author{Research Scholar \\\\\\\\ Department of Agriculture}\n\\date{\\today}\n\n\\begin{document}\n\\maketitle\n\n\\section{Statistical Model}\n\nThe crop yield model is expressed as: % add inline $...$ equation here\n\nAlternatively written as: % add inline \\\\(...\\\\) equation here\n\nThe standard deviation formula:\n% Add display equation using \\\\[...\\\\] with \\frac, ^, and _\n\n\\section{Interpretation}\nThe model parameters were estimated using least squares regression.\n\n\\end{document}`,
         checks: [
             { label: "Has $...$ inline math", regex: /\$[^$]+\$/, hint: "Wrap math in $Y = aR + b$." },
             { label: "Has \\(...\\) inline math", regex: /\\\([^)]+\\\)/, hint: "Use \\(Y = aR + b\\) as alternative inline math." },
@@ -702,7 +702,7 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
             "Use \\sqrt{...} for a square root.",
             "Use \\sum_{i=1}^{n} for summation notation."
         ],
-        starterCode: `\\documentclass{article}\n\\usepackage{amsmath}\n\\begin{document}\n\n\\section{Growth Model Parameters}\n\nThe regression coefficients are $\\alpha$ and $\\beta$.\n\nThe error term follows a normal distribution with mean and standard deviation.\n\nThe growth rate is modeled as:\n% Add a display equation using Greek letters, \\sqrt, \\sum, and an operator\n\n\\end{document}`,
+        starterCode: `% ============================================\n% research.tex — Greek Letters & Math Operators\n% ============================================\n\\documentclass[12pt, a4paper]{article}\n\\usepackage{amsmath}\n\\title{Growth Model Parameters for Wheat Cultivation}\n\\author{Research Scholar \\\\\\\\ Department of Agriculture}\n\\date{\\today}\n\n\\begin{document}\n\\maketitle\n\n\\section{Growth Model Parameters}\n\nThe regression coefficients are $\\alpha$ and $\\beta$.\n\nThe error term follows a normal distribution with mean and standard deviation.\n\nThe growth rate is modeled as:\n% Add a display equation using Greek letters, \\sqrt, \\sum, and an operator\n\n\\section{Discussion}\nThe model explains 87\\% of the variance in yield data.\n\n\\end{document}`,
         checks: [
             { label: "Has 3+ Greek letters", regex: /(\\alpha|\\beta|\\gamma|\\delta|\\epsilon|\\sigma|\\mu|\\lambda|\\theta|\\pi|\\omega|\\phi|\\rho|\\tau|\\eta|\\nu|\\xi|\\zeta)[\s\S]*(\\alpha|\\beta|\\gamma|\\delta|\\epsilon|\\sigma|\\mu|\\lambda|\\theta|\\pi|\\omega|\\phi|\\rho|\\tau|\\eta|\\nu|\\xi|\\zeta)[\s\S]*(\\alpha|\\beta|\\gamma|\\delta|\\epsilon|\\sigma|\\mu|\\lambda|\\theta|\\pi|\\omega|\\phi|\\rho|\\tau|\\eta|\\nu|\\xi|\\zeta)/, hint: "Use \\alpha, \\beta, \\sigma, \\mu, etc." },
             { label: "Has math operator", regex: /\\sin|\\cos|\\tan|\\log|\\ln|\\lim|\\max|\\min|\\exp/, hint: "Use \\sin, \\cos, \\log, or \\lim." },
@@ -777,7 +777,7 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
             "Reference it with \\eqref{eq:...}.",
             "Create a multi-line aligned equation with \\begin{align*}."
         ],
-        starterCode: `\\documentclass{article}\n\\usepackage{amsmath}\n\\begin{document}\n\n\\section{Yield Model}\n\nThe primary yield equation is shown in Equation ???.\n\n% Add a numbered equation with \\begin{equation} and \\label{eq:yield}\n\n% Reference it with \\eqref{eq:yield}\n\nThe derivation steps:\n% Add multi-line aligned equation with \\begin{align*}\n\n\\end{document}`,
+        starterCode: `% ============================================\n% research.tex — Numbered Equations & Align\n% ============================================\n\\documentclass[12pt, a4paper]{article}\n\\usepackage{amsmath}\n\\title{Yield Prediction Model}\n\\author{Research Scholar \\\\\\\\ Department of Agriculture}\n\\date{\\today}\n\n\\begin{document}\n\\maketitle\n\n\\section{Yield Model}\n\nThe primary yield equation is shown in Equation ???.\n\n% Add a numbered equation with \\begin{equation} and \\label{eq:yield}\n\n% Reference it with \\eqref{eq:yield}\n\nThe derivation steps:\n% Add multi-line aligned equation with \\begin{align*}\n\n\\section{Conclusion}\nThe model was validated against field trial data from 2024-2025.\n\n\\end{document}`,
         checks: [
             { label: "Has \\begin{equation}", regex: /\\begin\{equation\}/, hint: "Use \\begin{equation} for a numbered equation." },
             { label: "Has \\label{eq:...}", regex: /\\label\{eq:.+\}/, hint: "Add \\label{eq:yield} inside the equation." },
@@ -839,7 +839,7 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
             "Add \\caption{...} and \\label{tab:...}.",
             "Reference with \\ref{tab:...} in text."
         ],
-        starterCode: `\\documentclass{article}\n\\begin{document}\n\n\\section{Results}\nTable \\ref{tab:fert} shows the fertilizer trial results.\n\n% Build your table here\n\n\\end{document}`,
+        starterCode: `% ============================================\n% research.tex — Fertilizer Data Table\n% ============================================\n\\documentclass[12pt, a4paper]{article}\n\\title{Fertilizer Trial Results}\n\\author{Research Scholar \\\\\\\\ Department of Agriculture}\n\\date{\\today}\n\n\\begin{document}\n\\maketitle\n\n\\section{Results}\nTable \\ref{tab:fert} shows the fertilizer trial results.\n\n% Build your table here with:\n% \\begin{table}[h] wrapper\n% \\begin{tabular}{|l|c|c|c|} for columns\n% \\caption{...} and \\label{tab:fert}\n% Include at least 3 data rows with treatments\n\n\\section{Discussion}\nThe nitrogen treatment N2 showed the highest yield improvement.\n\n\\end{document}`,
         checks: [
             { label: "Has \\begin{table}", regex: /\\begin\{table\}/, hint: "Wrap in \\begin{table}[h]...\\end{table}." },
             { label: "Has \\centering", regex: /\\centering/, hint: "Add \\centering to center the table." },
@@ -912,7 +912,7 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
             "Add \\caption{} and \\label{fig:...}.",
             "Reference with \\ref{fig:...} in text."
         ],
-        starterCode: `\\documentclass{article}\n\n% Add graphicx package\n\n\\begin{document}\n\n\\section{Field Observations}\nFigure \\ref{fig:growth} shows the crop growth pattern.\n\n% Insert figure with caption, label, and width option\n\n% Try adding scale=0.5 or angle=90 as alternative options\n\n\\end{document}`,
+        starterCode: `% ============================================\n% research.tex — Figure Insertion & Scaling\n% ============================================\n\\documentclass[12pt, a4paper]{article}\n\\title{Field Observation Report}\n\\author{Research Scholar \\\\\\\\ Department of Agriculture}\n\\date{\\today}\n\n% Add graphicx package here\n\n\\begin{document}\n\\maketitle\n\n\\section{Field Observations}\nFigure \\ref{fig:growth} shows the crop growth pattern observed\nduring the kharif season.\n\n% Insert figure with:\n% \\begin{figure}[h], \\centering\n% \\includegraphics[width=0.8\\textwidth]{growth-chart.png}\n% \\caption{...} and \\label{fig:growth}\n\n% Try adding scale=0.5 or angle=90 as alternative options\n\n\\section{Conclusion}\nThe growth pattern confirms the expected sigmoid curve.\n\n\\end{document}`,
         checks: [
             { label: "Has \\usepackage{graphicx}", regex: /\\usepackage\{graphicx\}/, hint: "Load graphicx for image support." },
             { label: "Has \\begin{figure}", regex: /\\begin\{figure\}/, hint: "Wrap in \\begin{figure}[h]." },
@@ -978,7 +978,7 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
             "Add \\bibliographystyle{plain} (try unsrt, alpha too).",
             "Add \\bibliography{references} OR use \\begin{thebibliography} for manual entries."
         ],
-        starterCode: `\\documentclass{article}\n\\begin{document}\n\n\\section{Literature Review}\n\nDrip irrigation improves water efficiency by 40\\%.\n\n% Add citations and bibliography\n\n\\end{document}`,
+        starterCode: `% ============================================\n% research.tex — Citations & Bibliography\n% ============================================\n\\documentclass[12pt, a4paper]{article}\n\\title{Literature Review: Irrigation Efficiency}\n\\author{Research Scholar \\\\\\\\ Department of Agriculture}\n\\date{\\today}\n\n\\begin{document}\n\\maketitle\n\n\\section{Literature Review}\n\nDrip irrigation improves water efficiency by 40\\%.\n\n% Add \\cite{sharma2024} references in the text\n% Add a bibliography at the end using:\n% \\begin{thebibliography}{9}\n%   \\bibitem{sharma2024} Sharma R., Irrigation Methods, 2024.\n% \\end{thebibliography}\n\n\\section{Conclusion}\nModern irrigation techniques are essential for sustainable agriculture.\n\n\\end{document}`,
         checks: [
             { label: "Has \\cite{...}", regex: /\\cite\{.+\}/, hint: "Insert \\cite{sharma2024} where you reference." },
             { label: "Has multi-cite or single", regex: /\\cite\{.+\}/, hint: "Use \\cite{key1, key2} for multiple." },
@@ -1042,7 +1042,7 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
             "Reference with \\ref{...} and \\pageref{...}.",
             "Add a URL with \\url{...} or \\href{url}{text}."
         ],
-        starterCode: `\\documentclass{article}\n\n% Add hyperref package\n\n\\begin{document}\n\n\\section{Introduction}\n\\label{sec:intro}\n\nSee Section ??? on page ??? for details.\n\nFor more data, visit the ICAR website: % add URL\n\n\\section{Results}\nResults are discussed in Section ??? above.\n\n\\end{document}`,
+        starterCode: `% ============================================\n% research.tex — Cross-References & Hyperlinks\n% ============================================\n\\documentclass[12pt, a4paper]{article}\n\\title{Cross-Referencing in Agriculture Research}\n\\author{Research Scholar \\\\\\\\ Department of Agriculture}\n\\date{\\today}\n\n% Add hyperref package here\n\n\\begin{document}\n\\maketitle\n\n\\section{Introduction}\n\\label{sec:intro}\n\nSee Section ??? on page ??? for details.\n\nFor more data, visit the ICAR website: % add \\url{...} or \\href{url}{text}\n\n\\section{Results}\n\\label{sec:results}\nResults are discussed in Section ??? above.\n\n% Use \\ref{sec:intro} and \\pageref{sec:intro} to fill the ???\n\n\\end{document}`,
         checks: [
             { label: "Has \\usepackage{hyperref}", regex: /\\usepackage\{hyperref\}/, hint: "Add hyperref for clickable links." },
             { label: "Has \\label{...}", regex: /\\label\{.+\}/, hint: "Add \\label{sec:intro} to a section." },
@@ -1106,7 +1106,7 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
             "Add \\listoftables and \\listoffigures after \\tableofcontents.",
             "Use \\usepackage{float} and [H] for exact placement."
         ],
-        starterCode: `\\documentclass{article}\n\\usepackage{graphicx}\n\\usepackage{float}\n\\begin{document}\n\n\\tableofcontents\n% Add \\listoftables and \\listoffigures\n\n\\section{Data}\n\n% Create a table with [h] placement\n\n% Create a figure with [t] placement\n\n% Try [H] for strict placement (requires float package)\n\n\\end{document}`,
+        starterCode: `% ============================================\n% research.tex — Float Placement Control\n% ============================================\n\\documentclass[12pt, a4paper]{article}\n\\usepackage{graphicx}\n\\usepackage{float}\n\\title{Float Placement in Research Documents}\n\\author{Research Scholar \\\\\\\\ Department of Agriculture}\n\\date{\\today}\n\n\\begin{document}\n\\maketitle\n\\tableofcontents\n% Add \\listoftables and \\listoffigures\n\n\\section{Data}\n\n% Create a table with [h] placement\n\n% Create a figure with [t] placement\n\n% Try [H] for strict placement (requires float package)\n\n\\section{Conclusion}\nProper float placement ensures figures and tables appear near their references.\n\n\\end{document}`,
         checks: [
             { label: "Has \\begin{table}[h]", regex: /\\begin\{table\}\[h/, hint: "Use [h] for 'here' placement." },
             { label: "Has \\begin{figure}[t]", regex: /\\begin\{figure\}\[t/, hint: "Use [t] for 'top of page' placement." },
@@ -1162,7 +1162,7 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
             "Use your custom commands in the document body.",
             "Use \\renewcommand to override an existing command."
         ],
-        starterCode: `\\documentclass{article}\n\\usepackage{amsmath}\n\n% Define custom commands here\n\n\\begin{document}\n\n\\section{Crop Study}\n\nThe rice variety known as Oryza sativa was studied.\nThe yield for treatment 1 was measured.\nThe yield for treatment 2 was also recorded.\n\n% Replace repetitive text with your custom commands\n\n\\end{document}`,
+        starterCode: `% ============================================\n% research.tex — Custom Commands\n% ============================================\n\\documentclass[12pt, a4paper]{article}\n\\usepackage{amsmath}\n\\title{Custom Commands for Efficient Writing}\n\\author{Research Scholar \\\\\\\\ Department of Agriculture}\n\\date{\\today}\n\n% Define custom commands here:\n% \\newcommand{\\rice}{\\textit{Oryza sativa}}\n% \\newcommand{\\yield}[1]{Y_{#1}}\n\n\\begin{document}\n\\maketitle\n\n\\section{Crop Study}\n\nThe rice variety known as Oryza sativa was studied.\nThe yield for treatment 1 was measured.\nThe yield for treatment 2 was also recorded.\n\n% Replace repetitive text with your custom commands\n% Also use \\renewcommand to override an existing command\n\n\\section{Conclusion}\nCustom commands reduce errors and improve consistency.\n\n\\end{document}`,
         checks: [
             { label: "Has \\newcommand", regex: /\\newcommand\{/, hint: "Define with \\newcommand{\\rice}{\\textit{Oryza sativa}}." },
             { label: "Has command with args [#1]", regex: /\\newcommand\{[^}]+\}\[/, hint: "Use [1] for one argument: \\newcommand{\\yield}[1]{Y_{#1}}." },
@@ -1219,7 +1219,7 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
             "Include a table with caption and label.",
             "Add \\cite{} references and a bibliography."
         ],
-        starterCode: `\\documentclass[12pt, a4paper]{article}\n\\usepackage{amsmath}\n\\usepackage{graphicx}\n\\usepackage{hyperref}\n\n\\title{Impact of Nitrogen Fertilization on Maize Yield}\n\\author{Your Name \\\\\\\\ Department of Agriculture}\n\\date{March 2026}\n\n\\begin{document}\n\\maketitle\n\n% Add abstract, sections, equation, table, citations\n\n\\end{document}`,
+        starterCode: `% ============================================\n% research.tex — Complete Research Article\n% ============================================\n\\documentclass[12pt, a4paper]{article}\n\\usepackage{amsmath}\n\\usepackage{graphicx}\n\\usepackage{hyperref}\n\n\\title{Impact of Nitrogen Fertilization on Maize Yield}\n\\author{Your Name \\\\\\\\ Department of Agriculture}\n\\date{March 2026}\n\n\\begin{document}\n\\maketitle\n\n% Add \\begin{abstract}...\\end{abstract}\n\n% Add sections: Introduction, Methodology, Results, Conclusion\n% Include at least one display equation with \\label and \\eqref\n% Include a table with \\caption and \\label\n% Add \\cite{} references\n% End with \\begin{thebibliography}{9}...\\end{thebibliography}\n\n\\end{document}`,
         checks: [
             { label: "Has \\begin{abstract}", regex: /\\begin\{abstract\}/, hint: "Add abstract after \\maketitle." },
             { label: "Has 4+ sections", regex: /(\\section\*?\{[^}]+\}[\s\S]*?){4,}/, hint: "Create Intro, Methods, Results, Conclusion." },
@@ -1283,7 +1283,7 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
             "Add \\appendix before appendix content.",
             "Add \\includeonly{} (commented) for selective compilation."
         ],
-        starterCode: `\\documentclass{report}\n\\usepackage{graphicx}\n\\usepackage{hyperref}\n\n\\title{Impact of Climate Variability on Crop Production}\n\\author{PhD Scholar \\\\\\\\ Department of Agricultural Sciences}\n\\date{2026}\n\n% \\includeonly{chapters/results}  % Uncomment to compile only one chapter\n\n\\begin{document}\n\\maketitle\n\n% Add TOC, list of figures, list of tables\n% Add chapters using \\include or \\chapter\n% Add appendix and bibliography\n\n\\end{document}`,
+        starterCode: `% ============================================\n% research.tex — Modular Thesis Structure\n% ============================================\n\\documentclass[12pt, a4paper]{report}\n\\usepackage{graphicx}\n\\usepackage{hyperref}\n\n\\title{Impact of Climate Variability on Crop Production}\n\\author{PhD Scholar \\\\\\\\ Department of Agricultural Sciences}\n\\date{2026}\n\n% \\includeonly{chapters/results}  % Uncomment to compile only one chapter\n\n\\begin{document}\n\\maketitle\n\n% Add \\tableofcontents\n% Add \\listoffigures and \\listoftables\n\n% Add chapters using \\chapter{} or \\include{chapters/intro}\n% Add at least 2 chapters\n% Add \\appendix before appendix content\n% End with bibliography\n\n\\end{document}`,
         checks: [
             { label: "Uses report class", regex: /\\documentclass.*\{report\}/, hint: "Theses use report class." },
             { label: "Has \\tableofcontents", regex: /\\tableofcontents/, hint: "Add TOC after \\maketitle." },
@@ -1366,7 +1366,7 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
             "Use \\begin{pmatrix} or \\begin{bmatrix} for matrices.",
             "Include \\frac, \\sqrt, \\sum, \\prod, \\int in equations."
         ],
-        starterCode: `\\documentclass{article}\n\\usepackage{amsmath}\n\\begin{document}\n\n\\section{Advanced Yield Model}\n\nThe yield derivation:\n% Add numbered align environment\n\nThe growth function is defined as:\n% Add a piecewise function using cases\n\nThe transformation matrix:\n% Add a matrix using pmatrix or bmatrix\n\n\\end{document}`,
+        starterCode: `% ============================================\n% research.tex — Advanced Math & Alignment\n% ============================================\n\\documentclass[12pt, a4paper]{article}\n\\usepackage{amsmath}\n\\title{Advanced Yield Model Derivation}\n\\author{Research Scholar \\\\\\\\ Department of Agriculture}\n\\date{\\today}\n\n\\begin{document}\n\\maketitle\n\n\\section{Advanced Yield Model}\n\nThe yield derivation:\n% Add numbered align environment with & alignment and \\\\\\\\\n\nThe growth function is defined as:\n% Add a piecewise function using \\begin{cases}\n\nThe transformation matrix:\n% Add a matrix using \\begin{pmatrix} or \\begin{bmatrix}\n\n\\section{Conclusion}\nThe model captures non-linear growth dynamics across seasons.\n\n\\end{document}`,
         checks: [
             { label: "Has \\begin{align}", regex: /\\begin\{align\*?\}/, hint: "Use \\begin{align} for multi-line math." },
             { label: "Has & alignment", regex: /&\s*=/, hint: "Place & before = to align." },
@@ -1444,7 +1444,7 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
             "Create content frames with \\begin{frame}{Title}.",
             "Add bullet points and an equation in separate frames."
         ],
-        starterCode: `\\documentclass{beamer}\n\n% Set a theme here\n\n\\title{Impact of Organic Farming on Soil Health}\n\\author{Research Scholar}\n\\date{March 2026}\n\n\\begin{document}\n\n% Create title frame\n\n% Create content frames with bullets and math\n\n\\end{document}`,
+        starterCode: `% ============================================\n% research.tex — Beamer Presentation\n% ============================================\n\\documentclass{beamer}\n\n% Set a theme here (e.g., \\usetheme{Madrid})\n\n\\title{Impact of Organic Farming on Soil Health}\n\\author{Research Scholar \\\\\\\\ Department of Agriculture}\n\\date{March 2026}\n\n\\begin{document}\n\n% Create title frame with \\begin{frame} and \\titlepage\n\n% Create content frames with bullet points\n% Create a frame with a math equation\n\n\\end{document}`,
         checks: [
             { label: "Uses beamer class", regex: /\\documentclass\{beamer\}/, hint: "Use \\documentclass{beamer} for slides." },
             { label: "Has \\usetheme{}", regex: /\\usetheme\{.+\}/, hint: "Set a theme like \\usetheme{Madrid}." },
@@ -1521,7 +1521,7 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
             "Use \\begin{center}...\\end{center} to center content.",
             "Use \\columnbreak to force a column break."
         ],
-        starterCode: `\\documentclass{article}\n\\usepackage{multicol}\n\\usepackage{lipsum}\n\n\\begin{document}\n\n\\section{Research Summary}\n\n% Use \\begin{center} to center a title or important text\n\n% Use \\begin{multicols}{2} for two-column text\n% Add some content and try \\columnbreak\n\n\\end{document}`,
+        starterCode: `% ============================================\n% research.tex — Two-Column & Multicol Layout\n% ============================================\n\\documentclass[12pt, a4paper]{article}\n\\usepackage{multicol}\n\\usepackage{lipsum}\n\\title{Research Summary: Multi-Column Layout}\n\\author{Research Scholar \\\\\\\\ Department of Agriculture}\n\\date{\\today}\n\n\\begin{document}\n\\maketitle\n\n\\section{Research Summary}\n\n% Use \\begin{center} to center a title or important text\n\n% Use \\begin{multicols}{2} for two-column text\n% Add some content and try \\columnbreak\n\n\\section{Conclusion}\nTwo-column layouts are standard for journal submissions.\n\n\\end{document}`,
         checks: [
             { label: "Has multicol or twocolumn", regex: /\\usepackage\{multicol\}|twocolumn/, hint: "Use multicol package or [twocolumn] option." },
             { label: "Has \\begin{multicols}{2}", regex: /\\begin\{multicols\}\{2\}/, hint: "Use \\begin{multicols}{2} for two columns." },
@@ -1578,7 +1578,7 @@ export const LAB_EXPERIMENTS: LabExperiment[] = [
             "Try \\documentclass[landscape]{article}.",
             "Add \\usepackage[utf8]{inputenc} for encoding."
         ],
-        starterCode: `% Try different document class options:\n% [10pt], [11pt], [12pt] - font sizes\n% [a4paper], [letterpaper] - paper sizes\n% [twocolumn] - two column layout\n% [landscape] - landscape orientation\n% Classes: article, report, book, beamer\n\n\\documentclass[12pt, a4paper]{article}\n\n\\begin{document}\n\n\\section{Configuration Test}\nThis document tests various class options.\n\n% Add a chapter (requires report/book class)\n% Try changing options above\n\n\\end{document}`,
+        starterCode: `% ============================================\n% research.tex — Document Class Options Mastery\n% ============================================\n% Try different document class options:\n% [10pt], [11pt], [12pt] - font sizes\n% [a4paper], [letterpaper] - paper sizes\n% [twocolumn] - two column layout\n% [landscape] - landscape orientation\n% Classes: article, report, book, beamer\n\n\\documentclass[12pt, a4paper]{article}\n\\title{Configuration Test Document}\n\\author{Research Scholar \\\\\\\\ Department of Agriculture}\n\\date{\\today}\n\n\\begin{document}\n\\maketitle\n\n\\section{Configuration Test}\nThis document tests various class options.\n\n% Try changing the documentclass options above\n% Add a \\chapter{} (requires report/book class)\n\n\\section{Conclusion}\nChoosing the right class and options is the foundation of every document.\n\n\\end{document}`,
         checks: [
             { label: "Has font size option", regex: /\\documentclass\[.*?(10pt|11pt|12pt)/, hint: "Add [12pt] to set font size." },
             { label: "Has paper size option", regex: /\\documentclass\[.*?(a4paper|letterpaper)/, hint: "Add [a4paper] for A4 paper." },
