@@ -7,7 +7,7 @@ import {
   HomeView, SessionZeroIntro, SessionOneIntro, SessionOneInstall,
   SessionOneFirstDoc, SessionOneFormatting, SessionOneMath,
   SessionTwoWordVsLatex, SessionTwoBibtex, SessionTwoTablesFigures,
-  SessionTwoThesis, LabView, CaseStudiesView, MiniProjectView, QuizView, CommandReferenceView, FeedbackView
+  SessionTwoThesis, SessionThreeMultilingual, SessionFourSpecialized, LabView, CaseStudiesView, MiniProjectView, QuizView, CommandReferenceView, FeedbackView
 } from "@/components/views";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -28,6 +28,8 @@ export default function Home() {
       case 'session-2-bibtex': return <SessionTwoBibtex />;
       case 'session-2-tables-figures': return <SessionTwoTablesFigures />;
       case 'session-2-thesis': return <SessionTwoThesis />;
+      case 'session-3-multilingual': return <SessionThreeMultilingual />;
+      case 'session-4-specialized': return <SessionFourSpecialized />;
       case 'lab': return <LabView />;
       case 'case-studies': return <CaseStudiesView />;
       case 'mini-project': return <MiniProjectView />;

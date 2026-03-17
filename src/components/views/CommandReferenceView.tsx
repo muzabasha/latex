@@ -8,7 +8,7 @@ import {
     Lightbulb, Eye, FileText, Type, Sigma, Table,
     Image as ImageIcon, FolderTree, Quote, Settings,
     Clock, Play, Pause, RotateCcw, AlertTriangle, Timer, Bell,
-    Copy, Check, Code2
+    Copy, Check, Code2, Settings2, GraduationCap
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -16,6 +16,8 @@ interface CommandOption {
     option: string;
     impact: string;
     pdfImpact: string;
+    technicalComment?: string;
+    applicationPOV?: string;
 }
 
 interface Command {
@@ -24,6 +26,8 @@ interface Command {
     syntax: string;
     description: string;
     tip: string;
+    technicalComment?: string;
+    applicationPOV?: string;
     options: CommandOption[];
 }
 
@@ -2787,7 +2791,7 @@ export function CommandReferenceView() {
             {/* Header — Large for projector */}
             <div className="space-y-4">
                 <div className="flex items-center gap-3">
-                    <div className="p-3 bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl text-white shadow-xl">
+                    <div className="p-3 bg-linear-to-br from-slate-800 to-slate-900 rounded-2xl text-white shadow-xl">
                         <Hash className="w-8 h-8" />
                     </div>
                     <div>
@@ -2821,9 +2825,9 @@ export function CommandReferenceView() {
                         <motion.div
                             className={cn(
                                 "h-full rounded-full transition-all",
-                                progress === 100 ? "bg-gradient-to-r from-green-400 to-emerald-400" :
-                                    progress >= 50 ? "bg-gradient-to-r from-blue-400 to-cyan-400" :
-                                        "bg-gradient-to-r from-amber-400 to-orange-400"
+                                progress === 100 ? "bg-linear-to-r from-green-400 to-emerald-400" :
+                                    progress >= 50 ? "bg-linear-to-r from-blue-400 to-cyan-400" :
+                                        "bg-linear-to-r from-amber-400 to-orange-400"
                             )}
                             initial={{ width: 0 }}
                             animate={{ width: `${progress}%` }}
@@ -2940,7 +2944,7 @@ export function CommandReferenceView() {
                             {/* Module Header */}
                             <div className={cn("flex items-center justify-between p-5 rounded-2xl border-2", mod.bgColor, mod.borderColor)}>
                                 <div className="flex items-center gap-4">
-                                    <div className={cn("p-3 rounded-xl text-white bg-gradient-to-br shadow-lg",
+                                    <div className={cn("p-3 rounded-xl text-white bg-linear-to-br shadow-lg",
                                         mod.number <= 3 ? "from-blue-500 to-blue-700" :
                                             mod.number <= 5 ? "from-purple-500 to-purple-700" :
                                                 mod.number <= 7 ? "from-teal-500 to-teal-700" :
@@ -3068,6 +3072,30 @@ export function CommandReferenceView() {
                                                         <Lightbulb className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
                                                         <p className="text-xs text-amber-800 font-medium">{cmd.tip}</p>
                                                     </div>
+
+                                                    {/* NEP 2020 Perspective */}
+                                                    {(cmd.technicalComment || cmd.applicationPOV) && (
+                                                        <div className="mt-3 grid md:grid-cols-2 gap-3">
+                                                            {cmd.technicalComment && (
+                                                                <div className="bg-indigo-50 border border-indigo-100 rounded-xl p-3">
+                                                                    <div className="flex items-center gap-2 mb-1">
+                                                                        <Settings2 className="w-3.5 h-3.5 text-indigo-500" />
+                                                                        <span className="text-[10px] font-bold text-indigo-500 uppercase tracking-widest">Tech Spec</span>
+                                                                    </div>
+                                                                    <p className="text-[11px] text-slate-700 leading-relaxed font-medium">{cmd.technicalComment}</p>
+                                                                </div>
+                                                            )}
+                                                            {cmd.applicationPOV && (
+                                                                <div className="bg-primary/5 border border-primary/20 rounded-xl p-3">
+                                                                    <div className="flex items-center gap-2 mb-1">
+                                                                        <GraduationCap className="w-3.5 h-3.5 text-primary" />
+                                                                        <span className="text-[10px] font-bold text-primary uppercase tracking-widest">NEP 2020 POV</span>
+                                                                    </div>
+                                                                    <p className="text-[11px] text-primary/80 leading-relaxed font-medium">{cmd.applicationPOV}</p>
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                    )}
                                                 </div>
 
                                                 {/* Expand toggle */}
@@ -3104,6 +3132,20 @@ export function CommandReferenceView() {
                                                                                     <Eye className="w-3 h-3 shrink-0 mt-0.5 text-blue-400" />
                                                                                     {opt.pdfImpact}
                                                                                 </p>
+                                                                                {(opt.technicalComment || opt.applicationPOV) && (
+                                                                                    <div className="mt-2 grid gap-1.5 border-t border-slate-200/50 pt-2">
+                                                                                        {opt.technicalComment && (
+                                                                                            <p className="text-[10px] text-indigo-600 leading-relaxed italic">
+                                                                                                <span className="font-bold uppercase tracking-tighter mr-1">Tech:</span> {opt.technicalComment}
+                                                                                            </p>
+                                                                                        )}
+                                                                                        {opt.applicationPOV && (
+                                                                                            <p className="text-[10px] text-primary/70 leading-relaxed font-medium">
+                                                                                                <span className="font-bold uppercase tracking-tighter mr-1">NEP:</span> {opt.applicationPOV}
+                                                                                            </p>
+                                                                                        )}
+                                                                                    </div>
+                                                                                )}
                                                                             </div>
                                                                         </div>
                                                                     ))}
@@ -3128,7 +3170,7 @@ export function CommandReferenceView() {
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="bg-gradient-to-r from-green-500 to-emerald-500 rounded-3xl p-10 text-center text-white shadow-2xl"
+                        className="bg-linear-to-r from-green-500 to-emerald-500 rounded-3xl p-10 text-center text-white shadow-2xl"
                     >
                         <Zap className="w-12 h-12 mx-auto mb-4" />
                         <h2 className="text-3xl font-extrabold">All {TOTAL_COMMANDS} Commands Covered!</h2>

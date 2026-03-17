@@ -248,7 +248,7 @@ export function LabView() {
             {/* Progress Bar */}
             <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
                 <motion.div
-                    className="h-full bg-gradient-to-r from-green-500 via-blue-500 to-amber-500 rounded-full"
+                    className="h-full bg-linear-to-r from-green-500 via-blue-500 to-amber-500 rounded-full"
                     initial={{ width: 0 }}
                     animate={{ width: `${(completedCount / totalCount) * 100}%` }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
@@ -328,7 +328,7 @@ export function LabView() {
                         <motion.div
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="bg-gradient-to-br from-amber-500 to-orange-500 text-white p-3 rounded-xl text-center space-y-1 shadow-xl shrink-0 mt-2"
+                            className="bg-linear-to-br from-amber-500 to-orange-500 text-white p-3 rounded-xl text-center space-y-1 shadow-xl shrink-0 mt-2"
                         >
                             <Trophy className="w-6 h-6 mx-auto" />
                             <h4 className="font-bold text-xs">All Complete!</h4>
@@ -355,7 +355,7 @@ export function LabView() {
                                     className="w-full p-4 flex items-center justify-between"
                                 >
                                     <div className="flex items-center gap-3">
-                                        <div className={cn("p-2 rounded-xl text-white bg-gradient-to-br", dc.gradient)}>
+                                        <div className={cn("p-2 rounded-xl text-white bg-linear-to-br", dc.gradient)}>
                                             <DiffIcon className="w-5 h-5" />
                                         </div>
                                         <div className="text-left">

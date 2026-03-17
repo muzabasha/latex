@@ -58,7 +58,7 @@ export function ErrorFixChallenge({ title, challenges }: ErrorFixChallengeProps)
     };
 
     return (
-        <div className="bg-gradient-to-br from-red-50 to-orange-50 border-2 border-red-200 rounded-3xl p-8 space-y-6">
+        <div className="bg-linear-to-br from-red-50 to-orange-50 border-2 border-red-200 rounded-3xl p-8 space-y-6">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     <div className="p-2 bg-red-500 rounded-xl text-white">

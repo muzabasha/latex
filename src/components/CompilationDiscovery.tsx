@@ -11,6 +11,8 @@ interface CommandOption {
     impact: string;
     pdfImpact?: string;
     whenToUse?: string;
+    technicalComment?: string;
+    applicationPOV?: string;
 }
 
 interface LatexCommand {
@@ -18,6 +20,8 @@ interface LatexCommand {
     syntax: string;
     description: string;
     guidelines?: string[];
+    technicalComment?: string;
+    applicationPOV?: string;
     options: CommandOption[];
     example: string;
     preview: string;
@@ -141,27 +145,55 @@ export function CompilationDiscovery({ commands, moduleTitle }: CompilationDisco
                         </div>
 
                         {/* User Guidelines & Tips */}
-                        {selectedCommand.guidelines && selectedCommand.guidelines.length > 0 && (
-                            <div className="bg-amber-50/80 border border-amber-200/60 rounded-3xl p-6 space-y-4">
-                                <div className="flex items-center gap-3">
-                                    <div className="p-2 bg-amber-100 rounded-xl">
-                                        <Lightbulb className="w-5 h-5 text-amber-600" />
-                                    </div>
-                                    <h3 className="font-bold text-base text-amber-900">Guidelines &amp; Tips</h3>
-                                </div>
-                                <div className="grid md:grid-cols-2 gap-3">
-                                    {selectedCommand.guidelines.map((tip, idx) => (
-                                        <div
-                                            key={idx}
-                                            className="flex gap-3 p-3 bg-white/70 rounded-xl border border-amber-100 text-left"
-                                        >
-                                            <span className="text-amber-500 font-bold text-xs mt-0.5 shrink-0">{idx + 1}.</span>
-                                            <p className="text-[12px] text-amber-900 leading-relaxed">{tip}</p>
+                        <div className="grid md:grid-cols-2 gap-8">
+                            {selectedCommand.guidelines && selectedCommand.guidelines.length > 0 && (
+                                <div className="bg-amber-50/80 border border-amber-200/60 rounded-3xl p-6 space-y-4">
+                                    <div className="flex items-center gap-3">
+                                        <div className="p-2 bg-amber-100 rounded-xl">
+                                            <Lightbulb className="w-5 h-5 text-amber-600" />
                                         </div>
-                                    ))}
+                                        <h3 className="font-bold text-base text-amber-900">Guidelines &amp; Tips</h3>
+                                    </div>
+                                    <div className="grid gap-3">
+                                        {selectedCommand.guidelines.map((tip, idx) => (
+                                            <div
+                                                key={idx}
+                                                className="flex gap-3 p-3 bg-white/70 rounded-xl border border-amber-100 text-left"
+                                            >
+                                                <span className="text-amber-500 font-bold text-xs mt-0.5 shrink-0">{idx + 1}.</span>
+                                                <p className="text-[12px] text-amber-900 leading-relaxed">{tip}</p>
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                        )}
+                            )}
+
+                            {/* NEP 2020 Application POV & Technical Comment */}
+                            {(selectedCommand.technicalComment || selectedCommand.applicationPOV) && (
+                                <div className="bg-indigo-50/80 border border-indigo-200/60 rounded-3xl p-6 space-y-4">
+                                    <div className="flex items-center gap-3">
+                                        <div className="p-2 bg-indigo-100 rounded-xl text-indigo-600">
+                                            <Settings2 className="w-5 h-4" />
+                                        </div>
+                                        <h3 className="font-bold text-base text-indigo-900">NEP 2020 Insight</h3>
+                                    </div>
+                                    <div className="space-y-4">
+                                        {selectedCommand.technicalComment && (
+                                            <div className="bg-white/70 p-4 rounded-xl border border-indigo-100">
+                                                <h4 className="text-[10px] font-bold text-indigo-500 uppercase tracking-widest mb-1">Technical Comment</h4>
+                                                <p className="text-[12px] text-slate-700 leading-relaxed">{selectedCommand.technicalComment}</p>
+                                            </div>
+                                        )}
+                                        {selectedCommand.applicationPOV && (
+                                            <div className="bg-white/70 p-4 rounded-xl border border-indigo-100">
+                                                <h4 className="text-[10px] font-bold text-indigo-500 uppercase tracking-widest mb-1">Application POV (NEP 2020)</h4>
+                                                <p className="text-[12px] text-slate-700 leading-relaxed">{selectedCommand.applicationPOV}</p>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
 
                         {/* Options Discovery */}
                         <div className="bg-slate-50/50 rounded-4xl p-8 border border-slate-100 space-y-6">
@@ -196,7 +228,7 @@ export function CompilationDiscovery({ commands, moduleTitle }: CompilationDisco
 
                         {/* PDF Impact & When to Use Panel */}
                         <AnimatePresence mode="wait">
-                            {selectedOption && (selectedOption.pdfImpact || selectedOption.whenToUse) && (
+                            {selectedOption && (selectedOption.pdfImpact || selectedOption.whenToUse || selectedOption.technicalComment || selectedOption.applicationPOV) && (
                                 <motion.div
                                     key={selectedOption.name + "-details"}
                                     initial={{ opacity: 0, y: 15, height: 0 }}
@@ -229,6 +261,32 @@ export function CompilationDiscovery({ commands, moduleTitle }: CompilationDisco
                                                 </div>
                                                 <p className="text-[13px] text-emerald-800 leading-relaxed">
                                                     {selectedOption.whenToUse}
+                                                </p>
+                                            </div>
+                                        )}
+                                        {selectedOption.technicalComment && (
+                                            <div className="bg-indigo-50/80 border border-indigo-200/50 rounded-3xl p-6 space-y-3">
+                                                <div className="flex items-center gap-2">
+                                                    <div className="p-1.5 bg-indigo-100 rounded-lg">
+                                                        <Settings2 className="w-4 h-4 text-indigo-600" />
+                                                    </div>
+                                                    <h4 className="font-bold text-sm text-indigo-900 uppercase tracking-wider">Tech Comment</h4>
+                                                </div>
+                                                <p className="text-[13px] text-indigo-800 leading-relaxed italic">
+                                                    {selectedOption.technicalComment}
+                                                </p>
+                                            </div>
+                                        )}
+                                        {selectedOption.applicationPOV && (
+                                            <div className="bg-primary/5 border border-primary/20 rounded-3xl p-6 space-y-3">
+                                                <div className="flex items-center gap-2">
+                                                    <div className="p-1.5 bg-primary/10 rounded-lg">
+                                                        <CheckCircle2 className="w-4 h-4 text-primary" />
+                                                    </div>
+                                                    <h4 className="font-bold text-sm text-primary uppercase tracking-wider">NEP POV</h4>
+                                                </div>
+                                                <p className="text-[13px] text-primary/80 leading-relaxed font-medium">
+                                                    {selectedOption.applicationPOV}
                                                 </p>
                                             </div>
                                         )}

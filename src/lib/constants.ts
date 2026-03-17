@@ -65,6 +65,18 @@ export const MODULES = [
         description: 'The Blueprint of Your Academic Journey.',
     },
     {
+        id: 'session-3-multilingual',
+        title: 'Multilingual Support',
+        session: 3,
+        description: 'Publishing in your mother tongue (NEP 2020).',
+    },
+    {
+        id: 'session-4-specialized',
+        title: 'Presentations & Journals',
+        session: 4,
+        description: 'Mastering Beamer and IEEEtran formats.',
+    },
+    {
         id: 'lab',
         title: 'Hands-On Lab',
         session: 3,

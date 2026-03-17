@@ -117,7 +117,7 @@ export function FillInBlank({ title, exercises }: FillInBlankProps) {
     const correctCount = Object.values(results).filter(Boolean).length;
 
     return (
-        <div className="bg-gradient-to-br from-violet-50 to-indigo-50 border-2 border-violet-200 rounded-3xl p-8 space-y-6">
+        <div className="bg-linear-to-br from-violet-50 to-indigo-50 border-2 border-violet-200 rounded-3xl p-8 space-y-6">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     <div className="p-2 bg-violet-500 rounded-xl text-white">

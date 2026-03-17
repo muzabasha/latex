@@ -71,7 +71,7 @@ export function DragDropMatch({ title, pairs, agriContext }: DragDropMatchProps)
     const usedDescs = new Set(Object.values(matches));
 
     return (
-        <div className="bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-200 rounded-3xl p-8 space-y-6">
+        <div className="bg-linear-to-br from-amber-50 to-orange-50 border-2 border-amber-200 rounded-3xl p-8 space-y-6">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     <div className="p-2 bg-amber-500 rounded-xl text-white">

@@ -27,7 +27,7 @@ export function XPTracker() {
         <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-gradient-to-r from-slate-900 to-slate-800 rounded-2xl p-5 text-white flex items-center gap-6 shadow-xl"
+            className="bg-linear-to-r from-slate-900 to-slate-800 rounded-2xl p-5 text-white flex items-center gap-6 shadow-xl"
         >
             <div className="text-3xl">{currentLevel.icon}</div>
             <div className="flex-1 space-y-2">
@@ -37,7 +37,7 @@ export function XPTracker() {
                 </div>
                 <div className="h-2 bg-slate-700 rounded-full overflow-hidden">
                     <motion.div
-                        className="h-full bg-gradient-to-r from-primary to-emerald-400 rounded-full"
+                        className="h-full bg-linear-to-r from-primary to-emerald-400 rounded-full"
                         initial={{ width: 0 }}
                         animate={{ width: `${progress}%` }}
                         transition={{ duration: 0.8, ease: "easeOut" }}

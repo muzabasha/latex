@@ -9,6 +9,8 @@ export * from "./SessionTwoWordVsLatex";
 export * from "./SessionTwoBibtex";
 export * from "./SessionTwoTablesFigures";
 export * from "./SessionTwoThesis";
+export * from "./SessionThreeMultilingual";
+export * from "./SessionFourSpecialized";
 export * from "./LabView";
 export * from "./CaseStudiesView";
 export * from "./MiniProjectView";
